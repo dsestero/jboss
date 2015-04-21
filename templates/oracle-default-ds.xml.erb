@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<datasources> 
+
+  <local-tx-datasource> 
+    <jndi-name>DefaultDS</jndi-name> 
+    <connection-url>jdbc:oracle:thin:@<%= @conn_url_suffix %></connection-url> 
+       
+    <driver-class>oracle.jdbc.driver.OracleDriver</driver-class> 
+    <user-name><%= @conn_url_username %></user-name> 
+    <password><%= @conn_url_password %></password> 
+    <min-pool-size>1</min-pool-size> 
+    <max-pool-size>30</max-pool-size> 
+     <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation> 
+    <valid-connection-checker-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker</valid-connection-checker-class-name> 
+    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name> 
+      <metadata> 
+         <type-mapping>Oracle9i</type-mapping>   <!--IMPORTANTE: Lasciare 9i anche se usiamo 10i-->
+      </metadata> 
+  </local-tx-datasource>   
+</datasources>

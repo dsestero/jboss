@@ -1,0 +1,18 @@
+#! /usr/bin/expect
+spawn ./add-user.sh
+
+expect "(a): "
+send "b\r"
+expect "Username : "
+send "<%= @jmx_user %>\r"
+expect "Password : "
+send "<%= @jmx_passwd %>\r"
+expect "Re-enter Password : "
+send "<%= @jmx_passwd %>\r"
+expect "What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]: "
+send "\r"
+expect "Is this correct yes/no? "
+send "yes\r"
+expect "yes/no? "
+send "no\r"
+interact

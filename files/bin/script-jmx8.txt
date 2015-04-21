@@ -1,0 +1,5 @@
+connect
+/socket-binding-group=standard-sockets/socket-binding=remoting:add(port=7777)
+/socket-binding-group=standard-sockets/socket-binding=remoting/:write-attribute(name=port,value=7777)
+/subsystem=jmx/remoting-connector=jmx/:write-attribute(name=use-management-endpoint,value=false)
+/system-property=org.apache.tomcat.util.ENABLE_MODELER/:add(value=true)
