@@ -22,12 +22,14 @@ class jboss::params () {
           }
         }
         default : {
-          fail("The ${module_name} module is not supported on ${::operatingsystem} release ${::operatingsystemrelease}")
+          fail("The ${module_name} module is not supported on ${::operatingsystem} release ${::operatingsystemrelease}"
+          )
         }
       }
     }
     default  : {
-      fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
+      fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution."
+      )
     }
   }
 }

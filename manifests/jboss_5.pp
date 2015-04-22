@@ -4,9 +4,12 @@
 #
 # == Actions:
 #
-# * Unzip the distribution under <tt>/opt</tt>, and creates JBoss user and group;
-# * creates a link <tt>/opt/jboss</tt> pointing to the JBoss-5.1.0.GA installation folder;
-# * furthermore, copies a zip of the files needed to deploy jbossws web service under <tt>/opt</tt>
+# * Unzip the distribution under <tt>/opt</tt>, and creates JBoss user and
+# group;
+# * creates a link <tt>/opt/jboss</tt> pointing to the JBoss-5.1.0.GA
+#   installation folder;
+# * furthermore, copies a zip of the files needed to deploy jbossws web service
+#   under <tt>/opt</tt>
 # * and unzip it.
 # == Requires:
 # see Modulefile

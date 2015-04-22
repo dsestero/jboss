@@ -2,8 +2,14 @@
 #
 # Configures a running JBoss-8 instance via jboss-cli.
 # It is intended to be called by jboss::instance_7.
-define jboss::instance_8::postconfig ($instance_name = $title, $ip, $iface, $environment, $jbossdirname, $mgmt_user, $mgmt_passwd,) 
-{
+define jboss::instance_8::postconfig (
+  $ip,
+  $iface,
+  $environment,
+  $jbossdirname,
+  $mgmt_user,
+  $mgmt_passwd,
+  $instance_name = $title,) {
   $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
   $auth_string = $mgmt_user ? {

@@ -1,8 +1,10 @@
 # = Define: jboss::instance_5::lib::zk::install
 #
-# Utility define to copy to a spoecified instance lib folder the zk library jars.
+# Utility define to copy to a spoecified instance lib folder the zk library
+# jars.
 #
-# $instance_name::  Name of the JBoss profile and associated service corresponding to this instance.
+# $instance_name::  Name of the JBoss profile and associated service
+# corresponding to this instance.
 #                   Defaults to the resource title.
 #
 # == Actions:
@@ -24,7 +26,7 @@ define jboss::instance_5::lib::zk::install ($instance_name = $title,) {
   $libfolder = "/opt/jboss/server/${instance_name}/lib"
 
   Download_uncompress {
-    dest_folder => "${libfolder}",
+    dest_folder => $libfolder,
     user        => jboss,
     group       => jboss,
   }

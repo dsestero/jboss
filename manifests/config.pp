@@ -6,14 +6,19 @@
 # == Actions:
 #
 # * sets the JBoss directories with correct ownership
-# * modify <tt>/etc/sudoers</tt> file so to allow jboss user the right to start and stop jboss instances and soffice.bin services
+# * modify <tt>/etc/sudoers</tt> file so to allow jboss user the right to start
+#   and stop jboss instances and soffice.bin services
 #   and to query open ports with <tt>netstat</tt> and <tt>nmap</tt>
 # * schedule a jboss user's cron job for zipping and deleting old log files
-# * deploys in the +/usr/local/bin+ directory a script for restarting jboss instances
-# * creates standard directories for logging and storing application's specific data under
-#   <tt>/var/log/jboss/server</tt> and <tt>/var/lib/jboss/apps</tt> respectively.
+# * deploys in the +/usr/local/bin+ directory a script for restarting jboss
+#   instances
+# * creates standard directories for logging and storing application's specific
+#   data under
+#   <tt>/var/log/jboss/server</tt> and <tt>/var/lib/jboss/apps</tt>
+#   respectively.
 # * modify sudoers file as to allow users belonging to the jboss group to
-#   start and stop jboss services, start and stop soffice.bin service, make <tt>su jboss</tt>.
+#   start and stop jboss services, start and stop soffice.bin service, make
+#   <tt>su jboss</tt>.
 class jboss::config () {
   File {
     owner => jboss,
@@ -33,7 +38,7 @@ class jboss::config () {
   }
 
   cron { 'logzipdelete':
-    command => "test -x /home/jboss/bin/zip-delete-jboss-server-log && /home/jboss/bin/zip-delete-jboss-server-log",
+    command => 'test -x /home/jboss/bin/zip-delete-jboss-server-log && /home/jboss/bin/zip-delete-jboss-server-log',
     user    => jboss,
     hour    => 5,
     minute  => 0,

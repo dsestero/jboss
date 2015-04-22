@@ -6,11 +6,14 @@
 #
 # == Parameters:
 #
-# $instance_name::  Name of the JBoss profile and associated service corresponding to this instance.
+# $instance_name::  Name of the JBoss profile and associated service
+#                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $profile::        Name of the standard JBoss profile from which this one is derived.
-#                   As of JBoss-5.1.0.GA different profiles are provided with a different level of services made available; they
+# $profile::        Name of the standard JBoss profile from which this one is
+#                   derived.
+#                   As of JBoss-5.1.0.GA different profiles are provided with a
+#                   different level of services made available; they
 #                   are:
 #                   +minimal+, +web+, +default+, +all+.
 #                   Defaults to +default+.
@@ -18,17 +21,23 @@
 # $ip::             Dedicated IP on which this instance will be listening.
 #                   Defaults to <tt>127.0.0.1</tt> i.e. localhost.
 #
-# $iface::          Name of the secondary network interface dedicated to this instance.
-#                   Defaults to +undef+, in which case a secondary network interface to bind the jboss instance is not created.
+# $iface::          Name of the secondary network interface dedicated to this
+#                   instance.
+#                   Defaults to +undef+, in which case a secondary network
+#                   interface to bind the jboss instance is not created.
 #
-# $environment::    Abbreviation identifying the environment: valid values are +dev+, +test+, +prep+, +prod+.
+# $environment::    Abbreviation identifying the environment: valid values are
+#                   +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
-#                   *Note:* hot code deployment is disabled in the environments +prep+ and +prod+, enabled on +dev+ and +test+.
+#                   *Note:* hot code deployment is disabled in the environments
+#                   +prep+ and +prod+, enabled on +dev+ and +test+.
 #
 # $jmxport::        JMX port to use to monitor this instance.
-#                   Defaults to +no_port+, in which case no JMX monitoring is activated.
+#                   Defaults to +no_port+, in which case no JMX monitoring is
+#                   activated.
 #
-# $ws_enabled::     +true+ if deploying a web profile that has to be enabled for jbossws.
+# $ws_enabled::     +true+ if deploying a web profile that has to be enabled for
+#                   jbossws.
 #                   Defaults to +false+.
 #
 # $xms::            JVM OPT for initial heap size.
@@ -47,7 +56,8 @@
 #                   Defaults to ''.
 #
 # $mgmt_user::      Management user username.
-#                   Defaults to +undef+, in which case no security is enforced on the JBoss console.
+#                   Defaults to +undef+, in which case no security is enforced
+#                   on the JBoss console.
 #
 # $mgmt_passwd::    Management user password.
 #                   Defaults to +undef+.
@@ -59,22 +69,27 @@
 #                   Defaults to +undef+.
 #
 # $smtp_ip::        IP of the smtp server used by the JBoss mail service.
-#                   Defaults to +undef+, in which case the mail service is not configured.
+#                   Defaults to +undef+, in which case the mail service is not
+#                   configured.
 #
 # $smtp_port::      Port of the smtp server used by the JBoss mail service.
 #                   Defaults to +25+.
 #
-# $smtp_domain::    What will appear as default sender domain of the emails sent by the JBoss mail service.
+# $smtp_domain::    What will appear as default sender domain of the emails sent
+#                   by the JBoss mail service.
 #                   Defaults to <tt>nosuchhost.nosuchdomain.com<tt>.
 #
-# $backup_conf_target:: Full pathname of the backup configuration file where the instance paths
+# $backup_conf_target:: Full pathname of the backup configuration file where the
+#                       instance paths
 #                       to backup are added.
 #                       Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 #
 # == Actions:
 #
-# Declares all other classes in the jboss module needed for installing a jboss server profile.
-# Currently, these consists of jboss::instance::install, jboss::instance::config, and jboss::instance::service.
+# Declares all other classes in the jboss module needed for installing a jboss
+# server profile.
+# Currently, these consists of jboss::instance::install,
+# jboss::instance::config, and jboss::instance::service.
 #
 # == Requires:
 #
@@ -113,12 +128,12 @@ define jboss::instance_5 (
   $backup_conf_target = '/usr/local/bin/backupall.sh.conf',) {
   $smtp_sender = "jboss-${title}-${environment}@${smtp_domain}"
 
-  jboss::instance_5::install { "${instance_name}":
+  jboss::instance_5::install { $instance_name:
     profile            => $profile,
     environment        => $environment,
     backup_conf_target => $backup_conf_target,
   } ->
-  jboss::instance_5::config { "${instance_name}":
+  jboss::instance_5::config { $instance_name:
     ip             => $ip,
     version        => '5.1.0',
     profile        => $profile,
@@ -139,7 +154,7 @@ define jboss::instance_5 (
     smtp_port      => $smtp_port,
     smtp_sender    => $smtp_sender,
   } ~>
-  jboss::instance::service { "${instance_name}":
+  jboss::instance::service { $instance_name:
     environment => $environment,
   }
 }

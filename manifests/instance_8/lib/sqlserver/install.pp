@@ -1,13 +1,16 @@
 # = Define: jboss::instance_8::lib::sqlserver::install
 #
-# Utility define to copy to a specified WildFly-8.2.0 instance the sqlserver driver jar module.
+# Utility define to copy to a specified WildFly-8.2.0 instance the sqlserver
+# driver jar module.
 #
 # == Parameters:
 #
-# $instance_name::  Name of the JBoss profile and associated service corresponding to this instance.
+# $instance_name::  Name of the JBoss profile and associated service
+# corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $environment::    Abbreviation identifying the environment: valid values are +dev+, +test+, +prep+, +prod+.
+# $environment::    Abbreviation identifying the environment: valid values are
+# +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
 # == Actions:
@@ -24,11 +27,13 @@
 #
 #  jboss::instance_8::lib::sqlserver::install {'agri1':
 #  }
-define jboss::instance_8::lib::sqlserver::install ($instance_name = $title, $environment = 'dev') {
+define jboss::instance_8::lib::sqlserver::install (
+  $instance_name = $title,
+  $environment   = 'dev') {
   $require = Class['jboss']
 
   $ip_alias = "${instance_name}-${environment}"
-  $jbossVersion = "wildfly-8.2.0.Final"
+  $jbossVersion = 'wildfly-8.2.0.Final'
   $jbossInstFolder = "/opt/jboss-7-${instance_name}/${jbossVersion}"
   $binFolder = "${jbossInstFolder}/bin"
   $modulesFolder = "${jbossInstFolder}/modules/system/layers/base"
@@ -46,14 +51,14 @@ define jboss::instance_8::lib::sqlserver::install ($instance_name = $title, $env
 
   exec { "create_sqlserver_module_folders_${instance_name}":
     command => "mkdir -p ${sqlserverModulePath}",
-    creates => "${sqlserverModulePath}",
+    creates => $sqlserverModulePath,
   } ->
   file { "${sqlserverModulePath}/module.xml":
     source => "puppet:///modules/${module_name}/lib/sqlserver/module.xml",
   } ->
   download_uncompress { "${sqlserverModulePath}/sqljdbc4.jar":
     distribution_name => 'lib/sqljdbc4.jar',
-    dest_folder       => "${sqlserverModulePath}",
+    dest_folder       => $sqlserverModulePath,
     creates           => "${sqlserverModulePath}/sqljdbc4.jar",
     user              => jboss,
     group             => jboss,
@@ -65,7 +70,7 @@ define jboss::instance_8::lib::sqlserver::install ($instance_name = $title, $env
   } ->
   exec { "configure_driver_sqlserver_${instance_name}":
     command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-sqlserver.txt",
-    cwd     => "${binFolder}",
+    cwd     => $binFolder,
     unless  => "grep com.microsoft.sqljdbc4 ${jbossInstFolder}/standalone/configuration/standalone.xml",
   }
 

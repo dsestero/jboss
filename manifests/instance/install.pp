@@ -15,10 +15,11 @@ define jboss::instance::install ($instance_name = $title,) {
     ensure => directory,
   }
 
-  # Righe nel file di configurazione zip-delete-jboss-server-log: elenco di tutte le istanze JBoss/WildFly
+  # Righe nel file di configurazione zip-delete-jboss-server-log: elenco di
+  # tutte le istanze JBoss/WildFly
   @@concat::fragment { "${instance_name}-${::fqdn}-instance-list":
-    target  => "/home/jboss/bin/jboss-instance-list.conf",
+    target  => '/home/jboss/bin/jboss-instance-list.conf',
     content => "${instance_name}\n",
-    tag     => ["${::environment}", "${::fqdn}"],
+    tag     => [$::environment, $::fqdn],
   }
 }

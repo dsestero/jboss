@@ -3,7 +3,6 @@
 # Configures a JBoss-5.1.0.GA instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
 define jboss::instance_5::config (
-  $instance_name = $title,
   $version,
   $profile,
   $ip,
@@ -22,7 +21,8 @@ define jboss::instance_5::config (
   $jmx_passwd,
   $smtp_ip,
   $smtp_port,
-  $smtp_sender,) {
+  $smtp_sender,
+  $instance_name = $title,) {
   $jboss_inst_folder = "/opt/jboss-${version}.GA"
   $shutdown_cmd = 'shutdown.sh -s ${IF} -S'
 
@@ -38,7 +38,7 @@ define jboss::instance_5::config (
     group => jboss,
   }
 
-  jboss::instance::config { "${instance_name}":
+  jboss::instance::config { $instance_name:
     environment => $environment,
     iface       => $iface,
     ip          => $ip,
@@ -73,7 +73,8 @@ define jboss::instance_5::config (
   }
 
   # Configurazione log
-  # Attention please: the content of this file is managed by puppet only when it does not yet exists!
+  # Attention please: the content of this file is managed by puppet only when it
+  # does not yet exists!
   file { "/opt/jboss/server/${instance_name}/conf/jboss-log4j.xml":
     ensure  => present,
     replace => 'no',
@@ -97,24 +98,30 @@ define jboss::instance_5::config (
 
   unless $mgmt_user == undef {
     # Sicurezza console
-    file { "/opt/jboss/server/${instance_name}/conf/props/jmx-console-roles.properties":
+    file { "/opt/jboss/server/${instance_name}/conf/props/jmx-console-roles.properties"
+    :
       ensure  => present,
-      content => template("${module_name}/conf/props/jmx-console-roles.properties.erb"),
+      content => template("${module_name}/conf/props/jmx-console-roles.properties.erb"
+      ),
       mode    => '0644',
     }
 
-    file { "/opt/jboss/server/${instance_name}/conf/props/jmx-console-users.properties":
+    file { "/opt/jboss/server/${instance_name}/conf/props/jmx-console-users.properties"
+    :
       ensure  => present,
-      content => template("${module_name}/conf/props/jmx-console-users.properties.erb"),
+      content => template("${module_name}/conf/props/jmx-console-users.properties.erb"
+      ),
       mode    => '0600',
     }
 
-    file { "/opt/jboss/server/${instance_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml":
+    file { "/opt/jboss/server/${instance_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml"
+    :
       ensure => present,
       source => "puppet:///modules/${module_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml",
     }
 
-    file { "/opt/jboss/server/${instance_name}/deploy/jmx-console.war/WEB-INF/web.xml":
+    file { "/opt/jboss/server/${instance_name}/deploy/jmx-console.war/WEB-INF/web.xml"
+    :
       ensure => present,
       source => "puppet:///modules/${module_name}/deploy/jmx-console.war/WEB-INF/web.xml",
     }
@@ -141,7 +148,8 @@ define jboss::instance_5::config (
   }
 
   if $profile in ['minimal', 'web'] {
-    # Configurazioni necessarie per far aprire porta 1099 necessaria per l'esecuzione dello shutdown sui profili minimal e web
+    # Configurazioni necessarie per far aprire porta 1099 necessaria per
+    # l'esecuzione dello shutdown sui profili minimal e web
     exec { "copy_jmx_invoker_service_${instance_name}":
       command => "cp -a /opt/jboss/server/default/deploy/jmx-invoker-service.xml /opt/jboss/server/${instance_name}/deploy",
       creates => "/opt/jboss/server/${instance_name}/deploy/jmx-invoker-service.xml",
@@ -159,7 +167,8 @@ define jboss::instance_5::config (
       source => "puppet:///modules/${module_name}/conf/jboss-service.xml",
     }
 
-    # Configurazione necessaria per far funzionare correttamente esposizione JMX sui profili minimal e web
+    # Configurazione necessaria per far funzionare correttamente esposizione JMX
+    # sui profili minimal e web
     exec { "copy_jmx_remoting_service_${instance_name}":
       command => "cp -a /opt/jboss/server/default/deploy/jmx-remoting.sar /opt/jboss/server/${instance_name}/deploy",
       creates => "/opt/jboss/server/${instance_name}/deploy/jmx-remoting.sar",

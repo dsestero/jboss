@@ -270,11 +270,6 @@ Defaults to `undef`.
 JVM OPT for stack size.
 Defaults to `2048k`.
 
-#####`ws_enabled`
-
-`true` if deploying a web profile that has to be enabled for jbossws.
-Defaults to `false`.
-
 #####`xms`
 
 JVM OPT for initial heap size.
@@ -321,6 +316,11 @@ Defaults to `undef`, in which case the mail service is not configured.
 #####`smtp_port`
 Port of the smtp server used by the JBoss mail service.
 Defaults to `25`.
+
+#####`ws_enabled`
+
+`true` if deploying a web profile that has to be enabled for jbossws.
+Defaults to `false`.
 
 ####Parameters within `instance_7` and `instance_8`
 

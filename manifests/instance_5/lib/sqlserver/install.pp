@@ -1,10 +1,12 @@
 # = Define: jboss::instance_5::lib::sqlserver::install
 #
-# Utility define to copy to a specified instance lib folder the SqlServer driver jar.
+# Utility define to copy to a specified instance lib folder the SqlServer driver
+# jar.
 #
 # == Parameters:
 #
-# $instance_name::  Name of the JBoss profile and associated service corresponding to this instance.
+# $instance_name::  Name of the JBoss profile and associated service
+# corresponding to this instance.
 #                   Defaults to the resource title.
 #
 # == Actions:
@@ -27,7 +29,7 @@ define jboss::instance_5::lib::sqlserver::install ($instance_name = $title,) {
 
   download_uncompress { "${libfolder}/sqljdbc4.jar":
     distribution_name => 'lib/sqljdbc4.jar',
-    dest_folder       => "${libfolder}",
+    dest_folder       => $libfolder,
     creates           => "${libfolder}/sqljdbc4.jar",
     user              => jboss,
     group             => jboss,

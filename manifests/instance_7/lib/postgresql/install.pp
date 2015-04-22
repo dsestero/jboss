@@ -1,13 +1,16 @@
 # = Define: jboss::instance_7::lib::postgresql::install
 #
-# Utility define to copy to a specified JBoss-7.1.1 instance the postgresql driver jar module.
+# Utility define to copy to a specified JBoss-7.1.1 instance the postgresql
+# driver jar module.
 #
 # == Parameters:
 #
-# $instance_name::  Name of the JBoss profile and associated service corresponding to this instance.
+# $instance_name::  Name of the JBoss profile and associated service
+# corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $environment::    Abbreviation identifying the environment: valid values are +dev+, +test+, +prep+, +prod+.
+# $environment::    Abbreviation identifying the environment: valid values are
+# +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
 # == Actions:
@@ -24,11 +27,13 @@
 #
 #  jboss::instance_7::lib::postgresql::install {'agri1':
 #  }
-define jboss::instance_7::lib::postgresql::install ($instance_name = $title, $environment = 'dev') {
+define jboss::instance_7::lib::postgresql::install (
+  $instance_name = $title,
+  $environment   = 'dev') {
   $require = Class['jboss']
 
   $ip_alias = "${instance_name}-${environment}"
-  $jbossVersion = "jboss-as-7.1.1.Final"
+  $jbossVersion = 'jboss-as-7.1.1.Final'
   $jbossInstFolder = "/opt/jboss-7-${instance_name}/${jbossVersion}"
   $binFolder = "${jbossInstFolder}/bin"
   $modulesFolder = "${jbossInstFolder}/modules"
@@ -36,7 +41,7 @@ define jboss::instance_7::lib::postgresql::install ($instance_name = $title, $en
 
   exec { "create_postgresql_module_folders_${instance_name}":
     command => "mkdir -p ${postgresqlModulePath}",
-    creates => "${postgresqlModulePath}",
+    creates => $postgresqlModulePath,
     user    => jboss,
     group   => jboss,
   } ->
@@ -47,7 +52,7 @@ define jboss::instance_7::lib::postgresql::install ($instance_name = $title, $en
   } ->
   download_uncompress { "${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar":
     distribution_name => 'lib/postgresql-9.1-903.jdbc4.jar',
-    dest_folder       => "${postgresqlModulePath}",
+    dest_folder       => $postgresqlModulePath,
     creates           => "${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar",
     user              => jboss,
     group             => jboss,
@@ -59,7 +64,7 @@ define jboss::instance_7::lib::postgresql::install ($instance_name = $title, $en
   } ->
   exec { "configure_driver_postgresql_${instance_name}":
     command => "${binFolder}/jboss-cli.sh --controller=${ip_alias} --file=script-driver-postgresql.txt",
-    cwd     => "${binFolder}",
+    cwd     => $binFolder,
     user    => jboss,
     group   => jboss,
     unless  => "grep org.postgresql ${jbossInstFolder}/standalone/configuration/standalone.xml",

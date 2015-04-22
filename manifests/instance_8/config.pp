@@ -3,7 +3,6 @@
 # Configures a JBoss-8 instance,
 # i.e. a server profile. It is intended to be called by jboss::instance_8.
 define jboss::instance_8::config (
-  $instance_name = $title,
   $ip,
   $iface,
   $environment,
@@ -12,12 +11,12 @@ define jboss::instance_8::config (
   $xmx,
   $max_perm_size,
   $stack_size,
-  $ws_enabled    = false,
   $mgmt_user,
   $mgmt_passwd,
   $jmx_user,
   $jmx_passwd,
-  $java_home,) {
+  $java_home,
+  $instance_name = $title,) {
   $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
   $auth_string = $mgmt_user ? {
@@ -37,13 +36,14 @@ define jboss::instance_8::config (
     group => jboss,
   }
 
-  jboss::instance::config { "${instance_name}":
+  jboss::instance::config { $instance_name:
     environment => $environment,
     iface       => $iface,
     ip          => $ip,
   }
 
-  # Link alla prima istanza jboss-8, per avere a disposizione jbosscli su un path prestabilito, ad esempio dallo strumento di
+  # Link alla prima istanza jboss-8, per avere a disposizione jbosscli su un
+  # path prestabilito, ad esempio dallo strumento di
   # monitoraggio
   exec { "/opt/jboss-8-${instance_name}":
     command => "ln -s ${jboss_inst_folder} /opt/jboss-8",
@@ -75,11 +75,13 @@ define jboss::instance_8::config (
   }
 
   # Directory deploy property applicative, recuperate via hiera
-  $customConfigurationsModule = hiera('inva::custom_configurations_module', undef)
+  $customConfigurationsModule = hiera('inva::custom_configurations_module',
+  undef)
 
   if $customConfigurationsModule != undef {
     $modulesFolder = "${jboss_inst_folder}/modules/system/layers/base/"
-    $customConfigurationsDirs = prefix($customConfigurationsModule, $modulesFolder)
+    $customConfigurationsDirs = prefix($customConfigurationsModule,
+    $modulesFolder)
     $confDir = $customConfigurationsDirs[-1]
 
     file { $customConfigurationsDirs:

@@ -1,18 +1,22 @@
 # = Define: jboss::instance_5::persistence::oracle::install
 #
-# Utility define to add to a specified instance the Oracle persistence service for <tt>DefaultDS</tt>.
+# Utility define to add to a specified instance the Oracle persistence service
+# for <tt>DefaultDS</tt>.
 #
-# $instance_name::  Name of the JBoss profile and associated service corresponding to this instance.
+# $instance_name::  Name of the JBoss profile and associated service
+# corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $conn_url_suffix:: Suffix of the connection url string, containing the ip address of the rdbms, the port number, and the SID
+# $conn_url_suffix:: Suffix of the connection url string, containing the ip
+# address of the rdbms, the port number, and the SID
 # separated by colon.
 # $conn_url_username:: Username for accessing the rdbms.
 # $conn_url_password:: Password for accessing the rdbms.
 #
 # == Actions:
 #
-# Copies the Oracle persistence service file to the <tt>deploy/messaging</tt> directory of the specified instance.
+# Copies the Oracle persistence service file to the <tt>deploy/messaging</tt>
+# directory of the specified instance.
 #
 # == Requires:
 #
@@ -27,10 +31,10 @@
 #    conn_url_password  => 'sani',
 #  }
 define jboss::instance_5::persistence::oracle::install (
-  $instance_name = $title,
   $conn_url_suffix,
   $conn_url_username,
-  $conn_url_password,) {
+  $conn_url_password,
+  $instance_name = $title,) {
   $require = Class['jboss']
 
   $deployfolder = "/opt/jboss/server/${instance_name}/deploy"

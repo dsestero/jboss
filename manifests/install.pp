@@ -8,13 +8,14 @@
 # * Creates JBoss user and group;
 # * makes <tt>/opt</tt> folder group owned by jboss and group writable;
 # * creates /home/jboss/bin folder to host some management scripts;
-# * creates in /home/jboss/bin a text file with all the instance names on the node, one per line.
+# * creates in /home/jboss/bin a text file with all the instance names on the
+# node, one per line.
 class jboss::install {
   user { 'jboss':
     ensure     => present,
-    comment    => "JBoss user",
+    comment    => 'JBoss user',
     gid        => 'jboss',
-    shell      => "/bin/bash",
+    shell      => '/bin/bash',
     managehome => true,
   }
 
@@ -33,10 +34,11 @@ class jboss::install {
     require => User['jboss'],
   }
 
-  Concat::Fragment <<| target == '/home/jboss/bin/jboss-instance-list.conf' and tag == $::fqdn |>> {
+  Concat::Fragment <<| target == '/home/jboss/bin/jboss-instance-list.conf' and
+  tag == $::fqdn |>> {
   }
 
-  concat { "/home/jboss/bin/jboss-instance-list.conf":
+  concat { '/home/jboss/bin/jboss-instance-list.conf':
     ensure => present,
   }
 

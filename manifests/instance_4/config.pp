@@ -3,7 +3,6 @@
 # Configures a JBoss-4.0.5.GA instance,
 # i.e. a server profile. It is intended to be called by jboss::instance_4.
 define jboss::instance_4::config (
-  $instance_name = $title,
   $version,
   $profile,
   $ip,
@@ -18,7 +17,8 @@ define jboss::instance_4::config (
   $mgmt_user,
   $mgmt_passwd,
   $jmx_user,
-  $jmx_passwd,) {
+  $jmx_passwd,
+  $instance_name = $title,) {
   $jboss_inst_folder = "/opt/jboss-${version}.GA"
   $shutdown_cmd = 'shutdown.sh -s ${IF} -S'
 
@@ -34,7 +34,7 @@ define jboss::instance_4::config (
     group => jboss,
   }
 
-  jboss::instance::config { "${instance_name}":
+  jboss::instance::config { $instance_name:
     environment => $environment,
     iface       => $iface,
     ip          => $ip,
@@ -62,14 +62,6 @@ define jboss::instance_4::config (
     target => "/var/log/jboss/server/${instance_name}",
   }
 
-  #  # Configurazione log
-  #  # Attention please: the content of this file is managed by puppet only when it does not yet exists!
-  #  file {"/opt/${jboss_inst_folder}/server/${instance_name}/conf/jboss-log4j.xml":
-  #    replace => 'no',
-  #    ensure  => present,
-  #    source  => "puppet:///modules/${module_name}/conf/jboss-log4j.xml",
-  #  }
-
   unless $jmxport == 'no_port' {
     # Sicurezza accesso JMX
     file { "${jboss_inst_folder}/server/${instance_name}/conf/jmxremote.access":
@@ -78,7 +70,8 @@ define jboss::instance_4::config (
       mode    => '0400',
     }
 
-    file { "${jboss_inst_folder}/server/${instance_name}/conf/jmxremote.password":
+    file { "${jboss_inst_folder}/server/${instance_name}/conf/jmxremote.password"
+    :
       ensure  => present,
       content => template("${module_name}/conf/jmxremote.password.erb"),
       mode    => '0400',
@@ -87,24 +80,30 @@ define jboss::instance_4::config (
 
   unless $mgmt_user == undef {
     # Sicurezza console
-    file { "${jboss_inst_folder}/server/${instance_name}/conf/props/jmx-console-roles.properties":
+    file { "${jboss_inst_folder}/server/${instance_name}/conf/props/jmx-console-roles.properties"
+    :
       ensure  => present,
-      content => template("${module_name}/conf/props/jmx-console-roles.properties.erb"),
+      content => template("${module_name}/conf/props/jmx-console-roles.properties.erb"
+      ),
       mode    => '0644',
     }
 
-    file { "${jboss_inst_folder}/server/${instance_name}/conf/props/jmx-console-users.properties":
+    file { "${jboss_inst_folder}/server/${instance_name}/conf/props/jmx-console-users.properties"
+    :
       ensure  => present,
-      content => template("${module_name}/conf/props/jmx-console-users.properties.erb"),
+      content => template("${module_name}/conf/props/jmx-console-users.properties.erb"
+      ),
       mode    => '0600',
     }
 
-    file { "${jboss_inst_folder}/server/${instance_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml":
+    file { "${jboss_inst_folder}/server/${instance_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml"
+    :
       ensure => present,
       source => "puppet:///modules/${module_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml",
     }
 
-    file { "${jboss_inst_folder}/server/${instance_name}/deploy/jmx-console.war/WEB-INF/web.xml":
+    file { "${jboss_inst_folder}/server/${instance_name}/deploy/jmx-console.war/WEB-INF/web.xml"
+    :
       ensure => present,
       source => "puppet:///modules/${module_name}/deploy/jmx-console.war/WEB-INF/web.xml",
     }

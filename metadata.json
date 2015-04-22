@@ -3,11 +3,11 @@
   "dependencies": [
     {
       "name": "dsestero/download_uncompress",
-      "version_requirement": ">=1.0.0"
+      "version_requirement": "1.x"
     },
     {
       "name": "dsestero/java",
-      "version_requirement": ">=0.1.0"
+      "version_requirement": "1.x"
     },
     {
       "name": "puppetlabs/concat",
@@ -18,11 +18,11 @@
       "version_requirement": "4.x"
     }
   ],
-  "license": "Creative Commons Attribution-Share Alike 4.0 International license (CC-BY-SA-4.0)",
+  "license": "CC-BY-SA-4.0",
   "name": "dsestero-jboss",
   "project_page": "https://github.com/dsestero/jboss",
   "source": "https://github.com/dsestero/jboss.git",
-  "summary": "Installs the distribution of JBoss 4, 5, 7, and 8; sets up the standard directories. Installs, sets up, and perform basic configuration of specific instances putting them to listen on specific ip addresses, added on child network interfaces.",
+  "summary": "Manage installation and set up of JBoss 4, 5, 7, and WildFly 8 instances.",
   "requirements": [{"name": "puppet", "version_requirement": "3.x"}],
   "operatingsystem_support": [
       {
