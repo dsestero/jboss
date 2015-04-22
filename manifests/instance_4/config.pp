@@ -13,7 +13,6 @@ define jboss::instance_4::config (
   $xmx,
   $max_perm_size,
   $stack_size,
-  $ws_enabled,
   $mgmt_user,
   $mgmt_passwd,
   $jmx_user,

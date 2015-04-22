@@ -39,10 +39,6 @@
 #                   Defaults to +'no_port'+, in which case no JMX monitoring is
 #                   activated.
 #
-# $ws_enabled::     +true+ if deploying a web profile that has to be enabled for
-#                   jbossws.
-#                   Defaults to +false+.
-#
 # $xms::            JVM OPT for initial heap size.
 #                   Defaults to +128m+.
 #
@@ -124,7 +120,6 @@ define jboss::instance_4 (
     profile       => $profile,
     iface         => $iface,
     environment   => $environment,
-    ws_enabled    => $ws_enabled,
     jmxport       => $jmxport,
     xms           => $xms,
     xmx           => $xmx,
