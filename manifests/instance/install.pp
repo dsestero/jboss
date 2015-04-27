@@ -1,6 +1,6 @@
 # = Define: jboss::instance::install
 #
-# Install a JBoss instance,
+# Installs a JBoss instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
 define jboss::instance::install ($instance_name = $title,) {
   File {

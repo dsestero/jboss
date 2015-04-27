@@ -1,6 +1,6 @@
 # = Define: jboss::instance_4::config
 #
-# Configures a JBoss-4.0.5.GA instance,
+# Configures a JBoss-4-family instance,
 # i.e. a server profile. It is intended to be called by jboss::instance_4.
 define jboss::instance_4::config (
   $version,

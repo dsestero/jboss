@@ -1,10 +1,10 @@
 # = Define: jboss::instance_5::lib::zk::install
 #
-# Utility define to copy to a spoecified instance lib folder the zk library
+# Utility define to copy to a specified instance lib folder the zk library
 # jars.
 #
 # $instance_name::  Name of the JBoss profile and associated service
-# corresponding to this instance.
+#                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
 # == Actions:

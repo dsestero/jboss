@@ -1,4 +1,4 @@
-#jboss
+sudo #jboss
 
 ####Table of Contents
 
@@ -45,7 +45,7 @@ The module impact in various ways on the node:
 * users belonging to jboss group gain specific sudoers permissions in order to start and stop jboss services, to su to jboss user, to use basic network debug tools like netstat and nmap, and to enable/disable/launch a single run of puppet agent;
 * if an IP address is specified to make the instance listening then a secondary network interface with the specified IP is configured and activated;
 * an alias for the specified IP is created in the /etc/hosts file as [instance_name]-[environment];
-* if the module backup_tar is installed and the class `backup_tar` is assigned to the node then the paths where the instance keep configurations and deployments are added to the backup configuration file;
+* if the module backup_tar is installed and the class `backup_tar` is assigned to the node then the paths where the instance keeps configurations and deployments are added to the backup configuration file;
 * a script to zip and delete old logs in `/var/jboss/server/[instance_name]` folder is installed in `/home/jboss/bin` and scheduled as a cron job of the jboss user;
 * a script to ease the management of JBoss services is installed in `/usr/local/bin`;
 * JBoss-4 and JBoss-5 instances will include the installation of Java-6 while 
@@ -157,6 +157,55 @@ The module provides a class `jboss::alias_jboss` that use the first above mentio
 
 ##Reference
 
+###Classes
+
+####Public Classes
+* [`jboss::alias_jboss`](#jbossalias_jboss): Adds all jboss instances ip and alias in the hosts file.
+* [`jboss::jboss`](#jbossjboss): Installs and set up standard directories and permissions for JBoss AS.
+* [`jboss::jboss_4_0_5`](#jbossjboss_4_0_5): Installs JBoss-4.0.5.GA.
+* [`jboss::jboss_4_2_3`](#jbossjboss_4_2_3): Installs JBoss-4.2.3.GA.
+* [`jboss::jboss_5`](#jbossjboss_5): Installs JBoss-5.
+* [`jboss::jboss_7`](#jbossjboss_7): Performs basic jboss configuration in order to install JBoss-7 instances.
+* [`jboss::jboss_8`](#jbossjboss_8): Performs basic jboss configuration in order to install WildFly-8 instances.
+
+####Public Defines
+* [`jboss::jboss_4`](#jbossjboss_4): Installs JBoss-4.
+* [`jboss::instance_4`](#jbossinstance_4): Creates, configures and set up the service for a JBoss-4-family instance, i.e. a server profile with all the configurations needed to use it as an independent service.
+* [`jboss::instance_5`](#jbossinstance_5): Creates, configures and set up the service for a JBoss-5.1.0.GA instance, i.e. a server profile with all the configurations needed to use it as an independent service.
+* [`jboss::instance_7`](#jbossinstance_7): Creates, configures and set up the service for a JBoss-7.1.1.Final instance, i.e. a server profile with all the configurations needed to use it as an independent service.
+* [`jboss::instance_8`](#jbossinstance_8): Creates, configures and set up the service for a WildFly-8.2.0.Final instance, i.e. a server profile with all the configurations needed to use it as an independent service.
+* [`jboss::instance5::lib::oracle::install`](#jbossinstance5liboracleinstall): Copies to a specified JBoss-5 instance lib folder the Oracle driver jar.
+* [`jboss::instance5::lib::sqlserver::install`](#jbossinstance5libsqlserverinstall): Copies to a specified JBoss-5 instance lib folder the SQLServer driver jar.
+* [`jboss::instance5::lib::zk::install`](#jbossinstance5libzkinstall): Copies to a specified JBoss-5 instance lib folder the zk library jars.
+* [`jboss::instance5::persistence::install`](#jbossinstance5persistenceinstall): Adds to a specified instance the Oracle persistence service
+* [`jboss::instance7::lib::oracle::install`](#jbossinstance7liboracleinstall): Copies to a specified JBoss-7 instance module folder the Oracle driver jar and configures it.
+* [`jboss::instance7::lib::postgresql::install`](#jbossinstance7libpostgresqlinstall): Copies to a specified JBoss-7 instance module folder the PostgreSQL driver jar and configures it.
+* [`jboss::instance7::lib::sqlserver::install`](#jbossinstance7libsqlserverinstall): Copies to a specified JBoss-7 instance module folder the SQLServer driver jar and configures it.
+* [`jboss::instance7::lib::springframework::install`](#jbossinstance7libspringframeworkinstall): Copies to a specified JBoss-7 instance lib folder the Spring Framework library jars.
+* [`jboss::instance8::lib::oracle::install`](#jbossinstance8liboracleinstall): Copies to a specified WildFly-8 instance module folder the Oracle driver jar and configures it.
+* [`jboss::instance8::lib::postgresql::install`](#jbossinstance8libpostgresqlinstall): Copies to a specified WildFly-8 instance module folder the PostgreSQL driver jar and configures it.
+* [`jboss::instance8::lib::sqlserver::install`](#jbossinstance8libsqlserverinstall): Copies to a specified WildFly-8 instance module folder the SQLServer driver jar and configures it.
+
+####Private Classes
+* [`jboss::params`](#jbossparams): Defines the parameters needed for installing JBoss/WildFly instances.
+* [`jboss::install`](#jbossconfig): Sets up the system for installing JBoss/WildFly AS.
+* [`jboss::config`](#jbossconfig): Configures JBoss/WildFly AS.
+
+####Private Defines
+* [`jboss::instance::config`](#jbossinstanceconfig): Configures a JBoss/WildFly instance.
+* [`jboss::instance::install`](#jbossinstanceinstall): Installs a JBoss/WildFly instance.
+* [`jboss::instance::service`](#jbossinstanceservice): Sets up a service for a JBoss/WildFly instance.
+* [`jboss::instance4::config`](#jbossinstance4config): Configures a JBoss-4-family instance.
+* [`jboss::instance4::install`](#jbossinstance4install): Installs a JBoss-4-family instance.
+* [`jboss::instance5::config`](#jbossinstance5config): Configures a JBoss-5.1.0.GA instance.
+* [`jboss::instance5::install`](#jbossinstance5install): Installs a JBoss-5.1.0.GA instance.
+* [`jboss::instance7::config`](#jbossinstance7config): Configures a JBoss-7.1.1.GA instance.
+* [`jboss::instance7::install`](#jbossinstance7install): Installs a JBoss-7.1.1.GA instance.
+* [`jboss::instance7::postconfig`](#jbossinstance7postconfig): Postconfigures a JBoss-7.1.1.GA instance.
+* [`jboss::instance8::config`](#jbossinstance8config): Configures a WildFly-8.2.0.Final instance.
+* [`jboss::instance8::install`](#jbossinstance8install): Installs a WildFly-8.2.0.Final instance.
+* [`jboss::instance8::postconfig`](#jbossinstance8postconfig): Postconfigures a WildFly-8.2.0.Final instance.
+
 ###`jboss::alias_jboss`
 Defines a utility class to add all jboss instances ip and alias in the hosts file.
 
@@ -173,6 +222,12 @@ Installs and set up standard directories and permissions for JBoss AS. Specifica
 * deploys in the `/usr/local/bin` directory a script for restarting jboss instances;
 * creates standard directories for logging and storing application's specific data under
   `/var/log/jboss/server` and `/var/lib/jboss/apps` respectively.
+
+###`jboss::jboss_4_0_5`
+Installs JBoss-4.0.5.GA.
+
+###`jboss::jboss_4_2_3`
+Installs JBoss-4.2.3.GA.
 
 ###`jboss::jboss_4`
 Installs JBoss-4. The resource title has to be an unique name identifying the JBoss installation and it could be used to specify
@@ -365,7 +420,7 @@ Name of the JBoss profile and associated service corresponding to the instance w
 Defaults to the resource title.
 
 ###`jboss::instance_7::lib::oracle::install`
-Utility define to copy to a specified JBoss-7 instance lib folder the Oracle driver jar and
+Utility define to copy to a specified JBoss-7 instance module folder the Oracle driver jar and
 to configure the driver in the application server by executing a jboss-cli script.
 
 ####Parameters
@@ -379,7 +434,7 @@ Abbreviation identifying the environment: valid values are `dev`, `test`, `prep`
 Defaults to `dev`.
 
 ###`jboss::instance_7::lib::postgresql::install`
-Utility define to copy to a specified JBoss-7 instance lib folder the PostgreSQL driver jar and
+Utility define to copy to a specified JBoss-7 instance module folder the PostgreSQL driver jar and
 to configure the driver in the application server by executing a jboss-cli script.
 
 ####Parameters
@@ -393,7 +448,7 @@ Abbreviation identifying the environment: valid values are `dev`, `test`, `prep`
 Defaults to `dev`.
 
 ###`jboss::instance_7::lib::sqlserver::install`
-Utility define to copy to a specified JBoss-7 instance lib folder the SQLServer driver jar and to configure the driver in the application server by executing a jboss-cli script.
+Utility define to copy to a specified JBoss-7 instance module folder the SQLServer driver jar and to configure the driver in the application server by executing a jboss-cli script.
 
 ####Parameters
 
@@ -419,7 +474,7 @@ Abbreviation identifying the environment: valid values are `dev`, `test`, `prep`
 Defaults to `dev`.
 
 ###`jboss::instance_8::lib::oracle::install`
-Utility define to copy to a specified WildFly-8 instance lib folder the Oracle driver jar and
+Utility define to copy to a specified WildFly-8 instance module folder the Oracle driver jar and
 to configure the driver in the application server by executing a jboss-cli script.
 
 ####Parameters
@@ -433,7 +488,7 @@ Abbreviation identifying the environment: valid values are `dev`, `test`, `prep`
 Defaults to `dev`.
 
 ###`jboss::instance_8::lib::postgresql::install`
-Utility define to copy to a specified WildFly-8 instance lib folder the PostgreSQL driver jar and
+Utility define to copy to a specified WildFly-8 instance module folder the PostgreSQL driver jar and
 to configure the driver in the application server by executing a jboss-cli script.
 
 ####Parameters
@@ -447,7 +502,7 @@ Abbreviation identifying the environment: valid values are `dev`, `test`, `prep`
 Defaults to `dev`.
 
 ###`jboss::instance_8::lib::sqlserver::install`
-Utility define to copy to a specified WildFly-8 instance lib folder the SQLServer driver jar and to configure the driver in the application server by executing a jboss-cli script.
+Utility define to copy to a specified WildFly-8 instance module folder the SQLServer driver jar and to configure the driver in the application server by executing a jboss-cli script.
 
 ####Parameters
 

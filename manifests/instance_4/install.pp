@@ -1,6 +1,6 @@
 # = Define: jboss::instance_4::install
 #
-# Install a JBoss-4-family instance,
+# Installs a JBoss-4-family instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
 define jboss::instance_4::install (
   $version,

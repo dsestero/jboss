@@ -6,7 +6,7 @@
 # == Parameters:
 #
 # $instance_name::  Name of the JBoss profile and associated service
-# corresponding to this instance.
+#                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
 # $environment::    Abbreviation identifying the environment: valid values are

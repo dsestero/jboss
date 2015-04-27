@@ -1,7 +1,7 @@
 # = Define: jboss::instance::service
 #
-# Sets up a service for a JBoss-5.1.0.GA instance,
-# i.e. a server profile. It is intended to be called by jboss::instance.
+# Sets up a service for a JBoss/WildFly instance.
+# It is intended to be called by jboss::instance.
 define jboss::instance::service ($environment, $instance_name = $title,) {
   $ip_alias = "${instance_name}-${environment}"
 

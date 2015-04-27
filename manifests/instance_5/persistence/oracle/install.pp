@@ -4,7 +4,7 @@
 # for <tt>DefaultDS</tt>.
 #
 # $instance_name::  Name of the JBoss profile and associated service
-# corresponding to this instance.
+#                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
 # $conn_url_suffix:: Suffix of the connection url string, containing the ip

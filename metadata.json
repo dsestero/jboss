@@ -31,5 +31,5 @@
       }
   ],
   "tags": ["application_server", "java", "jboss", "jee", "middleware", "wildfly"],
-  "version": "1.0.1"
+  "version": "1.0.2"
 }

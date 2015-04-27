@@ -1,6 +1,6 @@
 # = Define: jboss::instance_5::lib::oracle::install
 #
-# Utility define to copy to a spoecified instance lib folder the Oracle driver
+# Utility define to copy to a specified instance lib folder the Oracle driver
 # jar.
 #
 # == Parameters:
