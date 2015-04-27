@@ -3,7 +3,7 @@
 # Creates, configures and set up the service for a JBoss-7.1.1.Final instance,
 # i.e. a server profile with all the
 # configurations needed to use it as an independent service.
-# *Note*: at this time the instance is create as a standalone standard profile.
+# *Note*: at this time the instance is created as a standalone standard profile.
 #
 # == Parameters:
 #

@@ -174,17 +174,17 @@ The module provides a class `jboss::alias_jboss` that use the first above mentio
 * [`jboss::instance_5`](#jbossinstance_5): Creates, configures and set up the service for a JBoss-5.1.0.GA instance, i.e. a server profile with all the configurations needed to use it as an independent service.
 * [`jboss::instance_7`](#jbossinstance_7): Creates, configures and set up the service for a JBoss-7.1.1.Final instance, i.e. a server profile with all the configurations needed to use it as an independent service.
 * [`jboss::instance_8`](#jbossinstance_8): Creates, configures and set up the service for a WildFly-8.2.0.Final instance, i.e. a server profile with all the configurations needed to use it as an independent service.
-* [`jboss::instance5::lib::oracle::install`](#jbossinstance5liboracleinstall): Copies to a specified JBoss-5 instance lib folder the Oracle driver jar.
-* [`jboss::instance5::lib::sqlserver::install`](#jbossinstance5libsqlserverinstall): Copies to a specified JBoss-5 instance lib folder the SQLServer driver jar.
-* [`jboss::instance5::lib::zk::install`](#jbossinstance5libzkinstall): Copies to a specified JBoss-5 instance lib folder the zk library jars.
-* [`jboss::instance5::persistence::install`](#jbossinstance5persistenceinstall): Adds to a specified instance the Oracle persistence service
-* [`jboss::instance7::lib::oracle::install`](#jbossinstance7liboracleinstall): Copies to a specified JBoss-7 instance module folder the Oracle driver jar and configures it.
-* [`jboss::instance7::lib::postgresql::install`](#jbossinstance7libpostgresqlinstall): Copies to a specified JBoss-7 instance module folder the PostgreSQL driver jar and configures it.
-* [`jboss::instance7::lib::sqlserver::install`](#jbossinstance7libsqlserverinstall): Copies to a specified JBoss-7 instance module folder the SQLServer driver jar and configures it.
-* [`jboss::instance7::lib::springframework::install`](#jbossinstance7libspringframeworkinstall): Copies to a specified JBoss-7 instance lib folder the Spring Framework library jars.
-* [`jboss::instance8::lib::oracle::install`](#jbossinstance8liboracleinstall): Copies to a specified WildFly-8 instance module folder the Oracle driver jar and configures it.
-* [`jboss::instance8::lib::postgresql::install`](#jbossinstance8libpostgresqlinstall): Copies to a specified WildFly-8 instance module folder the PostgreSQL driver jar and configures it.
-* [`jboss::instance8::lib::sqlserver::install`](#jbossinstance8libsqlserverinstall): Copies to a specified WildFly-8 instance module folder the SQLServer driver jar and configures it.
+* [`jboss::instance_5::lib::oracle::install`](#jbossinstance_5liboracleinstall): Copies to a specified JBoss-5 instance lib folder the Oracle driver jar.
+* [`jboss::instance_5::lib::sqlserver::install`](#jbossinstance_5libsqlserverinstall): Copies to a specified JBoss-5 instance lib folder the SQLServer driver jar.
+* [`jboss::instance_5::lib::zk::install`](#jbossinstance_5libzkinstall): Copies to a specified JBoss-5 instance lib folder the zk library jars.
+* [`jboss::instance_5::persistence::install`](#jbossinstance_5persistenceinstall): Adds to a specified instance the Oracle persistence service
+* [`jboss::instance_7::lib::oracle::install`](#jbossinstance_7liboracleinstall): Copies to a specified JBoss-7 instance module folder the Oracle driver jar and configures it.
+* [`jboss::instance_7::lib::postgresql::install`](#jbossinstance_7libpostgresqlinstall): Copies to a specified JBoss-7 instance module folder the PostgreSQL driver jar and configures it.
+* [`jboss::instance_7::lib::sqlserver::install`](#jbossinstance_7libsqlserverinstall): Copies to a specified JBoss-7 instance module folder the SQLServer driver jar and configures it.
+* [`jboss::instance_7::lib::springframework::install`](#jbossinstance_7libspringframeworkinstall): Copies to a specified JBoss-7 instance lib folder the Spring Framework library jars.
+* [`jboss::instance_8::lib::oracle::install`](#jbossinstance_8liboracleinstall): Copies to a specified WildFly-8 instance module folder the Oracle driver jar and configures it.
+* [`jboss::instance_8::lib::postgresql::install`](#jbossinstance_8libpostgresqlinstall): Copies to a specified WildFly-8 instance module folder the PostgreSQL driver jar and configures it.
+* [`jboss::instance_8::lib::sqlserver::install`](#jbossinstance_8libsqlserverinstall): Copies to a specified WildFly-8 instance module folder the SQLServer driver jar and configures it.
 
 ####Private Classes
 * [`jboss::params`](#jbossparams): Defines the parameters needed for installing JBoss/WildFly instances.
@@ -195,16 +195,16 @@ The module provides a class `jboss::alias_jboss` that use the first above mentio
 * [`jboss::instance::config`](#jbossinstanceconfig): Configures a JBoss/WildFly instance.
 * [`jboss::instance::install`](#jbossinstanceinstall): Installs a JBoss/WildFly instance.
 * [`jboss::instance::service`](#jbossinstanceservice): Sets up a service for a JBoss/WildFly instance.
-* [`jboss::instance4::config`](#jbossinstance4config): Configures a JBoss-4-family instance.
-* [`jboss::instance4::install`](#jbossinstance4install): Installs a JBoss-4-family instance.
-* [`jboss::instance5::config`](#jbossinstance5config): Configures a JBoss-5.1.0.GA instance.
-* [`jboss::instance5::install`](#jbossinstance5install): Installs a JBoss-5.1.0.GA instance.
-* [`jboss::instance7::config`](#jbossinstance7config): Configures a JBoss-7.1.1.GA instance.
-* [`jboss::instance7::install`](#jbossinstance7install): Installs a JBoss-7.1.1.GA instance.
-* [`jboss::instance7::postconfig`](#jbossinstance7postconfig): Postconfigures a JBoss-7.1.1.GA instance.
-* [`jboss::instance8::config`](#jbossinstance8config): Configures a WildFly-8.2.0.Final instance.
-* [`jboss::instance8::install`](#jbossinstance8install): Installs a WildFly-8.2.0.Final instance.
-* [`jboss::instance8::postconfig`](#jbossinstance8postconfig): Postconfigures a WildFly-8.2.0.Final instance.
+* [`jboss::instance_4::config`](#jbossinstance_4config): Configures a JBoss-4-family instance.
+* [`jboss::instance_4::install`](#jbossinstance_4install): Installs a JBoss-4-family instance.
+* [`jboss::instance_5::config`](#jbossinstance_5config): Configures a JBoss-5.1.0.GA instance.
+* [`jboss::instance_5::install`](#jbossinstance_5install): Installs a JBoss-5.1.0.GA instance.
+* [`jboss::instance_7::config`](#jbossinstance_7config): Configures a JBoss-7.1.1.GA instance.
+* [`jboss::instance_7::install`](#jbossinstance_7install): Installs a JBoss-7.1.1.GA instance.
+* [`jboss::instance_7::postconfig`](#jbossinstance_7postconfig): Postconfigures a JBoss-7.1.1.GA instance.
+* [`jboss::instance_8::config`](#jbossinstance_8config): Configures a WildFly-8.2.0.Final instance.
+* [`jboss::instance_8::install`](#jbossinstance_8install): Installs a WildFly-8.2.0.Final instance.
+* [`jboss::instance_8::postconfig`](#jbossinstance_8postconfig): Postconfigures a WildFly-8.2.0.Final instance.
 
 ###`jboss::alias_jboss`
 Defines a utility class to add all jboss instances ip and alias in the hosts file.
@@ -265,7 +265,21 @@ At the moment this class simply calls `jboss::jboss` to perform basic jboss conf
 ###`jboss::jboss_8`
 At the moment this class simply calls `jboss::jboss` to perform basic jboss configurations.
 
-###`jboss::instance_{4,5,7,8}` define
+###`jboss::instance_4`
+Creates, configures and set up the service for a JBoss-4-family instance, i.e. a server profile with all the configurations needed to use it as an independent service.
+
+###`jboss::instance_5`
+Creates, configures and set up the service for a JBoss-5.1.0.GA instance, i.e. a server profile with all the configurations needed to use it as an independent service.
+
+###`jboss::instance_7`
+Creates, configures and set up the service for a JBoss-7.1.1.Final instance, i.e. a server profile with all the configurations needed to use it as an independent service. 
+
+*Note*: at this time the instance is created as a standalone standard profile.
+
+###`jboss::instance_8`
+Creates, configures and set up the service for a WildFly-8.2.0.Final instance, i.e. a server profile with all the configurations needed to use it as an independent service. 
+
+*Note*: at this time the instance is created as a standalone standard profile.
 
 ####Parameters common to all types of instances
 

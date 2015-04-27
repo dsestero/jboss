@@ -1,3 +1,7 @@
+##2015-04-27 - Release - 1.0.3
+###Summary
+Links in documentation should now work.
+
 ##2015-04-27 - Release - 1.0.2
 ###Summary
 Improved documentation.
