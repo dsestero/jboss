@@ -34,7 +34,7 @@ define jboss::instance_8::lib::sqlserver::install (
 
   $ip_alias = "${instance_name}-${environment}"
   $jbossVersion = 'wildfly-8.2.0.Final'
-  $jbossInstFolder = "/opt/jboss-7-${instance_name}/${jbossVersion}"
+  $jbossInstFolder = "/opt/jboss-8-${instance_name}/${jbossVersion}"
   $binFolder = "${jbossInstFolder}/bin"
   $modulesFolder = "${jbossInstFolder}/modules/system/layers/base"
   $sqlserverModulePath = "${modulesFolder}/com/microsoft/sqljdbc4/main"
