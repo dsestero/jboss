@@ -45,19 +45,26 @@ The module impact in various ways on the node:
 * users belonging to jboss group gain specific sudoers permissions in order to start and stop jboss services, to su to jboss user, to use basic network debug tools like netstat and nmap, and to enable/disable/launch a single run of puppet agent;
 * if an IP address is specified to make the instance listening then a secondary network interface with the specified IP is configured and activated;
 * an alias for the specified IP is created in the /etc/hosts file as [instance_name]-[environment];
-* if the module backup_tar is installed and the class `backup_tar` is assigned to the node then the paths where the instance keeps configurations and deployments are added to the backup configuration file;
 * a script to zip and delete old logs in `/var/jboss/server/[instance_name]` folder is installed in `/home/jboss/bin` and scheduled as a cron job of the jboss user;
 * a script to ease the management of JBoss services is installed in `/usr/local/bin`;
-* JBoss-4 and JBoss-5 instances will include the installation of Java-6 while 
-Jboss-7 and WildFly-8 instances will include the installation of Java-7.
+* JBoss-4 and JBoss-5 instances will include the installation of Java-6 while Jboss-7 and WildFly-8 instances will include the installation of Java-7.
 
-In order to prevent Puppet to alter specific instance configuration files the general rule followed is to make required JBoss-instance specific configurations only when they are absent and leaving the files untouched if the configurations already exist.
+If PuppetDB is installed the module exports two kind of resources:
+
+* the hostname aliases [instancename]-[environment] corresponding to the instances created;
+* the paths to backup the configurations of the specific instances created on a given node in a given environment. (The node fqdn and the environment tag concat::fragment resources).
+
+The module provides a class `jboss::alias_jboss` that use the first above mentioned exported resource to define a utility class to add all jboss instances hostnames in the hosts file of a node.
+
+For JBoss instances 5, 7, and 8 JBoss logs will be configured with a special category 'LoggerPrestazioni' that appends to a DailyRollingFileAppender named `prestazioni.log`. We use such category to log timings of the different servlets, in order to evaluate overall performances of the webapps.
+
+In order to prevent Puppet to alter specific instance configuration files the general rule followed is to create required JBoss-instance specific configurations (like the above affecting logs) only when they are absent and leaving the files untouched if the configurations already exist.
 
 ###Setup Requirements
 
 This modules requires the following other modules to be installed:
 
-* dsestero/common
+* dsestero/download_uncompress
 
     to provide the basic capability to download and unzip the JBoss distributions
     
@@ -68,6 +75,10 @@ This modules requires the following other modules to be installed:
 * puppetlabs/concat
 
     to create the lines needed to configure backup 
+
+* puppetlabs/concat
+
+    to collect informations about the instances installed on a node.
 
 * puppetlabs/stdlib
 
@@ -148,12 +159,20 @@ It is possible to concatenate the declarations for specific libraries as in, for
   }
 ```
 
-If PuppetDB is installed the module exports two kind of resources:
+###Exported resources
 
-* the hostname aliases [instancename]-[environment] corresponding to the instances created;
-* the paths to backup the configurations of the specific instances created on a given node in a given environment. (The node fqdn and the environment tag concat::fragment resources).
+The exported paths for a given node can be collected for instance to configure a backup script with a declaration like the following:
 
-The module provides a class `jboss::alias_jboss` that use the first above mentioned exported resource to define a utility class to add all jboss instances hostnames in the hosts file of a node.
+```
+  Concat::Fragment <<| target == '/usr/local/bin/backupall.sh.conf' and tag == $::fqdn |>> {
+  }
+
+  concat { '/usr/local/bin/backupall.sh.conf':
+    ensure => present,
+  }
+```
+
+The module provides a class `jboss::alias_jboss` that use the exported hostname alias to define a utility class to add all jboss instances hostnames in the hosts file of a node.
 
 ##Reference
 
@@ -167,6 +186,13 @@ The module provides a class `jboss::alias_jboss` that use the first above mentio
 * [`jboss::jboss_5`](#jbossjboss_5): Installs JBoss-5.
 * [`jboss::jboss_7`](#jbossjboss_7): Performs basic jboss configuration in order to install JBoss-7 instances.
 * [`jboss::jboss_8`](#jbossjboss_8): Performs basic jboss configuration in order to install WildFly-8 instances.
+
+####Private Classes
+* [`jboss::params`](#jbossparams): Defines the parameters needed for installing JBoss/WildFly instances.
+* [`jboss::install`](#jbossconfig): Sets up the system for installing JBoss/WildFly AS.
+* [`jboss::config`](#jbossconfig): Configures JBoss/WildFly AS.
+
+###Defines
 
 ####Public Defines
 * [`jboss::jboss_4`](#jbossjboss_4): Installs JBoss-4.
@@ -185,11 +211,6 @@ The module provides a class `jboss::alias_jboss` that use the first above mentio
 * [`jboss::instance_8::lib::oracle::install`](#jbossinstance_8liboracleinstall): Copies to a specified WildFly-8 instance module folder the Oracle driver jar and configures it.
 * [`jboss::instance_8::lib::postgresql::install`](#jbossinstance_8libpostgresqlinstall): Copies to a specified WildFly-8 instance module folder the PostgreSQL driver jar and configures it.
 * [`jboss::instance_8::lib::sqlserver::install`](#jbossinstance_8libsqlserverinstall): Copies to a specified WildFly-8 instance module folder the SQLServer driver jar and configures it.
-
-####Private Classes
-* [`jboss::params`](#jbossparams): Defines the parameters needed for installing JBoss/WildFly instances.
-* [`jboss::install`](#jbossconfig): Sets up the system for installing JBoss/WildFly AS.
-* [`jboss::config`](#jbossconfig): Configures JBoss/WildFly AS.
 
 ####Private Defines
 * [`jboss::instance::config`](#jbossinstanceconfig): Configures a JBoss/WildFly instance.
