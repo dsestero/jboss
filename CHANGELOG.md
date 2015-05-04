@@ -1,3 +1,10 @@
+##2015-05-04 - Release - 1.0.5 - 1.0.4
+###Summary
+Improved documentation, license changed from CC-BY-SA-4.0 to Apache-2.0.
+
+####Bugfixes
+Updated changelog; it was forgotten in version 1.0.4
+
 ##2015-04-27 - Release - 1.0.3
 ###Summary
 Links in documentation should now work.
