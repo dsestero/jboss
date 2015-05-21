@@ -1,3 +1,10 @@
+##2015-05-21 - Release - 1.0.6
+###Summary
+On WildFly-8 the JMX monitoring is done via the http 9990 port, using the management user. So the 7777 port binding is not needed anymore as not needed is the JMX user creation.
+
+####Bugfixes
+In the postconfig phase of WildFly-8 instances, the attribute use-management-endpoint of the subsystem jmx/remoting-connector=jmx is no more set to false, allowing JMX connection to the application server.
+
 ##2015-05-04 - Release - 1.0.5 - 1.0.4
 ###Summary
 Improved documentation, license changed from CC-BY-SA-4.0 to Apache-2.0.
