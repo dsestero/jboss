@@ -109,8 +109,6 @@ jboss::instance_8 { 'instanceName':
     iface       => 'eth0:8',
     mgmt_user   => $mgmt_user,
     mgmt_passwd => $mgmt_passwd,
-    jmx_user    => $jmx_user,
-    jmx_passwd  => $jmx_passwd,
 }
 ```
 
@@ -145,8 +143,6 @@ It is possible to concatenate the declarations for specific libraries as in, for
     environment => 'test',
     mgmt_user   => 'mgmt_user',
     mgmt_passwd => 'mgmt_passwd',
-    jmx_user    => 'jmx_user',
-    jmx_passwd  => 'jmx_passwd',
   } ->
   jboss::instance_8::lib::oracle::install { 'transito8':
     environment => 'test',
@@ -330,16 +326,6 @@ Defaults to the resource title.
 Dedicated IP on which this instance will be listening.
 Defaults to `127.0.0.1` i.e. localhost.
 
-#####`jmx_user`
-
-JMX user username.
-Defaults to `undef`, in which case a management user is not created.
-
-#####`jmx_passwd`
-
-JMX user password.
-Defaults to `undef`.
-
 #####`max_perm_size`
 
 JVM OPT for max permanent generations size.
@@ -370,7 +356,7 @@ Defaults to `128m`.
 JVM OPT for maximum heap size.
 Defaults to `512m`.
 
-####Parameters within `instance_4`
+####Parameters specific of `instance_4`
 
 #####`profile`
 
@@ -379,7 +365,17 @@ As of JBoss-5.1.0.GA different profiles are provided with a different level of s
 `minimal`, `web`, `default`, `all`.
 Defaults to `default`.
 
-####Parameters within `instance_5`
+#####`jmx_user`
+
+JMX user username.
+Defaults to `undef`, in which case a management user is not created.
+
+#####`jmx_passwd`
+
+JMX user password.
+Defaults to `undef`.
+
+####Parameters specific of `instance_5`
 
 #####`extra_jvm_pars`
 extra JVM OPTS.
@@ -412,7 +408,39 @@ Defaults to `25`.
 `true` if deploying a web profile that has to be enabled for jbossws.
 Defaults to `false`.
 
-####Parameters within `instance_7` and `instance_8`
+#####`jmx_user`
+
+JMX user username.
+Defaults to `undef`, in which case a management user is not created.
+
+#####`jmx_passwd`
+
+JMX user password.
+Defaults to `undef`.
+
+####Parameters specific of `instance_7`
+
+#####`distribution_name`
+
+Name of the distribution bundle to download, used for installing customed distributions.
+Defaults to `jboss-as-7.1.1.Final.zip`
+
+#####`jbossdirname`
+
+Name of the jboss installation folder.
+Defaults, according to the JBoss major release, to `jboss-as-7.1.1.Final`
+
+#####`jmx_user`
+
+JMX user username.
+Defaults to `undef`, in which case a management user is not created.
+
+#####`jmx_passwd`
+
+JMX user password.
+Defaults to `undef`.
+
+####Parameters specific of `instance_8`
 
 #####`distribution_name`
 
@@ -422,10 +450,7 @@ Defaults to `wildfly-8.2.0.Final.tar.gz`
 #####`jbossdirname`
 
 Name of the jboss installation folder.
-Defaults, according to the JBoss major release, to 
-
-* `jboss-as-7.1.1.Final`
-* `wildfly-8.2.0.Final`
+Defaults, according to the JBoss major release, to `wildfly-8.2.0.Final`
 
 ###`jboss::instance_5::lib::oracle::install`
 Utility define to copy to a specified JBoss-5 instance lib folder the Oracle driver jar.

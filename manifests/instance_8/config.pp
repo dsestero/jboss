@@ -13,8 +13,6 @@ define jboss::instance_8::config (
   $stack_size,
   $mgmt_user,
   $mgmt_passwd,
-  $jmx_user,
-  $jmx_passwd,
   $java_home,
   $instance_name = $title,) {
   $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
@@ -75,12 +73,12 @@ define jboss::instance_8::config (
   }
 
   # Directory deploy property applicative, recuperate via hiera
-  $customConfigurationsModule = hiera('inva::custom_configurations_module',
+  $customConfigurationsModule = hiera('inva::custom_configurations_module', 
   undef)
 
   if $customConfigurationsModule != undef {
     $modulesFolder = "${jboss_inst_folder}/modules/system/layers/base/"
-    $customConfigurationsDirs = prefix($customConfigurationsModule,
+    $customConfigurationsDirs = prefix($customConfigurationsModule, 
     $modulesFolder)
     $confDir = $customConfigurationsDirs[-1]
 
@@ -99,22 +97,6 @@ define jboss::instance_8::config (
     ensure  => present,
     content => template("${module_name}/myjboss-cli.sh.erb"),
     mode    => '0700',
-  }
-
-  # Sicurezza accesso JMX
-  unless $jmx_user == undef {
-    file { "${jboss_inst_folder}/bin/create_jmx_user.ex":
-      ensure  => present,
-      content => template("${module_name}/create_jmx_user8.exp.erb"),
-      mode    => '0700',
-    } ->
-    exec { "${jboss_inst_folder}/execute_jmx_user":
-      command => "/bin/sh -c 'JAVA_HOME=${java_home} ${jboss_inst_folder}/bin/create_jmx_user.ex'",
-      cwd     => "${jboss_inst_folder}/bin",
-      user    => jboss,
-      group   => jboss,
-      unless  => "grep ^${jmx_user} ${jboss_inst_folder}/standalone/configuration/application-users.properties",
-    }
   }
 
   # Sicurezza console

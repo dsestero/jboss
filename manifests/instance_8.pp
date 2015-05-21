@@ -51,13 +51,6 @@
 # $mgmt_passwd::    Management user password.
 #                   Defaults to +undef+.
 #
-# $jmx_user::       JMX user username.
-#                   Defaults to +undef+, in which case a management user is not
-#                   created.
-#
-# $jmx_passwd::     JMX user password.
-#                   Defaults to +undef+.
-#
 # $backup_conf_target:: Full pathname of the backup configuration file where the
 #                       instance paths to backup are added.
 #                       Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
@@ -95,8 +88,6 @@ define jboss::instance_8 (
   $stack_size         = '2048k',
   $mgmt_user          = undef,
   $mgmt_passwd        = undef,
-  $jmx_user           = undef,
-  $jmx_passwd         = undef,
   $backup_conf_target = '/usr/local/bin/backupall.sh.conf',) {
   require jboss::params
 
@@ -117,8 +108,6 @@ define jboss::instance_8 (
     stack_size    => $stack_size,
     mgmt_user     => $mgmt_user,
     mgmt_passwd   => $mgmt_passwd,
-    jmx_user      => $jmx_user,
-    jmx_passwd    => $jmx_passwd,
     java_home     => $jboss::params::java7_home,
   } ~>
   jboss::instance::service { $instance_name:
