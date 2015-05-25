@@ -96,7 +96,7 @@ define jboss::instance_8::config (
   file { "${jboss_inst_folder}/bin/myjboss-cli.sh":
     ensure  => present,
     content => template("${module_name}/myjboss-cli.sh.erb"),
-    mode    => '0700',
+    mode    => '0755',
   }
 
   # Sicurezza console

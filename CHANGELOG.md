@@ -1,3 +1,7 @@
+##2015-05-25 - Release - 1.0.7
+###Summary
+The script myjboss-cli.sh in the bin folder of WildFly-8 instances is created with 0755 permissions (previously was 0700).
+
 ##2015-05-21 - Release - 1.0.6
 ###Summary
 On WildFly-8 the JMX monitoring is done via the http 9990 port, using the management user. So the 7777 port binding is not needed anymore as not needed is the JMX user creation.

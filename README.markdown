@@ -48,6 +48,7 @@ The module impact in various ways on the node:
 * a script to zip and delete old logs in `/var/jboss/server/[instance_name]` folder is installed in `/home/jboss/bin` and scheduled as a cron job of the jboss user;
 * a script to ease the management of JBoss services is installed in `/usr/local/bin`;
 * JBoss-4 and JBoss-5 instances will include the installation of Java-6 while Jboss-7 and WildFly-8 instances will include the installation of Java-7.
+* if WildFly-8 instances are installed on a node then a symbolic link `/opt/jboss-8` is created to one of them in order to have the possibility to access the scripts in the WildFly `bin` directory on a standard path (e.g. to access jboss-cli.sh in postconfig manifests).
 
 If PuppetDB is installed the module exports two kind of resources:
 
@@ -577,6 +578,8 @@ Defaults to `dev`.
 ##Limitations
 
 At the moment the module targets only Ubuntu platforms. Specifically, it is tested on Ubuntu 12.04 with 64 bit architecture, although probably it will work also on more recent versions and on 32 bit architecture.
+
+Furthermore Jboss-7 and WildFly-8 instances are created in standalone mode.
 
 ##Development
 
