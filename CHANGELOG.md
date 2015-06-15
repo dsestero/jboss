@@ -1,3 +1,10 @@
+##2015-06-15 - Release - 1.0.8
+###Summary
+Fixed a bug with WildFly-8 instances JMX post configuration.
+
+####Bugfixes
+Version 1.0.6 introduced a regression in the JMX postconfiguration phase of WildFly-8 instances where the operation is repeated at every Puppet run and causes an error of duplicated resource to arise.
+
 ##2015-05-25 - Release - 1.0.7
 ###Summary
 The script myjboss-cli.sh in the bin folder of WildFly-8 instances is created with 0755 permissions (previously was 0700).
