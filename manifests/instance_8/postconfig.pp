@@ -63,6 +63,6 @@ define jboss::instance_8::postconfig (
     cwd     => "${jboss_inst_folder}/bin",
     user    => jboss,
     group   => jboss,
-    unless  => "grep 7777 ${jboss_inst_folder}/standalone/configuration/standalone.xml",
+    unless  => "grep org.apache.tomcat.util.ENABLE_MODELER ${jboss_inst_folder}/standalone/configuration/standalone.xml",
   }
 }
