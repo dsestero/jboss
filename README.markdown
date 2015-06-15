@@ -158,7 +158,7 @@ It is possible to concatenate the declarations for specific libraries as in, for
 
 ###Exported resources
 
-The exported paths for a given node can be collected for instance to configure a backup script with a declaration like the following:
+The exported paths to backup for a given node can be collected for instance to configure a backup script with a declaration like the following:
 
 ```
   Concat::Fragment <<| target == '/usr/local/bin/backupall.sh.conf' and tag == $::fqdn |>> {
@@ -579,7 +579,9 @@ Defaults to `dev`.
 
 At the moment the module targets only Ubuntu platforms. Specifically, it is tested on Ubuntu 12.04 with 64 bit architecture, although probably it will work also on more recent versions and on 32 bit architecture.
 
-Furthermore Jboss-7 and WildFly-8 instances are created in standalone mode.
+Furthermore JBoss-7 and WildFly-8 instances are created in standalone mode.
+
+Due to the fact that JBoss-7 and WildFly-8 instances need a `postconfig` phase implemented by calling the `jboss-cli.sh` script, it is necessary that the instance be up and running at that time. When Puppet just creates the instance in most cases it is not yet ready to accept connections from jboss-cli because the services are still starting. That's no problem because Puppet will complete the configuration (specified in the postconfig phase) at the subsequent run.
 
 ##Development
 
