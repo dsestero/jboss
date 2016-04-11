@@ -92,7 +92,7 @@ To make use of the exported resources mentioned in [reference](#reference) Puppe
 To get a jboss instance up and running one has to install a specific version of the JBoss Community distribution and then to declare the specific instance. This is done, for example, by declarations as the following:
 
 ```
-include jboss_8
+include jboss::jboss_8
 jboss::instance_8 { 'instanceName': }
 ```
 
@@ -103,7 +103,7 @@ In the above example a WildFly-8 standalone instance is configured to listen on 
 The basic usage is as follows:
 
 ```
-include jboss_8
+include jboss::jboss_8
 jboss::instance_8 { 'instanceName':
     environment => 'prod',
     ip          => '172.16.13.15',
@@ -158,7 +158,7 @@ It is possible to concatenate the declarations for specific libraries as in, for
 
 ###Exported resources
 
-The exported paths to backup for a given node can be collected for instance to configure a backup script with a declaration like the following:
+The exported paths to backup for a given node can be collected, for instance to configure a backup, script with a declaration like the following:
 
 ```
   Concat::Fragment <<| target == '/usr/local/bin/backupall.sh.conf' and tag == $::fqdn |>> {
@@ -169,7 +169,7 @@ The exported paths to backup for a given node can be collected for instance to c
   }
 ```
 
-The module provides a class `jboss::alias_jboss` that use the exported hostname alias to define a utility class to add all jboss instances hostnames in the hosts file of a node.
+Furthermore, the module provides a class `jboss::alias_jboss` that uses the exported hostname alias to define a utility class that can be exploited to add all jboss instances hostnames in the hosts file of a node.
 
 ##Reference
 
