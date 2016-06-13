@@ -16,8 +16,10 @@
 # == Sample usage:
 #  include jboss
 class jboss () {
-  include jboss::install
 
+  class { 'jboss::install':
+    jboss_instance_list => true,
+  }
   class { 'jboss::config':
   }
 }

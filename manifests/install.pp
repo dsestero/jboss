@@ -10,7 +10,7 @@
 # * creates /home/jboss/bin folder to host some management scripts;
 # * creates in /home/jboss/bin a text file with all the instance names on the
 # node, one per line.
-class jboss::install (){
+class jboss::install (Boolean $jboss_instance_list = false){
   user { 'jboss':
     ensure     => present,
     comment    => 'JBoss user',
@@ -34,12 +34,13 @@ class jboss::install (){
     require => User['jboss'],
   }
 
-  Concat::Fragment <<| target == '/home/jboss/bin/jboss-instance-list.conf' and
-  tag == $::fqdn |>> {
-  }
+  if $jboss_instance_list {
+    Concat::Fragment <<| target == '/home/jboss/bin/jboss-instance-list.conf' and
+    tag == $::fqdn |>> {
+    }
 
-  concat { '/home/jboss/bin/jboss-instance-list.conf':
-    ensure => present,
+    concat { '/home/jboss/bin/jboss-instance-list.conf':
+      ensure => present,
+    }
   }
-
 }
