@@ -169,6 +169,18 @@ The exported paths to backup for a given node can be collected, for instance to 
   }
 ```
 
+The names of all instances defined on a node, one per line, are exported and the following code, that is actually part of class jboss::install can be used in case one needs such a file:
+
+```
+  Concat::Fragment <<| target == '/home/jboss/bin/jboss-instance-list.conf' and tag == $::fqdn |>> {
+  }
+
+  concat { '/home/jboss/bin/jboss-instance-list.conf':
+    ensure => present,
+  }
+
+``` 
+
 Furthermore, the module provides a class `jboss::alias_jboss` that uses the exported hostname alias to define a utility class that can be exploited to add all jboss instances hostnames in the hosts file of a node.
 
 ##Reference
