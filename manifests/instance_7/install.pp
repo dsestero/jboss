@@ -8,7 +8,7 @@ define jboss::instance_7::install (
   $distribution_name,
   $backup_conf_target,
   $instance_name = $title,) {
-  $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
+  $jboss_inst_folder = "/opt/jboss-7-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
 
   File {
