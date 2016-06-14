@@ -17,14 +17,14 @@ define jboss::instance_4::install (
 
   $require = [Class['jboss'], Class['jboss::jboss_4']]
 
-  $jboss_inst_folder = "jboss-${version}.GA"
+  $jboss_inst_folder = "/opt/jboss-${version}.GA"
   $ip_alias = "${instance_name}-${environment}"
 
   jboss::instance::install { $instance_name:
   } ->
   exec { "copy_profile_${instance_name}":
-    command => "cp -a /opt/${jboss_inst_folder}/server/${profile} /opt/${jboss_inst_folder}/server/${instance_name}",
-    creates => "/opt/${jboss_inst_folder}/server/${instance_name}",
+    command => "cp -a ${jboss_inst_folder}/server/${profile} ${jboss_inst_folder}/server/${instance_name}",
+    creates => "${jboss_inst_folder}/server/${instance_name}",
     require => Class[jboss::config],
   }
 
