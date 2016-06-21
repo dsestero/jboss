@@ -11,16 +11,8 @@ class jboss::params () {
     'Ubuntu' : {
       case $::operatingsystemrelease {
         '12.04' : {
-          case $::architecture {
-            'amd64' : {
-              $java7_home = '/usr/lib/jvm/java-7-openjdk-amd64'
-            }
-            default : {
-              fail("The ${module_name} module is not supported on ${::operatingsystem} release ${::operatingsystemrelease} ${::architecture}"
-              )
-            }
+          $java7_home = "/usr/lib/jvm/java-7-openjdk-${::architecture}"
           }
-        }
         default : {
           fail("The ${module_name} module is not supported on ${::operatingsystem} release ${::operatingsystemrelease}"
           )
