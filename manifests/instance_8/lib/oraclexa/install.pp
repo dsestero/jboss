@@ -1,7 +1,11 @@
 # = Define: jboss::instance_8::lib::oraclexa::install
 #
-# Utility define to copy to a specified WildFly-8.2.0 instance the Oracle driver
+# Utility define to copy to a specified WildFly-8.2.0 instance the OracleXA driver
 # jar module.
+# Notice: the oracle driver jar contains both classes for standard and XA access,
+# hence for convenience of implementation installing oraclexa automatically sets up
+# also the oracle standard driver. If you try to install both oracle and oraclexa you
+# will get a resource duplication error (the module.xml file is the same, although with different content!)
 #
 # == Parameters:
 #
