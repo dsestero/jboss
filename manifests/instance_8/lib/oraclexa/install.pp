@@ -49,14 +49,14 @@ define jboss::instance_8::lib::oraclexa::install (
     group => jboss,
   }
 
-  exec { "create_oracle_module_folders_${instance_name}":
+  exec { "create_oraclexa_module_folders_${instance_name}":
     command => "mkdir -p ${oracleModulePath}",
     creates => $oracleModulePath,
   } ->
   file { "${oracleModulePath}/module.xml":
     source => "puppet:///modules/${module_name}/lib/oraclexa/module.xml",
   } ->
-  download_uncompress { "${oracleModulePath}/ojdbc6.jar":
+  download_uncompress { "${oracleModulePath}xa/ojdbc6.jar":
     distribution_name => 'lib/ojdbc6.jar',
     dest_folder       => $oracleModulePath,
     creates           => "${oracleModulePath}/ojdbc6.jar",
@@ -68,7 +68,7 @@ define jboss::instance_8::lib::oraclexa::install (
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-driver-oraclexa.txt",
   } ->
-  exec { "configure_driver_oracle_${instance_name}":
+  exec { "configure_driver_oraclexa_${instance_name}":
     command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-oraclexa.txt",
     cwd     => $binFolder,
     unless  => "grep com.oracle.ojdbc6 ${jbossInstFolder}/standalone/configuration/standalone.xml",
