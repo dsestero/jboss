@@ -30,9 +30,13 @@ function usage()
 
 function get_destination()
 {
+    if [[ 
+
 	DESTINATION=/opt/jboss/server/$1
 	if [[ "$1" == "studenti" ]]; then
 		DESTINATION=/opt/jboss-4.2.3.GA/server/default
+	elif [[ ! -d $DESTINATION ]]; then
+	    DESTINATION=/opt/jboss-8-$1/wildfly-8.2.0.Final/standalone
 	fi
 }
 
@@ -54,7 +58,8 @@ function delete_cache()
 	if [[ $2 == "si" ]]; then
 		echo -n "Cancello la cache e il log jboss_out.log del servizio '$1' di JBoss..."
 		get_destination $1
-		sudo su -c "rm -rf $DESTINATION/tmp $DESTINATION/work" jboss
+		sudo su -c "rm -rf $DESTINATION/tmp" jboss
+#        sudo su -c "rm -rf $DESTINATION/work" jboss
 		sudo su -c "cat /dev/null > /var/log/jboss/server/$1/jboss_out.log" jboss
 		echo " [fatto]"
 	fi
