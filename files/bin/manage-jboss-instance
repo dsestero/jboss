@@ -30,14 +30,14 @@ function usage()
 
 function get_destination()
 {
-    if [[ 
-
-	DESTINATION=/opt/jboss/server/$1
-	if [[ "$1" == "studenti" ]]; then
-		DESTINATION=/opt/jboss-4.2.3.GA/server/default
-	elif [[ ! -d $DESTINATION ]]; then
-	    DESTINATION=/opt/jboss-8-$1/wildfly-8.2.0.Final/standalone
-	fi
+    if [[ -d "/opt/jboss/server/${1}" ]]; then
+        DESTINATION="/opt/jboss/server/${1}"
+        if [[ "$1" == "studenti" ]]; then
+                DESTINATION=/opt/jboss-4.2.3.GA/server/default
+        elif [[ ! -d $DESTINATION ]]; then
+            DESTINATION=/opt/jboss-8-$1/wildfly-8.2.0.Final/standalone
+        fi
+    fi
 }
 
 function status()
