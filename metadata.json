@@ -24,7 +24,7 @@
   "issues_url": "https://github.com/dsestero/jboss/issues",
   "source": "https://github.com/dsestero/jboss.git",
   "summary": "Manage installation and set up of JBoss 4, 5, 7, and WildFly 8 instances.",
-  "requirements": [{"name": "puppet", "version_requirement": "3.x"}],
+  "requirements": [{"name": "puppet", "version_requirement": ">= 3.0.0"}],
   "operatingsystem_support": [
       {
           "operatingsystem": "Ubuntu",
@@ -32,5 +32,5 @@
       }
   ],
   "tags": ["application_server", "java", "jboss", "jee", "middleware", "wildfly"],
-  "version": "1.0.8"
+  "version": "1.1.0"
 }

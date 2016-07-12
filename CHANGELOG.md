@@ -1,3 +1,13 @@
+##2015-07-12 - Release - 1.1.0
+###Summary
+Extended the instance management script (`manage-jboss-instance`) to work not only with JBoss-5 instances but also with WildFly-8 standalone instances.
+Added capability to install XA driver for Oracle and PostgreSQL databases on WildFly-8 instances.
+Extended to find correct java home location also on 32 bit architectures.
+Improved documentation regarding exported resources.
+Tested with Puppet 4.
+Fixed bug on installation path of JBoss-4 instances.
+Fixed bug on installation path of JBoss-7 instances.
+
 ##2015-06-15 - Release - 1.0.8
 ###Summary
 Fixed a bug with WildFly-8 instances JMX post configuration.
