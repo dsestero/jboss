@@ -1,3 +1,7 @@
+##2015-07-12 - Release - 1.1.1
+###Summary
+Fixed puppet version requirement in metadata according to parser validation.
+
 ##2015-07-12 - Release - 1.1.0
 ###Summary
 Extended the instance management script (`manage-jboss-instance`) to work not only with JBoss-5 instances but also with WildFly-8 standalone instances.
