@@ -62,6 +62,6 @@ class jboss::config () {
 
   file_line { 'jboss_sudoer':
     path => '/etc/sudoers',
-    line => '%jboss ALL=/usr/bin/sudo /bin/su jboss, /bin/su jboss, /usr/bin/sudo /bin/su - jboss, /bin/su - jboss, /bin/su -c * jboss, /usr/sbin/service jboss-* *, /usr/sbin/service soffice.bin *, /bin/netstat *, /usr/bin/nmap *, /usr/bin/puppet agent --enable, /usr/bin/puppet agent --disable, /usr/bin/puppet agent --test',
+    line => '%jboss ALL=/usr/bin/sudo /bin/su jboss, /bin/su jboss, /usr/bin/sudo /bin/su - jboss, /bin/su - jboss, /bin/su -c * jboss, /usr/sbin/service jboss-* *, /usr/sbin/service soffice.bin *, /bin/netstat *, /usr/bin/nmap *, /opt/puppetlabs/bin/puppet agent --enable, /opt/puppetlabs/bin/puppet agent --disable, /opt/puppetlabs/bin/puppet agent --test',
   }
 }
