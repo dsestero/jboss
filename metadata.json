@@ -29,8 +29,14 @@
       {
           "operatingsystem": "Ubuntu",
           "operatingsystemrelease": ["12.04"]
+      },
+      {
+          "operatingsystem": "RedHat"
+      },
+      {
+          "operatingsystem": "CentOS"
       }
   ],
   "tags": ["application_server", "java", "jboss", "jee", "middleware", "wildfly"],
-  "version": "1.1.1"
+  "version": "1.2.0"
 }
