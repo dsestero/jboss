@@ -60,7 +60,7 @@ define jboss::instance_8::config (
   # Init script
   file { "/etc/init.d/jboss-${instance_name}":
     ensure  => present,
-    content => template("${module_name}/jboss-init.erb"),
+    content => template("${module_name}/${jboss::params::init_template}"),
     owner   => root,
     group   => root,
     mode    => '0755',
@@ -73,12 +73,12 @@ define jboss::instance_8::config (
   }
 
   # Directory deploy property applicative, recuperate via hiera
-  $customConfigurationsModule = hiera('inva::custom_configurations_module', 
+  $customConfigurationsModule = hiera('inva::custom_configurations_module',
   undef)
 
   if $customConfigurationsModule != undef {
     $modulesFolder = "${jboss_inst_folder}/modules/system/layers/base/"
-    $customConfigurationsDirs = prefix($customConfigurationsModule, 
+    $customConfigurationsDirs = prefix($customConfigurationsModule,
     $modulesFolder)
     $confDir = $customConfigurationsDirs[-1]
 
