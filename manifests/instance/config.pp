@@ -19,18 +19,36 @@ define jboss::instance::config (
   unless $iface == undef {
     if !has_interface_with('ipaddress', $ip) and !has_interface_with($iface) {
       # Interfaccia di rete dedicata
-      file { "/etc/network/interface-${instance_name}":
-        ensure  => present,
-        content => template("${module_name}/interfaces.erb"),
-        owner   => root,
-        group   => root,
-      } ->
-      exec { "addIface-${instance_name}":
-        command => "cat /etc/network/interface-${instance_name} >> /etc/network/interfaces",
-        unless  => "grep '^iface ${iface} inet' /etc/network/interfaces",
-      } ~>
-      exec { "ifup-${instance_name}":
-        command => "ifup ${iface}",
+      case $::osfamily {
+        'Debian': {
+          file { "/etc/network/interface-${instance_name}":
+            ensure  => present,
+            content => template("${module_name}/interfaces.erb"),
+            owner   => root,
+            group   => root,
+          } ->
+          exec { "addIface-${instance_name}":
+            command => "cat /etc/network/interface-${instance_name} >> /etc/network/interfaces",
+            unless  => "grep '^iface ${iface} inet' /etc/network/interfaces",
+          } ~>
+          exec { "ifup-${instance_name}":
+            command => "ifup ${iface}",
+          }
+        }
+        'RedHat': {
+          file { "/etc/sysconfig/network-scripts/ifcfg-${instance_name}":
+            ensure  => present,
+            content => template("${module_name}/ifcfg.erb"),
+            owner   => root,
+            group   => root,
+          } ~>
+          exec { "ifup-${instance_name}":
+            command => "ifup ${iface}",
+          }
+        }
+        default: {
+          fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
+        }
       }
     }
   }
