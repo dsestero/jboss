@@ -18,6 +18,7 @@ NAME=run-${SERVICE}.sh
 export JBOSS_HOME=<%= @jboss_inst_folder %>
 JBOSS_SCRIPT=$JBOSS_HOME/bin/$NAME
 JBOSS_PIDFILE=/var/run/jboss-$SERVICE.pid
+JBOSS_USER=jboss
 JBOSS_CONSOLE_LOG=/var/log/jboss/server/$SERVICE/jboss_out.log
 SCRIPTNAME=/etc/init.d/jboss-$SERVICE
 
@@ -65,19 +66,21 @@ if [ -z "$JBOSS_MODE" ]; then
 fi
 
 # Startup mode script
-if [ "$JBOSS_MODE" = "standalone" ]; then
-	JBOSS_SCRIPT=$JBOSS_HOME/bin/standalone.sh
-	if [ -z "$JBOSS_CONFIG" ]; then
-		JBOSS_CONFIG=standalone.xml
-	fi
-else
-	JBOSS_SCRIPT=$JBOSS_HOME/bin/domain.sh
-	if [ -z "$JBOSS_DOMAIN_CONFIG" ]; then
-		JBOSS_DOMAIN_CONFIG=domain.xml
-	fi
-	if [ -z "$JBOSS_HOST_CONFIG" ]; then
-		JBOSS_HOST_CONFIG=host.xml
-	fi
+if [ -z "$STARTUP_WAIT" ]; then
+    if [ "$JBOSS_MODE" = "standalone" ]; then
+    	JBOSS_SCRIPT=$JBOSS_HOME/bin/standalone.sh
+    	if [ -z "$JBOSS_CONFIG" ]; then
+    		JBOSS_CONFIG=standalone.xml
+    	fi
+    else
+    	JBOSS_SCRIPT=$JBOSS_HOME/bin/domain.sh
+    	if [ -z "$JBOSS_DOMAIN_CONFIG" ]; then
+    		JBOSS_DOMAIN_CONFIG=domain.xml
+    	fi
+    	if [ -z "$JBOSS_HOST_CONFIG" ]; then
+    		JBOSS_HOST_CONFIG=host.xml
+    	fi
+    fi
 fi
 
 prog='wildfly'
