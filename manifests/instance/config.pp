@@ -36,13 +36,13 @@ define jboss::instance::config (
           }
         }
         'RedHat': {
-          file { "/etc/sysconfig/network-scripts/ifcfg-${instance_name}":
+          file { "/etc/sysconfig/network-scripts/ifcfg-${iface}":
             ensure  => present,
             content => template("${module_name}/ifcfg.erb"),
             owner   => root,
             group   => root,
           } ~>
-          exec { "ifup-${instance_name}":
+          exec { "ifup-${iface}":
             command => "ifup ${iface}",
           }
         }
