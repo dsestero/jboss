@@ -110,6 +110,7 @@ start() {
 	fi
 	mkdir -p $(dirname $JBOSS_CONSOLE_LOG)
 	cat /dev/null > $JBOSS_CONSOLE_LOG
+	chown $JBOSS_USER $JBOSS_CONSOLE_LOG
 
 	mkdir -p $(dirname $JBOSS_PIDFILE)
 	chown $JBOSS_USER $(dirname $JBOSS_PIDFILE) || true
