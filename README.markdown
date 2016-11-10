@@ -41,7 +41,7 @@ The module impact in various ways on the node:
 * JBoss distribution and profiles are installed in `/opt` folder;
 * logs go in `/var/jboss/server/[instance_name]` folder;
 * applications specific files go in `/var/lib/jboss/apps/[appname]` folder;
-* a service is created in `/etc/init.d` with the name `jboss-[instance_name]` and configured to start on standard runlevels (2, 3, 4, 5);
+* a service is created in `/etc/init.d` with the name `jboss-[instance_name]` and configured to start at boot;
 * users belonging to jboss group gain specific sudoers permissions in order to start and stop jboss services, to su to jboss user, to use basic network debug tools like netstat and nmap, and to enable/disable/launch a single run of puppet agent;
 * if an IP address is specified to make the instance listening then a secondary network interface with the specified IP is configured and activated;
 * an alias for the specified IP is created in the /etc/hosts file as [instance_name]-[environment];
@@ -100,7 +100,7 @@ In the above example a WildFly-8 standalone instance is configured to listen on 
 
 ##Usage
 
-The basic usage is as follows:
+The basic usage is as in the following example:
 
 ```
 include jboss::jboss_8
@@ -112,6 +112,8 @@ jboss::instance_8 { 'instanceName':
     mgmt_passwd => $mgmt_passwd,
 }
 ```
+
+If `ip` is provided but no `iface` then the instance will listen on the specified `ip` but no specific secondary interface will be created.
 
 It is possible to specify additional attributes like the Xms and Xmx (start and maximum heap memory used by the instance) or the smtp configurations for the JBoss mail service:
 
@@ -589,7 +591,7 @@ Defaults to `dev`.
 
 ##Limitations
 
-At the moment the module targets only Ubuntu platforms. Specifically, it is tested on Ubuntu 12.04 with 64 bit architecture, although probably it will work also on more recent versions and on 32 bit architecture.
+The module targets Debian and RedHat distributions, including Ubuntu and CentOS. Specifically, it is tested on Ubuntu 12.04 and CentOS 6.6 with 64 bit architecture, although probably it will work also on different versions and on 32 bit architecture.
 
 Furthermore JBoss-7 and WildFly-8 instances are created in standalone mode.
 

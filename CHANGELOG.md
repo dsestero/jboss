@@ -1,6 +1,8 @@
-##2016-11-07 - Release - 1.2.0
+##2016-11-10 - Release - 1.2.0
 ###Summary
 Added support for RedHat and CentOS distributions.
+Removed support for Ubuntu 10.04.
+Removed restriction on specific Ubuntu version.
 
 ##2015-07-12 - Release - 1.1.1
 ###Summary

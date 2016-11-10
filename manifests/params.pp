@@ -7,22 +7,12 @@
 # no parameters.
 #
 class jboss::params () {
-  case $::operatingsystem {
-    'Ubuntu'           : {
+  case $::osfamily {
+    'Debian' : {
       $init_template = 'jboss-init.erb'
-      case $::operatingsystemrelease {
-        '10.04' : {
-          $java7_home = '/usr/lib/jvm/java-7-openjdk'
-        }
-        '12.04' : {
-          $java7_home = "/usr/lib/jvm/java-7-openjdk-${::architecture}"
-        }
-        default : {
-          fail("The ${module_name} module is not supported on ${::operatingsystem} release ${::operatingsystemrelease}")
-        }
-      }
+      $java7_home = "/usr/lib/jvm/java-7-openjdk-${::architecture}"
     }
-    'CentOS', 'RedHat' : {
+    'RedHat' : {
       $init_template = 'wildfly-init-redhat.sh.erb'
       $java7_home = "/usr/lib/jvm/jre-1.7.0-openjdk.${::architecture}"
     }
