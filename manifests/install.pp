@@ -8,8 +8,8 @@
 # * Creates JBoss user and group;
 # * makes <tt>/opt</tt> folder group owned by jboss and group writable;
 # * creates /home/jboss/bin folder to host some management scripts;
-# * creates in /home/jboss/bin a text file with all the instance names on the
-# node, one per line.
+# * according to the parameter <tt>jboss_instance_list</tt> creates in /home/jboss/bin a text file with all
+# the instance names on the node, one per line.
 class jboss::install (Boolean $jboss_instance_list = false){
   user { 'jboss':
     ensure     => present,
