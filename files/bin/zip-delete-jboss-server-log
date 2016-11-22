@@ -2,7 +2,7 @@
 
 NAME=jboss
 DEFAULT=/etc/default/$NAME
-JBOSS_INSTANCES=$(cat ~/bin/jboss-instance-list.conf | tr "\n" " ")
+JBOSS_INSTANCES=$(cat /usr/local/bin/jboss-instance-list.conf | tr "\n" " ")
 
 # The following variables can be overwritten in $DEFAULT
 

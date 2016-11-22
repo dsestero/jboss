@@ -5,7 +5,7 @@
 
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-VALID_INSTANCES=$(cat ~jboss/bin/jboss-instance-list.conf)
+VALID_INSTANCES=$(cat /usr/local/bin/jboss-instance-list.conf)
 
 START_MEM_USED=$(df -h -P|grep "opt"|awk '{print $3}')
 START_MEM_AVAIL=$(df -h -P|grep "opt"|awk '{print $4}')

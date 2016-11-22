@@ -174,10 +174,10 @@ The exported paths to backup for a given node can be collected, for instance to 
 The names of all instances defined on a node, one per line, are exported and the following code, that is actually part of class jboss::install can be used in case one needs such a file:
 
 ```
-  Concat::Fragment <<| target == '/home/jboss/bin/jboss-instance-list.conf' and tag == $::fqdn |>> {
+  Concat::Fragment <<| target == '/usr/local/bin/jboss-instance-list.conf' and tag == $::fqdn |>> {
   }
 
-  concat { '/home/jboss/bin/jboss-instance-list.conf':
+  concat { '/usr/local/bin/jboss-instance-list.conf':
     ensure => present,
   }
 
