@@ -85,6 +85,7 @@ function stop_instance()
 	                break
 	        fi
         done
+        sleep 10
         echo ""
        	PIDS=$(ps -ef|grep $1|egrep '(bin/java)|(jboss/bin/run)'|awk '{print $2}')
         if [ "x$PIDS" != "x" ]; then
