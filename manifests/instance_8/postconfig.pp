@@ -65,4 +65,17 @@ define jboss::instance_8::postconfig (
     group   => jboss,
     unless  => "grep org.apache.tomcat.util.ENABLE_MODELER ${jboss_inst_folder}/standalone/configuration/standalone.xml",
   }
+
+  # Workaround to prevent memory leak bug when using JMX
+  file { "${jboss_inst_folder}/bin/script-jmx-memleak-wkaround.txt":
+    ensure => present,
+    source => "puppet:///modules/${module_name}/bin/script-jmx-memleak-wkaround.txt",
+  } ->
+  exec { "configure_jmx_memleak-wkaround${instance_name}":
+    command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-jmx-memleak-wkaround.txt",
+    cwd     => "${jboss_inst_folder}/bin",
+    user    => jboss,
+    group   => jboss,
+    unless  => "grep jboss.remoting.pooled-buffers ${jboss_inst_folder}/standalone/configuration/standalone.xml",
+  }
 }
