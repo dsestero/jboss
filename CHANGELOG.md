@@ -1,3 +1,7 @@
+##2017-03-30 - Release - 1.2.2
+###Summary
+Added post-configuration of WildFly 8 instances to work around the memory leak bug when using JMX interface (see https://developer.jboss.org/thread/265837)
+
 ##2016-11-22 - Release - 1.2.1
 ###Summary
 Fixed: the script manage-jboss-instance now works also on RedHat distributions. The solution has been to move the file listing all jboss/wildfly instances on a node from /home/jboss/bin to /usr/local/bin; in this way it is accessible to the script manage-jboss-instances on RedHat distributions, without the need to change the default permissions on /home/jboss folder.
