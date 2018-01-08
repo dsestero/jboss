@@ -42,7 +42,7 @@ function get_destination()
 
 function status()
 {
-	PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)'|awk '{print $2}')
+	PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)|(bin/standalone)'|awk '{print $2}')
 	if [[ "x$PIDS" == "x" ]]; then
                 echo "JBoss instance $1 is NOT running"
                 STATUS=3
@@ -77,7 +77,7 @@ function stop_instance()
         echo -n "Attendo per massimo 3 minuti l'arresto naturale di JBoss"
         for i in `seq 1 18`;
         do
-                PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)'|awk '{print $2}')
+                PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)|(bin/standalone)'|awk '{print $2}')
                 if [ "x$PIDS" != "x" ]; then
 	                echo -n "."
 	                sleep 10
@@ -87,7 +87,7 @@ function stop_instance()
         done
         sleep 10
         echo ""
-       	PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)'|awk '{print $2}')
+       	PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)|(bin/standalone)'|awk '{print $2}')
         if [ "x$PIDS" != "x" ]; then
         	echo "Effettuo kill -9 $(echo $PIDS)"
         	sudo su -c "kill -9 $(echo $PIDS)" jboss
