@@ -1,5 +1,3 @@
-# = Class: jboss::alias_jboss
-#
 # Defines a utility class to add all jboss instances hostname in the hosts file.
 #
 # == Actions:

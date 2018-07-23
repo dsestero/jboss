@@ -1,0 +1,2 @@
+connect
+/system-property=jboss.remoting.pooled-buffers/:add(value=false)

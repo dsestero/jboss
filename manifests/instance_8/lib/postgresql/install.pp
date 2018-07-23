@@ -3,13 +3,11 @@
 # Utility define to copy to a specified WildFly-8.2.0 instance the postgresql
 # driver jar module.
 #
-# == Parameters:
-#
-# $instance_name::  Name of the JBoss profile and associated service
+# @param instance_name Name of the JBoss profile and associated service
 # corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $environment::    Abbreviation identifying the environment: valid values are
+# @param environment Abbreviation identifying the environment: valid values are
 # +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
@@ -39,39 +37,42 @@ define jboss::instance_8::lib::postgresql::install (
   $modulesFolder = "${jbossInstFolder}/modules/system/layers/base"
   $postgresqlModulePath = "${modulesFolder}/org/postgresql/main"
 
-  File {
-    owner => jboss,
-    group => jboss,
+  $file_ownership = {
+    'owner' => 'jboss',
+    'group' => 'jboss',
+  }
+  $exec_permission = {
+    'user'  => 'jboss',
+    'group' => 'jboss',
   }
 
-  Exec {
-    user  => jboss,
-    group => jboss,
-  }
-
+  # module definition
   exec { "create_postgresql_module_folders_${instance_name}":
     command => "mkdir -p ${postgresqlModulePath}",
     creates => $postgresqlModulePath,
+    *       => $exec_permission,
   } ->
   file { "${postgresqlModulePath}/module.xml":
     source => "puppet:///modules/${module_name}/lib/postgresql/module.xml",
+    *      => $file_ownership,
   } ->
   download_uncompress { "${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar":
     distribution_name => 'lib/postgresql-9.1-903.jdbc4.jar',
     dest_folder       => $postgresqlModulePath,
     creates           => "${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar",
-    user              => jboss,
-    group             => jboss,
+    *                 => $exec_permission,
   } ->
-  # Configurazione driver
+  # driver configuration
   file { "${binFolder}/script-driver-postgresql.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-driver-postgresql.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_driver_postgresql_${instance_name}":
     command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-postgresql.txt",
     cwd     => $binFolder,
     unless  => "grep org.postgresql ${jbossInstFolder}/standalone/configuration/standalone.xml",
+    *       => $exec_permission,
   }
 
 }

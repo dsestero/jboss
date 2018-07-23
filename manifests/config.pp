@@ -1,5 +1,3 @@
-# = Class: jboss::config
-#
 # Configures JBoss AS.
 # It is intended to be called by jboss::jboss.
 #
@@ -20,21 +18,39 @@
 #   start and stop jboss services, start and stop soffice.bin service, make
 #   <tt>su jboss</tt>.
 class jboss::config () {
-  File {
-    owner => jboss,
-    group => jboss,
+
+  file {
+    default:
+      owner => 'jboss',
+      group => 'jboss',
+      ;
+    '/home/jboss/bin/zip-delete-jboss-server-log':
+      ensure => present,
+      mode   => '0755',
+      source => "puppet:///modules/${module_name}/bin/zip-delete-jboss-server-log",
+      ;
+    '/usr/local/bin/manage-jboss-instance':
+      ensure => present,
+      mode   => '0755',
+      source => "puppet:///modules/${module_name}/bin/manage-jboss-instance",
+      ;
+    '/var/lib/jboss':
+      ensure => directory,
+      ;
+    '/var/lib/jboss/apps':
+      ensure => directory,
+      ;
+    '/var/log/jboss':
+      ensure => directory,
+      ;
+    '/var/log/jboss/server':
+      ensure => directory,
+      ;
   }
 
-  file { '/home/jboss/bin/zip-delete-jboss-server-log':
-    ensure => present,
-    mode   => '0755',
-    source => "puppet:///modules/${module_name}/bin/zip-delete-jboss-server-log",
-  }
-
-  file { '/usr/local/bin/manage-jboss-instance':
-    ensure => present,
-    mode   => '0755',
-    source => "puppet:///modules/${module_name}/bin/manage-jboss-instance",
+  file_line { 'jboss_sudoer':
+    path => '/etc/sudoers',
+    line => '%jboss ALL=/usr/bin/sudo /bin/su jboss, /bin/su jboss, /usr/bin/sudo /bin/su - jboss, /bin/su - jboss, /bin/su -c * jboss, /usr/sbin/service jboss-* *, /usr/sbin/service soffice.bin *, /bin/netstat *, /usr/bin/nmap *, /opt/puppetlabs/bin/puppet agent --enable, /opt/puppetlabs/bin/puppet agent --disable, /opt/puppetlabs/bin/puppet agent --test',
   }
 
   cron { 'logzipdelete':
@@ -44,24 +60,4 @@ class jboss::config () {
     minute  => 0,
   }
 
-  file { '/var/lib/jboss':
-    ensure => directory,
-  }
-
-  file { '/var/lib/jboss/apps':
-    ensure => directory,
-  }
-
-  file { '/var/log/jboss':
-    ensure => directory,
-  }
-
-  file { '/var/log/jboss/server':
-    ensure => directory,
-  }
-
-  file_line { 'jboss_sudoer':
-    path => '/etc/sudoers',
-    line => '%jboss ALL=/usr/bin/sudo /bin/su jboss, /bin/su jboss, /usr/bin/sudo /bin/su - jboss, /bin/su - jboss, /bin/su -c * jboss, /usr/sbin/service jboss-* *, /usr/sbin/service soffice.bin *, /bin/netstat *, /usr/bin/nmap *, /opt/puppetlabs/bin/puppet agent --enable, /opt/puppetlabs/bin/puppet agent --disable, /opt/puppetlabs/bin/puppet agent --test',
-  }
 }

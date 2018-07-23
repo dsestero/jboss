@@ -1,57 +1,53 @@
-# = Define: jboss::instance_8
-#
 # Creates, configures and set up the service for a WildFly-8.2.0.Final instance,
 # i.e. a server profile with all the
 # configurations needed to use it as an independent service.
 # *Note*: at this time the instance is created as a standalone standard profile.
 #
-# == Parameters:
-#
-# $instance_name::  Name of the JBoss profile and associated service
+# @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $ip::             Dedicated IP on which this instance will be listening.
+# @param ip Dedicated IP on which this instance will be listening.
 #                   Defaults to <tt>127.0.0.1</tt> i.e. localhost.
 #
-# $iface::          Name of the secondary network interface dedicated to this
+# @param iface Name of the secondary network interface dedicated to this
 # instance.
 #                   Defaults to +undef+, in which case a secondary network
 #                   interface to bind the jboss instance is not created.
 #
-# $environment::    Abbreviation identifying the environment: valid values are
+# @param environment Abbreviation identifying the environment: valid values are
 #                   +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #                   *Note:* hot code deployment is disabled in the environments
 #                   +prep+ and +prod+, enabled on +dev+ and +test+.
 #
-# $distribution_name:: Name of the distribution bundle to download, used for
+# @param distribution_name Name of the distribution bundle to download, used for
 #                      installing customed distributions.
 #                      Defaults to <tt> wildfly-8.2.0.Final.tar.gz</tt>
 #
-# $jbossdirname::   Name of the jboss installation folder.
+# @param jbossdirname Name of the jboss installation folder.
 #                   Defaults to +wildfly-8.2.0.Final+
 #
-# $xms::            JVM OPT for initial heap size.
+# @param xms JVM OPT for initial heap size.
 #                   Defaults to +128m+.
 #
-# $xmx::            JVM OPT for maximum heap size.
+# @param xmx JVM OPT for maximum heap size.
 #                   Defaults to +512m+.
 #
-# $max_perm_size::  JVM OPT for max permanent generations size.
+# @param max_perm_size JVM OPT for max permanent generations size.
 #                   Defaults to +256m+.
 #
-# $stack_size::     JVM OPT for stack size.
+# @param stack_size JVM OPT for stack size.
 #                   Defaults to +2048k+.
 #
-# $mgmt_user::      Management user username.
+# @param mgmt_user Management user username.
 #                   Defaults to +undef+, in which case a management user is not
 #                   created.
 #
-# $mgmt_passwd::    Management user password.
+# @param mgmt_passwd Management user password.
 #                   Defaults to +undef+.
 #
-# $backup_conf_target:: Full pathname of the backup configuration file where the
+# @param backup_conf_target Full pathname of the backup configuration file where the
 #                       instance paths to backup are added.
 #                       Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 #

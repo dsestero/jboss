@@ -15,6 +15,7 @@ define jboss::instance_8::config (
   $mgmt_passwd,
   $java_home,
   $instance_name = $title,) {
+
   $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
   $auth_string = $mgmt_user ? {
@@ -28,10 +29,9 @@ define jboss::instance_8::config (
     'prod'  => absent,
     default => present,
   }
-
-  File {
-    owner => jboss,
-    group => jboss,
+  $file_ownership = {
+  'owner' => 'jboss',
+  'group' => 'jboss',
   }
 
   jboss::instance::config { $instance_name:
@@ -40,9 +40,7 @@ define jboss::instance_8::config (
     ip          => $ip,
   }
 
-  # Link alla prima istanza jboss-8, per avere a disposizione jbosscli su un
-  # path prestabilito, ad esempio dallo strumento di
-  # monitoraggio
+  # Link to first jboss-8 instance, in order to have available jbosscli on a predefined path
   exec { "/opt/jboss-8-${instance_name}":
     command => "ln -s ${jboss_inst_folder} /opt/jboss-8",
     user    => root,
@@ -50,29 +48,31 @@ define jboss::instance_8::config (
     unless  => 'test -e /opt/jboss-8',
   }
 
-  # Script di avvio
-  file { "${jboss_inst_folder}/bin/run-${instance_name}.sh":
-    ensure  => present,
-    content => template("${module_name}/standalone-launcher.sh.erb"),
-    mode    => '0755',
+  file {
+    default:
+      ensure => present,
+      *      => $file_ownership,
+      ;
+    # Script di avvio
+    "${jboss_inst_folder}/bin/run-${instance_name}.sh":
+      content => template("${module_name}/standalone-launcher.sh.erb"),
+      mode    => '0755',
+      ;
+    # Init script
+    "/etc/init.d/jboss-${instance_name}":
+      content => template("${module_name}/${jboss::params::init_template}"),
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      ;
+    # Link log directory
+    "${jboss_inst_folder}/standalone/log":
+      ensure => link,
+      target => "/var/log/jboss/server/${instance_name}",
+      ;
   }
 
-  # Init script
-  file { "/etc/init.d/jboss-${instance_name}":
-    ensure  => present,
-    content => template("${module_name}/${jboss::params::init_template}"),
-    owner   => root,
-    group   => root,
-    mode    => '0755',
-  }
-
-  # Link a directory log
-  file { "${jboss_inst_folder}/standalone/log":
-    ensure => link,
-    target => "/var/log/jboss/server/${instance_name}",
-  }
-
-  # Directory deploy property applicative, recuperate via hiera
+  # Directory for deployment of applicative properties, retrieved via hiera
   $customConfigurationsModule = hiera('inva::custom_configurations_module',
   undef)
 
@@ -82,29 +82,35 @@ define jboss::instance_8::config (
     $modulesFolder)
     $confDir = $customConfigurationsDirs[-1]
 
-    file { $customConfigurationsDirs:
-      ensure => directory,
-    }
-
-    file { "${confDir}/module.xml":
-      ensure => present,
-      source => "puppet:///modules/${module_name}/conf/module.xml",
+    file {
+      default:
+        * => $file_ownership,
+        ;
+      $customConfigurationsDirs:
+        ensure => directory,
+        ;
+      "${confDir}/module.xml":
+        ensure => file,
+        source => "puppet:///modules/${module_name}/conf/module.xml",
+        ;
     }
   }
 
-  # jboss-cli.sh custom per impostare JAVA_HOME in modo consistente con JBoss-8
+  # Custom jboss-cli.sh that set JAVA_HOME consistently with JBoss-8
   file { "${jboss_inst_folder}/bin/myjboss-cli.sh":
-    ensure  => present,
+    ensure  => file,
     content => template("${module_name}/myjboss-cli.sh.erb"),
     mode    => '0755',
+    *       => $file_ownership,
   }
 
-  # Sicurezza console
+  # Console security
   unless $mgmt_user == undef {
     file { "${jboss_inst_folder}/bin/create_mgmt_user.ex":
-      ensure  => present,
+      ensure  => file,
       content => template("${module_name}/create_mgmt_user8.exp.erb"),
       mode    => '0700',
+      *       => $file_ownership,
     } ->
     exec { "${jboss_inst_folder}/execute_mgmt_user":
       command => "/bin/sh -c 'JAVA_HOME=${java_home} ${jboss_inst_folder}/bin/create_mgmt_user.ex'",

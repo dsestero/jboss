@@ -4,7 +4,7 @@
 #
 # == Actions:
 #
-# Install the package +expect+.
+# Install extra packages needed. At this time it installs the package +expect+.
 #
 # == Requires:
 # none
@@ -16,7 +16,10 @@
 class jboss::instance::dependencies {
   $enhancers = ['expect']
 
-  package { $enhancers:
-    ensure => installed,
+  $enhancers.each |$enhancer| {
+    package { $enhancer:
+      ensure => installed,
+    }
   }
+
 }

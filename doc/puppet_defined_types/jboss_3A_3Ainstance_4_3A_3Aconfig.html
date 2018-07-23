@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Defined Type: jboss::instance_4::config
+  
+    &mdash; Documentation by YARD 0.9.12
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_defined_types::jboss::instance_4::config";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_defined_type_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (j)</a> &raquo;
+    <span class='title'><span class='object_link'>Defined Types</span></span>
+     &raquo; 
+    <span class="title">jboss::instance_4::config</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Defined Type: jboss::instance_4::config</h1>
+<div class="box_info">
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/instance_4/config.pp
+    </dd>
+  </dl>
+</div>
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>= Define: jboss::instance_4::config</p>
+
+<p>Configures a JBoss-4-family instance, i.e. a server profile. It is intended
+to be called by jboss::instance_4.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>profile</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ip</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>iface</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>environment</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>jmxport</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>xms</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>xmx</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_perm_size</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>stack_size</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>mgmt_user</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>mgmt_passwd</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>jmx_user</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>jmx_passwd</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>instance_name</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$title</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/instance_4/config.pp', line 5</span>
+
+define jboss::instance_4::config (
+  $version,
+  $profile,
+  $ip,
+  $iface,
+  $environment,
+  $jmxport,
+  $xms,
+  $xmx,
+  $max_perm_size,
+  $stack_size,
+  $mgmt_user,
+  $mgmt_passwd,
+  $jmx_user,
+  $jmx_passwd,
+  $instance_name = $title,) {
+  $jboss_inst_folder = &quot;/opt/jboss-${version}.GA&quot;
+  $shutdown_cmd = &#39;shutdown.sh -s ${IF} -S&#39;
+
+  $ip_alias = &quot;${instance_name}-${environment}&quot;
+  $hot_deploy_status = $environment ? {
+    &#39;prep&#39;  =&gt; absent,
+    &#39;prod&#39;  =&gt; absent,
+    default =&gt; present,
+  }
+
+  File {
+    owner =&gt; jboss,
+    group =&gt; jboss,
+  }
+
+  jboss::instance::config { $instance_name:
+    environment =&gt; $environment,
+    iface       =&gt; $iface,
+    ip          =&gt; $ip,
+  }
+
+  # Script di avvio
+  file { &quot;${jboss_inst_folder}/bin/run-${instance_name}.sh&quot;:
+    ensure  =&gt; present,
+    content =&gt; template(&quot;${module_name}/run-profile4.sh.erb&quot;),
+    mode    =&gt; &#39;0755&#39;,
+  }
+
+  # Init script
+  file { &quot;/etc/init.d/jboss-${instance_name}&quot;:
+    ensure  =&gt; present,
+    content =&gt; template(&quot;${module_name}/jboss-init.erb&quot;),
+    owner   =&gt; root,
+    group   =&gt; root,
+    mode    =&gt; &#39;0755&#39;,
+  }
+
+  # Link a directory log
+  file { &quot;${jboss_inst_folder}/server/${instance_name}/log&quot;:
+    ensure =&gt; link,
+    target =&gt; &quot;/var/log/jboss/server/${instance_name}&quot;,
+  }
+
+  unless $jmxport == &#39;no_port&#39; {
+    # Sicurezza accesso JMX
+    file { &quot;${jboss_inst_folder}/server/${instance_name}/conf/jmxremote.access&quot;:
+      ensure  =&gt; present,
+      content =&gt; template(&quot;${module_name}/conf/jmxremote.access.erb&quot;),
+      mode    =&gt; &#39;0400&#39;,
+    }
+
+    file { &quot;${jboss_inst_folder}/server/${instance_name}/conf/jmxremote.password&quot;
+    :
+      ensure  =&gt; present,
+      content =&gt; template(&quot;${module_name}/conf/jmxremote.password.erb&quot;),
+      mode    =&gt; &#39;0400&#39;,
+    }
+  }
+
+  unless $mgmt_user == undef {
+    # Sicurezza console
+    file { &quot;${jboss_inst_folder}/server/${instance_name}/conf/props/jmx-console-roles.properties&quot;
+    :
+      ensure  =&gt; present,
+      content =&gt; template(&quot;${module_name}/conf/props/jmx-console-roles.properties.erb&quot;
+      ),
+      mode    =&gt; &#39;0644&#39;,
+    }
+
+    file { &quot;${jboss_inst_folder}/server/${instance_name}/conf/props/jmx-console-users.properties&quot;
+    :
+      ensure  =&gt; present,
+      content =&gt; template(&quot;${module_name}/conf/props/jmx-console-users.properties.erb&quot;
+      ),
+      mode    =&gt; &#39;0600&#39;,
+    }
+
+    file { &quot;${jboss_inst_folder}/server/${instance_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml&quot;
+    :
+      ensure =&gt; present,
+      source =&gt; &quot;puppet:///modules/${module_name}/deploy/jmx-console.war/WEB-INF/jboss-web.xml&quot;,
+    }
+
+    file { &quot;${jboss_inst_folder}/server/${instance_name}/deploy/jmx-console.war/WEB-INF/web.xml&quot;
+    :
+      ensure =&gt; present,
+      source =&gt; &quot;puppet:///modules/${module_name}/deploy/jmx-console.war/WEB-INF/web.xml&quot;,
+    }
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

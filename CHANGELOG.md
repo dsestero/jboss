@@ -1,3 +1,16 @@
+##2018-07-23 - Release - 2.1.0
+###Summary
+Added possibility to configure WildFly-12 instances.
+
+##2018-01-09 - Release - 2.0.0
+###Summary
+Full revision of all WildFly-8 related code to comply with Puppet 4/5 new recommended style.
+Some Italian strings left in comments translated to English.
+WildFly-8 related code no more compatible with Puppet 3.
+
+####Bugfixes
+Some bugs in the grep expressions used to catch the running instance pid in the management script (`manage-jboss-instance`) have been fixed.
+
 ##2017-03-30 - Release - 1.2.2
 ###Summary
 Added post-configuration of WildFly 8 instances to work around the memory leak bug when using JMX interface (see https://developer.jboss.org/thread/265837)

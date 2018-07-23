@@ -1,10 +1,5 @@
-# = Class: jboss
-#
 # Installs and set up standard directories for JBoss AS.
 #
-# == Parameters:
-#
-# None.
 # == Actions:
 #
 # Declares all other classes in the jboss module needed for installing JBoss.

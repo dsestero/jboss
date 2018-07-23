@@ -1,0 +1,2 @@
+connect
+/subsystem=undertow/server=default-server/ajp-listener=defaultAJPListener:add(socket-binding=ajp, enabled=true)

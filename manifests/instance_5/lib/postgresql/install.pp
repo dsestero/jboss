@@ -3,9 +3,7 @@
 # Utility define to copy to a specified instance lib folder the Postgresql driver
 # jar.
 #
-# == Parameters:
-#
-# $instance_name::  Name of the JBoss profile and associated service
+# @param instance_name Name of the JBoss profile and associated service
 # corresponding to this instance.
 #                   Defaults to the resource title.
 #

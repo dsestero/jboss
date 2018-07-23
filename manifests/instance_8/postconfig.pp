@@ -1,7 +1,7 @@
 # = Define: jboss::instance_8::postconfig
 #
 # Configures a running JBoss-8 instance via jboss-cli.
-# It is intended to be called by jboss::instance_7.
+# It is intended to be called by jboss::instance_8.
 define jboss::instance_8::postconfig (
   $ip,
   $iface,
@@ -10,6 +10,7 @@ define jboss::instance_8::postconfig (
   $mgmt_user,
   $mgmt_passwd,
   $instance_name = $title,) {
+
   $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
   $auth_string = $mgmt_user ? {
@@ -21,16 +22,16 @@ define jboss::instance_8::postconfig (
     'prod'  => absent,
     default => present,
   }
-
-  File {
-    owner => jboss,
-    group => jboss,
+  $file_ownership = {
+    'owner' => 'jboss',
+    'group' => 'jboss',
   }
 
-  # Configurazione log
+  # log configuration
   file { "${jboss_inst_folder}/bin/script-logger-prestazioni.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-logger-prestazioni.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_logger_prestazioni_${instance_name}":
     command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-logger-prestazioni.txt",
@@ -40,10 +41,11 @@ define jboss::instance_8::postconfig (
     unless  => "grep prestazioni ${jboss_inst_folder}/standalone/configuration/standalone.xml",
   }
 
-  # Configurazione ajp
+  # ajp configuration
   file { "${jboss_inst_folder}/bin/script-ajp.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-ajp8.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_ajp_${instance_name}":
     command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-ajp.txt",
@@ -53,10 +55,11 @@ define jboss::instance_8::postconfig (
     unless  => "grep defaultAJPListener ${jboss_inst_folder}/standalone/configuration/standalone.xml",
   }
 
-  # Configurazione JMX
+  # jmx configuration
   file { "${jboss_inst_folder}/bin/script-jmx.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-jmx8.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_jmx_${instance_name}":
     command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-jmx.txt",
@@ -70,6 +73,7 @@ define jboss::instance_8::postconfig (
   file { "${jboss_inst_folder}/bin/script-jmx-memleak-wkaround.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-jmx-memleak-wkaround.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_jmx_memleak-wkaround${instance_name}":
     command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-jmx-memleak-wkaround.txt",

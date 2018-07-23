@@ -1,0 +1,39 @@
+{
+  "name": "dsestero-jboss",
+  "version": "1.1.1",
+  "author": "Dario Sestero",
+  "summary": "Manage installation and set up of JBoss 4, 5, 7, and WildFly 8 instances.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/dsestero/jboss.git",
+  "project_page": "https://github.com/dsestero/jboss",
+  "issues_url": "https://github.com/dsestero/jboss/issues",
+  "dependencies": [
+    {"name":"dsestero/download_uncompress","version_requirement":"1.x"},
+    {"name":"dsestero/java","version_requirement":"1.x"},
+    {"name":"puppetlabs/concat","version_requirement":"2.x"},
+    {"name":"puppetlabs/stdlib","version_requirement":"4.x"}
+  ],
+  "data_provider": null,
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04"
+      ]
+    }
+  ],
+  "tags": [
+    "application_server",
+    "java",
+    "jboss",
+    "jee",
+    "middleware",
+    "wildfly"
+  ]
+}

@@ -11,11 +11,6 @@ define jboss::instance_8::install (
   $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
 
-  File {
-    owner => jboss,
-    group => jboss,
-  }
-
   include java::java_7, jboss::instance::dependencies
 
   $require = [Class['jboss'], Class['jboss::jboss_8']]
@@ -36,19 +31,19 @@ define jboss::instance_8::install (
   @@concat::fragment { "${ip_alias}-modules":
     target  => $backup_conf_target,
     content => "${jboss_inst_folder}/modules/system/layers/base\n",
-    tag     => [$::environment, $::fqdn],
+    tag     => [$::environment, $facts['networking']['fqdn']],
   }
 
   @@concat::fragment { "${ip_alias}-standalone-configuration":
     target  => $backup_conf_target,
     content => "${jboss_inst_folder}/standalone/configuration\n",
-    tag     => [$::environment, $::fqdn],
+    tag     => [$::environment, $facts['networking']['fqdn']],
   }
 
   @@concat::fragment { "${ip_alias}-standalone-deployments":
     target  => $backup_conf_target,
     content => "${jboss_inst_folder}/standalone/deployments\n",
-    tag     => [$::environment, $::fqdn],
+    tag     => [$::environment, $facts['networking']['fqdn']],
   }
 
 }

@@ -10,22 +10,20 @@ define jboss::instance::config (
   tag 'jboss-instance'
   $ip_alias = "${instance_name}-${environment}"
 
-  File {
-    owner => jboss,
-    group => jboss,
+  $file_ownership = {
+    'owner' => 'root',
+    'group' => 'root',
   }
 
-  # Interfaccia di rete dedicata
+  # dedicated network interface
   unless $iface == undef {
     if !has_interface_with('ipaddress', $ip) and !has_interface_with($iface) {
-      # Interfaccia di rete dedicata
-      case $::osfamily {
+      case $facts['os']['family'] {
         'Debian': {
           file { "/etc/network/interface-${instance_name}":
             ensure  => present,
             content => template("${module_name}/interfaces.erb"),
-            owner   => root,
-            group   => root,
+            *       => $file_ownership,
           } ->
           exec { "addIface-${instance_name}":
             command => "cat /etc/network/interface-${instance_name} >> /etc/network/interfaces",
@@ -39,21 +37,20 @@ define jboss::instance::config (
           file { "/etc/sysconfig/network-scripts/ifcfg-${iface}":
             ensure  => present,
             content => template("${module_name}/ifcfg.erb"),
-            owner   => root,
-            group   => root,
+            *       => $file_ownership,
           } ~>
           exec { "ifup-${iface}":
             command => "ifup ${iface}",
           }
         }
         default: {
-          fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
+          fail("The ${module_name} module is not supported on an ${facts['os']['family']} distribution.")
         }
       }
     }
   }
 
-  # Nome logico istanza in /etc/hosts
+  # logic name for the instance /etc/hosts
   @@host { $ip_alias:
     ensure => present,
     ip     => $ip,

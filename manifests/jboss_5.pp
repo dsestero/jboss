@@ -1,5 +1,3 @@
-# = Class: jboss::jboss_5
-#
 # Installs JBoss-5.1.0.GA.
 #
 # == Actions:

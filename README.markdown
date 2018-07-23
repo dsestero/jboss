@@ -15,7 +15,7 @@ sudo #jboss
 
 ##Overview
 
-This is the jboss module. It provides classes and defines to install, configure, and create services for jboss instances for the versions 4, 5, 7 of JBoss-GA and WildFly-8.
+This is the jboss module. It provides classes and defines to install, configure, and create services for jboss instances for the versions 4, 5, 7 of JBoss-GA, WildFly-8 and WildFly-12.
 
 ##Module Description
 
@@ -25,8 +25,9 @@ Creates, configures and sets up the service, i.e. a server profile with all the 
 * JBoss-5.1.0.GA
 * JBoss-7.1.1.Final
 * WildFly-8.2.0.Final
+* WildFly-12.0.0.Final
 
-*Note*: at this time the 7 and 8 instances are created as standalone standard profiles.
+*Note*: at this time WildFly instances are created as standalone standard profiles.
 
 The module takes care to set up a secondary network interface on which the instance will be listening.
 
@@ -48,7 +49,7 @@ The module impact in various ways on the node:
 * a script to zip and delete old logs in `/var/jboss/server/[instance_name]` folder is installed in `/home/jboss/bin` and scheduled as a cron job of the jboss user;
 * a script to ease the management of JBoss services is installed in `/usr/local/bin`;
 * JBoss-4 and JBoss-5 instances will include the installation of Java-6 while Jboss-7 and WildFly-8 instances will include the installation of Java-7.
-* if WildFly-8 instances are installed on a node then a symbolic link `/opt/jboss-8` is created to one of them in order to have the possibility to access the scripts in the WildFly `bin` directory on a standard path (e.g. to access jboss-cli.sh in postconfig manifests).
+* if WildFly-8 instances are installed on a node then a symbolic link `/opt/jboss-8` is created to one of them in order to have the possibility to access the scripts in the WildFly `bin` directory on a standard path (e.g. to access jboss-cli.sh in postconfig manifests).CHECK
 
 If PuppetDB is installed the module exports two kind of resources:
 
@@ -57,7 +58,7 @@ If PuppetDB is installed the module exports two kind of resources:
 
 The module provides a class `jboss::alias_jboss` that use the first above mentioned exported resource to define a utility class to add all jboss instances hostnames in the hosts file of a node.
 
-For JBoss instances 5, 7, and 8 JBoss logs will be configured with a special category 'LoggerPrestazioni' that appends to a DailyRollingFileAppender named `prestazioni.log`. We use such category to log timings of the different servlets, in order to evaluate overall performances of the webapps.
+For JBoss instances 5, 7, 8 and 12 JBoss logs will be configured with a special category 'LoggerPrestazioni' that appends to a DailyRollingFileAppender named `prestazioni.log`. We use such category to log timings of the different servlets, in order to evaluate overall performances of the webapps.
 
 In order to prevent Puppet to alter specific instance configuration files the general rule followed is to create required JBoss-instance specific configurations (like the above affecting logs) only when they are absent and leaving the files untouched if the configurations already exist.
 
@@ -118,7 +119,7 @@ If `ip` is provided but no `iface` then the instance will listen on the specifie
 It is possible to specify additional attributes like the Xms and Xmx (start and maximum heap memory used by the instance) or the smtp configurations for the JBoss mail service:
 
 ```
-  jboss::instance_5 { 'agri1':
+  jboss::instance_5 { 'instanceName':
     profile     => 'web',
     ws_enabled  => true,
     environment => 'prod',
@@ -126,11 +127,11 @@ It is possible to specify additional attributes like the Xms and Xmx (start and 
     iface       => 'eth0:1',
     jmxport     => '12345',
     xmx         => '1024m',
-    mgmt_user   => 'admin',
-    mgmt_passwd => 'jboss@2009',
-    jmx_user    => 'zabbixinva',
-    jmx_passwd  => 'z3n055__',
-    smtp_ip     => '172.16.10.76',
+    mgmt_user   => 'admin_user',
+    mgmt_passwd => 'suitable_password',
+    jmx_user    => 'jmx_user_eg_zabbixmon',
+    jmx_passwd  => 'suitable_jmx_password',
+    smtp_ip     => '172.16.10.10',
     smtp_domain => 'regione.vda.it',
   } ->
   jboss::instance_5::lib::oracle::install { 'agri1':
@@ -163,7 +164,7 @@ It is possible to concatenate the declarations for specific libraries as in, for
 The exported paths to backup for a given node can be collected, for instance to configure a backup, script with a declaration like the following:
 
 ```
-  Concat::Fragment <<| target == '/usr/local/bin/backupall.sh.conf' and tag == $::fqdn |>> {
+  Concat::Fragment <<| target == '/usr/local/bin/backupall.sh.conf' and tag == $facts['networking']['fqdn'] |>> {
   }
 
   concat { '/usr/local/bin/backupall.sh.conf':
@@ -174,7 +175,7 @@ The exported paths to backup for a given node can be collected, for instance to 
 The names of all instances defined on a node, one per line, are exported and the following code, that is actually part of class jboss::install can be used in case one needs such a file:
 
 ```
-  Concat::Fragment <<| target == '/usr/local/bin/jboss-instance-list.conf' and tag == $::fqdn |>> {
+  Concat::Fragment <<| target == '/usr/local/bin/jboss-instance-list.conf' and tag == $facts['networking']['fqdn'] |>> {
   }
 
   concat { '/usr/local/bin/jboss-instance-list.conf':

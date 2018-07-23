@@ -5,11 +5,11 @@
 #
 # == Parameters:
 #
-# $instance_name::  Name of the JBoss profile and associated service
+# @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $environment::    Abbreviation identifying the environment: valid values are
+# @param environment Abbreviation identifying the environment: valid values are
 #                   +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #

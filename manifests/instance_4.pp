@@ -1,73 +1,54 @@
-# = Define: jboss::instance_4
-#
 # Creates, configures and set up the service for a JBoss-4.0.5.GA instance,
 # i.e. a server profile with all the
 # configurations needed to use it as an independent service.
 #
-# == Parameters:
-#
-# $instance_name::  Name of the JBoss profile and associated service
+# @param instance_name name of the JBoss profile and associated service
 #                   corresponding to this instance.
-#                   Defaults to the resource title.
 #
-# $version::        JBoss version. It has to be a three number string denoting a
+# @param version JBoss version. It has to be a three number string denoting a
 #                   specific version in the JBoss-4 family.
 #
-# $profile::        Name of the standard JBoss profile from which this one is
+# @param profile name of the standard JBoss profile from which this one is
 #                   derived.
 #                   As of JBoss-4.0.5.GA different profiles are provided with a
 #                   different level of services made available; they
 #                   are:
 #                   +minimal+, +web+, +default+, +all+.
-#                   Defaults to +default+.
 #
-# $ip::             Dedicated IP on which this instance will be listening.
-#                   Defaults to <tt>127.0.0.1</tt> i.e. localhost.
+# @param ip dedicated IP on which this instance will be listening.
 #
-# $iface::          Name of the secondary network interface dedicated to this
+# @param iface name of the secondary network interface dedicated to this
 #                   instance.
-#                   Defaults to +undef+, in which case a secondary network
+#                   When the value is +undef+, a secondary network
 #                   interface to bind the jboss instance is not created.
 #
-# $environment::    Abbreviation identifying the environment: valid values are
+# @param environment abbreviation identifying the environment: valid values are
 #                   +dev+, +test+, +prep+, +prod+.
-#                   Defaults to +dev+.
 #                   *Note:* hot code deployment is disabled in the environments
 #                   +prep+ and +prod+, enabled on +dev+ and +test+.
 #
-# $jmxport::        JMX port to use to monitor this instance.
-#                   Defaults to +'no_port'+, in which case no JMX monitoring is
-#                   activated.
+# @param jmxport JMX port to use to monitor this instance.
+#                   When the value is +no_port+, no JMX monitoring is activated.
 #
-# $xms::            JVM OPT for initial heap size.
-#                   Defaults to +128m+.
+# @param xms JVM OPT for initial heap size.
 #
-# $xmx::            JVM OPT for maximum heap size.
-#                   Defaults to +512m+.
+# @param xmx JVM OPT for maximum heap size.
 #
-# $max_perm_size::  JVM OPT for max permanent generations size.
-#                   Defaults to +256m+.
+# @param max_perm_size JVM OPT for max permanent generations size.
 #
-# $stack_size::     JVM OPT for stack size.
-#                   Defaults to +2048k+.
+# @param stack_size JVM OPT for stack size.
 #
-# $mgmt_user::      Management user username.
-#                   Defaults to +undef+, in which case no security is enforced
-#                   on the JBoss console.
+# @param mgmt_user management user username.
+#                   When the value is +undef+, no security is enforced on the JBoss console.
 #
-# $mgmt_passwd::    Management user password.
-#                   Defaults to +undef+.
+# @param mgmt_passwd management user password.
 #
-# $jmx_user::       JMX user username.
-#                   Defaults to +undef+.
+# @param jmx_user JMX user username.
 #
-# $jmx_passwd::     JMX user password.
-#                   Defaults to +undef+.
+# @param jmx_passwd JMX user password.
 #
-# $backup_conf_target:: Full pathname of the backup configuration file where the
-#                       instance paths
-#                       to backup are added.
-#                       Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
+# @param backup_conf_target full pathname of the backup configuration file where the
+#                       instance paths to backup are added.
 #
 # == Actions:
 #
@@ -81,8 +62,7 @@
 # * Class['jboss'] for installing and setting up basic jboss environment.
 # * Class['java::java_6'] for installing and setting up java6-jdk.
 #
-# == Sample usage:
-#
+# @example Declaring jboss 4 instance
 #  jboss::instance_4 { 'fina':
 #    profile     => 'all',
 #    environment => 'preprod',

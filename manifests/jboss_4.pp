@@ -1,5 +1,3 @@
-# = Define: jboss::jboss_4
-#
 # Installs JBoss-4. The resource title has to be an unique name identifying the
 # JBoss installation and it could be used to specify
 # the desired version.
@@ -7,13 +5,11 @@
 # <tt>4.0.5</tt>, <tt>4.2.0</tt>, <tt>4.2.1</tt>,
 # <tt>4.2.2</tt>, <tt>4.2.3</tt>.
 #
-# == Parameters:
-#
-# $version::   JBoss version. It has to be a three number string denoting a
+# @param version JBoss version. It has to be a three number string denoting a
 #              specific version in the JBoss-4 family.
 #              Defaults to the resource title.
 #
-# $jdksuffix:: The string indicating the possible suffix of the filename to
+# @param jdksuffix The string indicating the possible suffix of the filename to
 #              specify the jdk used to compile the distribution.
 #              Defaults to ''.
 #

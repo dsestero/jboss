@@ -1,0 +1,20 @@
+#!/bin/bash
+
+export JAVA_HOME=<%= @java_home %>
+export INSTANCE_HOME=<%= @jboss_inst_folder %>
+
+# JAVA_OPTS inizializzato come in run.conf
+JAVA_OPTS="-server -Xms<%= @xms %> -Xmx<%= @xmx %> -XX:MaxPermSize=<%= @max_perm_size %> -Xss<%= @stack_size %> -Djboss.bind.address.management=<%= @ip_alias %> -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
+
+JMX_OPTS=""
+
+#-Dcom.sun.management.jmxremote.password.file=<%= @jboss_inst_folder %>/server/<%= @instance_name %>/conf/jmxremote.password \
+#-Dcom.sun.management.jmxremote.access.file=<%= @jboss_inst_folder %>/server/<%= @instance_name %>/conf/jmxremote.access \
+
+# Sample JPDA settings for remote socket debugging
+#JAVA_OPTS="$JAVA_OPTS -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n"
+
+export JAVA_OPTS="${JAVA_OPTS} ${JMX_OPTS}"
+
+<%= @jboss_inst_folder %>/bin/standalone.sh -b <%= @ip_alias %> 1>>/var/log/jboss/server/<%= @instance_name %>/jboss_out.log 2>>/var/log/jboss/server/<%= @instance_name %>/jboss_err.log
+

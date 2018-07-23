@@ -3,15 +3,15 @@
 # Utility define to add to a specified instance the Oracle persistence service
 # for <tt>DefaultDS</tt>.
 #
-# $instance_name::  Name of the JBoss profile and associated service
+# @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $conn_url_suffix:: Suffix of the connection url string, containing the ip
+# @param conn_url_suffix Suffix of the connection url string, containing the ip
 # address of the rdbms, the port number, and the SID
 # separated by colon.
-# $conn_url_username:: Username for accessing the rdbms.
-# $conn_url_password:: Password for accessing the rdbms.
+# @param conn_url_username Username for accessing the rdbms.
+# @param conn_url_password Password for accessing the rdbms.
 #
 # == Actions:
 #

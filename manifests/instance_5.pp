@@ -1,16 +1,12 @@
-# = Define: jboss::instance_5
-#
 # Creates, configures and set up the service for a JBoss-5.1.0.GA instance,
 # i.e. a server profile with all the
 # configurations needed to use it as an independent service.
 #
-# == Parameters:
-#
-# $instance_name::  Name of the JBoss profile and associated service
+# @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# $profile::        Name of the standard JBoss profile from which this one is
+# @param profile Name of the standard JBoss profile from which this one is
 #                   derived.
 #                   As of JBoss-5.1.0.GA different profiles are provided with a
 #                   different level of services made available; they
@@ -18,68 +14,69 @@
 #                   +minimal+, +web+, +default+, +all+.
 #                   Defaults to +default+.
 #
-# $ip::             Dedicated IP on which this instance will be listening.
+# @param ip Dedicated IP on which this instance will be listening.
 #                   Defaults to <tt>127.0.0.1</tt> i.e. localhost.
 #
-# $iface::          Name of the secondary network interface dedicated to this
+# @param iface Name of the secondary network interface dedicated to this
 #                   instance.
 #                   Defaults to +undef+, in which case a secondary network
 #                   interface to bind the jboss instance is not created.
 #
-# $environment::    Abbreviation identifying the environment: valid values are
+# @param environment Abbreviation identifying the environment: valid values are
 #                   +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #                   *Note:* hot code deployment is disabled in the environments
 #                   +prep+ and +prod+, enabled on +dev+ and +test+.
 #
-# $jmxport::        JMX port to use to monitor this instance.
+# @param jmxport JMX port to use to monitor this instance.
 #                   Defaults to +no_port+, in which case no JMX monitoring is
 #                   activated.
 #
-# $ws_enabled::     +true+ if deploying a web profile that has to be enabled for
-#                   jbossws.
-#                   Defaults to +false+.
+# @param ws_enabled enable web services on the profile
 #
-# $xms::            JVM OPT for initial heap size.
+#                   ``true`` deploy a web profile enabled for jbossws.
+#                   ``false`` (Default) do not deploy web services infrastructure.
+#
+# @param xms JVM OPT for initial heap size.
 #                   Defaults to +128m+.
 #
-# $xmx::            JVM OPT for maximum heap size.
+# @param xmx JVM OPT for maximum heap size.
 #                   Defaults to +512m+.
 #
-# $max_perm_size::  JVM OPT for max permanent generations size.
+# @param max_perm_size JVM OPT for max permanent generations size.
 #                   Defaults to +256m+.
 #
-# $stack_size::     JVM OPT for stack size.
+# @param stack_size JVM OPT for stack size.
 #                   Defaults to +2048k+.
 #
-# $extra_jvm_pars:: extra JVM OPTS.
+# @param extra_jvm_pars extra JVM OPTS.
 #                   Defaults to ''.
 #
-# $mgmt_user::      Management user username.
+# @param mgmt_user Management user username.
 #                   Defaults to +undef+, in which case no security is enforced
 #                   on the JBoss console.
 #
-# $mgmt_passwd::    Management user password.
+# @param mgmt_passwd Management user password.
 #                   Defaults to +undef+.
 #
-# $jmx_user::       JMX user username.
+# @param jmx_user JMX user username.
 #                   Defaults to +undef+.
 #
-# $jmx_passwd::     JMX user password.
+# @param jmx_passwd JMX user password.
 #                   Defaults to +undef+.
 #
-# $smtp_ip::        IP of the smtp server used by the JBoss mail service.
+# @param smtp_ip IP of the smtp server used by the JBoss mail service.
 #                   Defaults to +undef+, in which case the mail service is not
 #                   configured.
 #
-# $smtp_port::      Port of the smtp server used by the JBoss mail service.
+# @param smtp_port Port of the smtp server used by the JBoss mail service.
 #                   Defaults to +25+.
 #
-# $smtp_domain::    What will appear as default sender domain of the emails sent
+# @param smtp_domain What will appear as default sender domain of the emails sent
 #                   by the JBoss mail service.
 #                   Defaults to <tt>nosuchhost.nosuchdomain.com<tt>.
 #
-# $backup_conf_target:: Full pathname of the backup configuration file where the
+# @param backup_conf_target Full pathname of the backup configuration file where the
 #                       instance paths
 #                       to backup are added.
 #                       Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
@@ -96,8 +93,7 @@
 # * Class['jboss'] for installing and setting up basic jboss environment.
 # * Class['java::java_6'] for installing and setting up java6-jdk.
 #
-# == Sample usage:
-#
+# @example Declaring jboss 5 instance
 #  jboss::instance { 'fina':
 #    profile     => 'all',
 #    environment => 'preprod',
