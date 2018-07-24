@@ -75,7 +75,7 @@ define jboss::instance_7::config (
   }
 
   # Directory deploy property applicative, recuperate via lookup
-  $customConfigurationsModule = lookup('inva::custom_configurations_module', Optional[Tuple[String]], 'first', undef)
+  $customConfigurationsModule = lookup('inva::custom_configurations_module', Optional[Tuple[String], 4], 'first', undef)
 
   if $customConfigurationsModule != undef {
     $modulesFolder = "${jboss_inst_folder}/modules/"
