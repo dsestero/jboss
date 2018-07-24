@@ -450,8 +450,8 @@ define jboss::instance_7::config (
     target =&gt; &quot;/var/log/jboss/server/${instance_name}&quot;,
   }
 
-  # Directory deploy property applicative, recuperate via hiera
-  $customConfigurationsModule = hiera(&#39;inva::custom_configurations_module&#39;,
+  # Directory deploy property applicative, recuperate via lookup
+  $customConfigurationsModule = lookup(&#39;inva::custom_configurations_module&#39;, Optional[String], 'first',
   undef)
 
   if $customConfigurationsModule != undef {

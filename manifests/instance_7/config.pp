@@ -74,9 +74,8 @@ define jboss::instance_7::config (
     target => "/var/log/jboss/server/${instance_name}",
   }
 
-  # Directory deploy property applicative, recuperate via hiera
-  $customConfigurationsModule = hiera('inva::custom_configurations_module',
-  undef)
+  # Directory deploy property applicative, recuperate via lookup
+  $customConfigurationsModule = lookup('inva::custom_configurations_module', Optional[String], 'first', undef)
 
   if $customConfigurationsModule != undef {
     $modulesFolder = "${jboss_inst_folder}/modules/"

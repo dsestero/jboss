@@ -72,9 +72,8 @@ define jboss::instance_12::config (
       ;
   }
 
-  # Directory for deployment of applicative properties, retrieved via hiera
-  $customConfigurationsModule = hiera('inva::custom_configurations_module',
-  undef)
+  # Directory for deployment of applicative properties, retrieved via lookup
+  $customConfigurationsModule = lookup('inva::custom_configurations_module', Optional[String], 'first', undef)
 
   if $customConfigurationsModule != undef {
     $modulesFolder = "${jboss_inst_folder}/modules/system/layers/base/"
