@@ -63,7 +63,7 @@ define jboss::instance_7::lib::postgresql::install (
     source => "puppet:///modules/${module_name}/bin/script-driver-postgresql.txt",
   } ->
   exec { "configure_driver_postgresql_${instance_name}":
-    command => "${binFolder}/jboss-cli.sh --controller=${ip_alias} --file=script-driver-postgresql.txt",
+    command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-postgresql.txt",
     cwd     => $binFolder,
     user    => jboss,
     group   => jboss,

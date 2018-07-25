@@ -63,7 +63,7 @@ define jboss::instance_7::lib::sqlserver::install (
     source => "puppet:///modules/${module_name}/bin/script-driver-sqlserver.txt",
   } ->
   exec { "configure_driver_sqlserver_${instance_name}":
-    command => "${binFolder}/jboss-cli.sh --controller=${ip_alias} --file=script-driver-sqlserver.txt",
+    command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-sqlserver.txt",
     cwd     => $binFolder,
     user    => jboss,
     group   => jboss,

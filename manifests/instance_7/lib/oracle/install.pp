@@ -63,7 +63,7 @@ define jboss::instance_7::lib::oracle::install (
     source => "puppet:///modules/${module_name}/bin/script-driver-oracle.txt",
   } ->
   exec { "configure_driver_oracle_${instance_name}":
-    command => "${binFolder}/jboss-cli.sh --controller=${ip_alias} --file=script-driver-oracle.txt",
+    command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-oracle.txt",
     cwd     => $binFolder,
     user    => jboss,
     group   => jboss,

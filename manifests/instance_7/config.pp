@@ -23,17 +23,16 @@ define jboss::instance_7::config (
     undef   => '',
     default => "--user=${mgmt_user} --password=${mgmt_passwd}",
   }
-  $shutdown_cmd = "jboss-cli.sh --connect --controller=${ip_alias}:9999 ${auth_string} command=:shutdown"
+  $shutdown_cmd = "myjboss-cli.sh --connect --controller=${ip_alias}:9999 ${auth_string} command=:shutdown"
 
   $hot_deploy_status = $environment ? {
     'prep'  => absent,
     'prod'  => absent,
     default => present,
   }
-
-  File {
-    owner => jboss,
-    group => jboss,
+  $file_ownership = {
+    'owner' => 'jboss',
+    'group' => 'jboss',
   }
 
   jboss::instance::config { $instance_name:
@@ -42,9 +41,7 @@ define jboss::instance_7::config (
     ip          => $ip,
   }
 
-  # Link alla prima istanza jboss-7, per avere a disposizione jbosscli su un
-  # path prestabilito, ad esempio dallo strumento di
-  # monitoraggio
+  # Link to first jboss-7 instance, in order to have available jbosscli on a predefined path
   exec { "/opt/jboss-7-${instance_name}":
     command => "ln -s ${jboss_inst_folder} /opt/jboss-7",
     user    => root,
@@ -52,29 +49,31 @@ define jboss::instance_7::config (
     unless  => 'test -e /opt/jboss-7',
   }
 
-  # Script di avvio
-  file { "${jboss_inst_folder}/bin/run-${instance_name}.sh":
-    ensure  => present,
-    content => template("${module_name}/standalone-launcher.sh.erb"),
-    mode    => '0755',
+  file {
+    default:
+      ensure => present,
+      *      => $file_ownership,
+    ;
+    # Startup script
+    "${jboss_inst_folder}/bin/run-${instance_name}.sh":
+      content => template("${module_name}/standalone-launcher.sh.erb"),
+      mode    => '0755',
+    ;
+    # Init script
+    "/etc/init.d/jboss-${instance_name}":
+      content => template("${module_name}/${jboss::params::init_template}"),
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+    ;
+    # Link log directory
+    "${jboss_inst_folder}/standalone/log":
+      ensure => link,
+      target => "/var/log/jboss/server/${instance_name}",
+    ;
   }
 
-  # Init script
-  file { "/etc/init.d/jboss-${instance_name}":
-    ensure  => present,
-    content => template("${module_name}/jboss-init.erb"),
-    owner   => root,
-    group   => root,
-    mode    => '0755',
-  }
-
-  # Link a directory log
-  file { "${jboss_inst_folder}/standalone/log":
-    ensure => link,
-    target => "/var/log/jboss/server/${instance_name}",
-  }
-
-  # Directory deploy property applicative, recuperate via lookup
+  # Directory for deployment of applicative properties, retrieved via lookup
   $customConfigurationsModule = lookup('inva::custom_configurations_module', Optional[Tuple[String, 1, 5]], 'first', undef)
 
   if $customConfigurationsModule != undef {
@@ -83,17 +82,29 @@ define jboss::instance_7::config (
     $modulesFolder)
     $confDir = $customConfigurationsDirs[-1]
 
-    file { $customConfigurationsDirs:
-      ensure => directory,
-    }
-
-    file { "${confDir}/module.xml":
-      ensure => present,
-      source => "puppet:///modules/${module_name}/conf/module.xml",
+    file {
+      default:
+        * => $file_ownership,
+      ;
+      $customConfigurationsDirs:
+        ensure => directory,
+      ;
+      "${confDir}/module.xml":
+        ensure => file,
+        source => "puppet:///modules/${module_name}/conf/module.xml",
+      ;
     }
   }
 
-  #  Sicurezza accesso JMX
+  # Custom jboss-cli.sh that set JAVA_HOME consistently with JBoss-7
+  file { "${jboss_inst_folder}/bin/myjboss-cli.sh":
+    ensure  => file,
+    content => template("${module_name}/myjboss-cli.sh.erb"),
+    mode    => '0755',
+    *       => $file_ownership,
+  }
+
+  #  JMX security
   unless $jmx_user == undef {
     file { "${jboss_inst_folder}/bin/create_jmx_user.ex":
       ensure  => present,
@@ -109,15 +120,16 @@ define jboss::instance_7::config (
     }
   }
 
-  #  Sicurezza console
+  #  Console security
   unless $mgmt_user == undef {
     file { "${jboss_inst_folder}/bin/create_mgmt_user.ex":
-      ensure  => present,
+      ensure  => file,
       content => template("${module_name}/create_mgmt_user.exp.erb"),
       mode    => '0700',
+      *       => $file_ownership,
     } ->
     exec { "${jboss_inst_folder}/execute_mgmt_user":
-      command => "${jboss_inst_folder}/bin/create_mgmt_user.ex",
+      command => "/bin/sh -c 'JAVA_HOME=${java_home} ${jboss_inst_folder}/bin/create_mgmt_user.ex",
       cwd     => "${jboss_inst_folder}/bin",
       user    => jboss,
       group   => jboss,

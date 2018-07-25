@@ -35,7 +35,7 @@ define jboss::instance_7::postconfig (
     source => "puppet:///modules/${module_name}/bin/script-logger-prestazioni.txt",
   } ->
   exec { "configure_logger_prestazioni_${instance_name}":
-    command => "${jboss_inst_folder}/bin/jboss-cli.sh --controller=${ip_alias} --file=script-logger-prestazioni.txt",
+    command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-logger-prestazioni.txt",
     cwd     => "${jboss_inst_folder}/bin",
     user    => jboss,
     group   => jboss,
@@ -48,7 +48,7 @@ define jboss::instance_7::postconfig (
     source => "puppet:///modules/${module_name}/bin/script-ajp.txt",
   } ->
   exec { "configure_ajp_${instance_name}":
-    command => "${jboss_inst_folder}/bin/jboss-cli.sh --controller=${ip_alias} --file=script-ajp.txt",
+    command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-ajp.txt",
     cwd     => "${jboss_inst_folder}/bin",
     user    => jboss,
     group   => jboss,
@@ -61,7 +61,7 @@ define jboss::instance_7::postconfig (
     source => "puppet:///modules/${module_name}/bin/script-jmx.txt",
   } ->
   exec { "configure_jmx_${instance_name}":
-    command => "${jboss_inst_folder}/bin/jboss-cli.sh --controller=${ip_alias} --file=script-jmx.txt",
+    command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-jmx.txt",
     cwd     => "${jboss_inst_folder}/bin",
     user    => jboss,
     group   => jboss,

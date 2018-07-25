@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -43,8 +43,8 @@
 
         <div id="search">
   
-    <a class="full_list_link" id="puppet_class_list_link"
-        href="puppet_class_list.html">
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
 
         <svg width="24" height="24">
           <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
@@ -62,29 +62,29 @@
 
 <h4 id="label-Table+of+Contents">Table of Contents</h4>
 <ol><li>
-<p><a href="#overview">Overview</a></p>
+<p><a href="#label-Overview">Overview</a></p>
 </li><li>
-<p><a href="#module-description">Module Description - What the module does and
+<p><a href="#label-Module+description">Module Description - What the module does and
 why it is useful</a></p>
 </li><li>
-<p><a href="#setup">Setup - The basics of getting started with jboss</a></p>
+<p><a href="#label-Setup">Setup - The basics of getting started with jboss</a></p>
 <ul><li>
-<p><a href="#what-jboss-affects">What jboss affects</a></p>
+<p><a href="#label-What+jboss+affects">What jboss affects</a></p>
 </li><li>
-<p><a href="#setup-requirements">Setup requirements</a></p>
+<p><a href="#label-Setup+requirements">Setup requirements</a></p>
 </li><li>
-<p><a href="#beginning-with-jboss">Beginning with jboss</a></p>
+<p><a href="#label-Beginning+with+jboss">Beginning with jboss</a></p>
 </li></ul>
 </li><li>
-<p><a href="#usage">Usage - Configuration options and additional
+<p><a href="#label-Usage">Usage - Configuration options and additional
 functionality</a></p>
 </li><li>
-<p><a href="#reference">Reference - An under-the-hood peek at what the module
+<p><a href="#label-Reference">Reference - An under-the-hood peek at what the module
 is doing and how</a></p>
 </li><li>
-<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+<p><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></p>
 </li><li>
-<p><a href="#development">Development - Guide for contributing to the
+<p><a href="#label-Development">Development - Guide for contributing to the
 module</a></p>
 </li></ol>
 
@@ -92,7 +92,7 @@ module</a></p>
 
 <p>This is the jboss module. It provides classes and defines to install,
 configure, and create services for jboss instances for the versions 4, 5, 7
-of JBoss-GA and WildFly-8.</p>
+of JBoss-GA, WildFly-8 and WildFly-12.</p>
 
 <h2 id="label-Module+Description">Module Description</h2>
 
@@ -107,9 +107,11 @@ instances for the community versions:</p>
 <p>JBoss-7.1.1.Final</p>
 </li><li>
 <p>WildFly-8.2.0.Final</p>
+</li><li>
+<p>WildFly-12.0.0.Final</p>
 </li></ul>
 
-<p><em>Note</em>: at this time the 7 and 8 instances are created as standalone
+<p><em>Note</em>: at this time WildFly instances are created as standalone
 standard profiles.</p>
 
 <p>The module takes care to set up a secondary network interface on which the
@@ -159,7 +161,8 @@ Jboss-7 and WildFly-8 instances will include the installation of Java-7.</p>
 <p>if WildFly-8 instances are installed on a node then a symbolic link
 <code>/opt/jboss-8</code> is created to one of them in order to have the
 possibility to access the scripts in the WildFly <code>bin</code> directory
-on a standard path (e.g. to access jboss-cli.sh in postconfig manifests).</p>
+on a standard path (e.g. to access jboss-cli.sh in postconfig
+manifests).CHECK</p>
 </li></ul>
 
 <p>If PuppetDB is installed the module exports two kind of resources:</p>
@@ -176,7 +179,7 @@ concat::fragment resources).</p>
 first above mentioned exported resource to define a utility class to add
 all jboss instances hostnames in the hosts file of a node.</p>
 
-<p>For JBoss instances 5, 7, and 8 JBoss logs will be configured with a
+<p>For JBoss instances 5, 7, 8 and 12 JBoss logs will be configured with a
 special category &#39;LoggerPrestazioni&#39; that appends to a
 DailyRollingFileAppender named <code>prestazioni.log</code>. We use such
 category to log timings of the different servlets, in order to evaluate
@@ -214,7 +217,7 @@ distributions</p>
 </li></ul>
 
 <p>To make use of the exported resources mentioned in <a
-href="#reference">reference</a> PuppetDB has to be installed.</p>
+href="#label-Reference">reference</a> PuppetDB has to be installed.</p>
 
 <h3 id="label-Beginning+with+jboss">Beginning with jboss</h3>
 
@@ -224,7 +227,8 @@ specific instance. This is done, for example, by declarations as the
 following:</p>
 
 <pre class="code ruby"><code class="ruby">include jboss::jboss_8
-jboss::instance_8 { &#39;instanceName&#39;: }</code></pre>
+jboss::instance_8 { &#39;instanceName&#39;: }
+</code></pre>
 
 <p>In the above example a WildFly-8 standalone instance is configured to
 listen on localhost (127.0.0.1) as a development (<code>dev</code>)
@@ -241,7 +245,8 @@ jboss::instance_8 { &#39;instanceName&#39;:
     iface       =&gt; &#39;eth0:8&#39;,
     mgmt_user   =&gt; $mgmt_user,
     mgmt_passwd =&gt; $mgmt_passwd,
-}</code></pre>
+}
+</code></pre>
 
 <p>If <code>ip</code> is provided but no <code>iface</code> then the instance
 will listen on the specified <code>ip</code> but no specific secondary
@@ -251,7 +256,7 @@ interface will be created.</p>
 and maximum heap memory used by the instance) or the smtp configurations
 for the JBoss mail service:</p>
 
-<pre class="code ruby"><code class="ruby">jboss::instance_5 { &#39;agri1&#39;:
+<pre class="code ruby"><code class="ruby">jboss::instance_5 { &#39;instanceName&#39;:
     profile     =&gt; &#39;web&#39;,
     ws_enabled  =&gt; true,
     environment =&gt; &#39;prod&#39;,
@@ -259,17 +264,18 @@ for the JBoss mail service:</p>
     iface       =&gt; &#39;eth0:1&#39;,
     jmxport     =&gt; &#39;12345&#39;,
     xmx         =&gt; &#39;1024m&#39;,
-    mgmt_user   =&gt; &#39;admin&#39;,
-    mgmt_passwd =&gt; &#39;jboss@2009&#39;,
-    jmx_user    =&gt; &#39;zabbixinva&#39;,
-    jmx_passwd  =&gt; &#39;z3n055__&#39;,
-    smtp_ip     =&gt; &#39;172.16.10.76&#39;,
+    mgmt_user   =&gt; &#39;admin_user&#39;,
+    mgmt_passwd =&gt; &#39;suitable_password&#39;,
+    jmx_user    =&gt; &#39;jmx_user_eg_zabbixmon&#39;,
+    jmx_passwd  =&gt; &#39;suitable_jmx_password&#39;,
+    smtp_ip     =&gt; &#39;172.16.10.10&#39;,
     smtp_domain =&gt; &#39;regione.vda.it&#39;,
   } -&gt;
   jboss::instance_5::lib::oracle::install { &#39;agri1&#39;:
   } -&gt;
   jboss::instance_5::lib::zk::install { &#39;agri1&#39;:
-  }</code></pre>
+  }
+</code></pre>
 
 <p>It is possible to concatenate the declarations for specific libraries as
 in, for example:</p>
@@ -287,7 +293,8 @@ in, for example:</p>
   } -&gt;
   jboss::instance_8::lib::springframework::install { &#39;transito8&#39;:
     environment =&gt; &#39;test&#39;,
-  }</code></pre>
+  }
+</code></pre>
 
 <h3 id="label-Exported+resources">Exported resources</h3>
 
@@ -300,7 +307,8 @@ following:</p>
 
   concat { &#39;/usr/local/bin/backupall.sh.conf&#39;:
     ensure =&gt; present,
-  }</code></pre>
+  }
+</code></pre>
 
 <p>The names of all instances defined on a node, one per line, are exported
 and the following code, that is actually part of class jboss::install can
@@ -311,7 +319,8 @@ be used in case one needs such a file:</p>
 
   concat { &#39;/usr/local/bin/jboss-instance-list.conf&#39;:
     ensure =&gt; present,
-  }</code></pre>
+  }
+</code></pre>
 
 <p>Furthermore, the module provides a class <code>jboss::alias_jboss</code>
 that uses the exported hostname alias to define a utility class that can be
@@ -323,152 +332,152 @@ exploited to add all jboss instances hostnames in the hosts file of a node.</p>
 
 <h4 id="label-Public+Classes">Public Classes</h4>
 <ul><li>
-<p><a href="#jbossalias_jboss">jboss::alias_jboss</a>: Adds all jboss
+<p><a href="#label-Jbossalias_jboss">jboss::alias_jboss</a>: Adds all jboss
 instances ip and alias in the hosts file.</p>
 </li><li>
-<p><a href="#jbossjboss">jboss::jboss</a>: Installs and set up standard
+<p><a href="#label-Jbossjboss">jboss::jboss</a>: Installs and set up standard
 directories and permissions for JBoss AS.</p>
 </li><li>
-<p><a href="#jbossjboss_4_0_5">jboss::jboss_4_0_5</a>: Installs
+<p><a href="#label-Jbossjboss_4_0_5">jboss::jboss_4_0_5</a>: Installs
 JBoss-4.0.5.GA.</p>
 </li><li>
-<p><a href="#jbossjboss_4_2_3">jboss::jboss_4_2_3</a>: Installs
+<p><a href="#label-Jbossjboss_4_2_3">jboss::jboss_4_2_3</a>: Installs
 JBoss-4.2.3.GA.</p>
 </li><li>
-<p><a href="#jbossjboss_5">jboss::jboss_5</a>: Installs JBoss-5.</p>
+<p><a href="#label-Jbossjboss_5">jboss::jboss_5</a>: Installs JBoss-5.</p>
 </li><li>
-<p><a href="#jbossjboss_7">jboss::jboss_7</a>: Performs basic jboss
+<p><a href="#label-Jbossjboss_7">jboss::jboss_7</a>: Performs basic jboss
 configuration in order to install JBoss-7 instances.</p>
 </li><li>
-<p><a href="#jbossjboss_8">jboss::jboss_8</a>: Performs basic jboss
+<p><a href="#label-Jbossjboss_8">jboss::jboss_8</a>: Performs basic jboss
 configuration in order to install WildFly-8 instances.</p>
 </li></ul>
 
 <h4 id="label-Private+Classes">Private Classes</h4>
 <ul><li>
-<p><a href="#jbossparams">jboss::params</a>: Defines the parameters needed for
+<p><a href="#label-Jbossparams">jboss::params</a>: Defines the parameters needed for
 installing JBoss/WildFly instances.</p>
 </li><li>
-<p><a href="#jbossconfig">jboss::install</a>: Sets up the system for
+<p><a href="#label-Jbossconfig">jboss::install</a>: Sets up the system for
 installing JBoss/WildFly AS.</p>
 </li><li>
-<p><a href="#jbossconfig">jboss::config</a>: Configures JBoss/WildFly AS.</p>
+<p><a href="#label-Jbossconfig">jboss::config</a>: Configures JBoss/WildFly AS.</p>
 </li></ul>
 
 <h3 id="label-Defines">Defines</h3>
 
 <h4 id="label-Public+Defines">Public Defines</h4>
 <ul><li>
-<p><a href="#jbossjboss_4">jboss::jboss_4</a>: Installs JBoss-4.</p>
+<p><a href="#label-Jbossjboss_4">jboss::jboss_4</a>: Installs JBoss-4.</p>
 </li><li>
-<p><a href="#jbossinstance_4">jboss::instance_4</a>: Creates, configures and
+<p><a href="#label-Jbossinstance_4">jboss::instance_4</a>: Creates, configures and
 set up the service for a JBoss-4-family instance, i.e. a server profile
 with all the configurations needed to use it as an independent service.</p>
 </li><li>
-<p><a href="#jbossinstance_5">jboss::instance_5</a>: Creates, configures and
+<p><a href="#label-Jbossinstance_5">jboss::instance_5</a>: Creates, configures and
 set up the service for a JBoss-5.1.0.GA instance, i.e. a server profile
 with all the configurations needed to use it as an independent service.</p>
 </li><li>
-<p><a href="#jbossinstance_7">jboss::instance_7</a>: Creates, configures and
+<p><a href="#label-Jbossinstance_7">jboss::instance_7</a>: Creates, configures and
 set up the service for a JBoss-7.1.1.Final instance, i.e. a server profile
 with all the configurations needed to use it as an independent service.</p>
 </li><li>
-<p><a href="#jbossinstance_8">jboss::instance_8</a>: Creates, configures and
+<p><a href="#label-Jbossinstance_8">jboss::instance_8</a>: Creates, configures and
 set up the service for a WildFly-8.2.0.Final instance, i.e. a server
 profile with all the configurations needed to use it as an independent
 service.</p>
 </li><li>
 <p><a
-href="#jbossinstance_5liboracleinstall">jboss::instance_5::lib::oracle::install</a>:
+href="#label-Jbossinstance_5liboracleinstall">jboss::instance_5::lib::oracle::install</a>:
 Copies to a specified JBoss-5 instance lib folder the Oracle driver jar.</p>
 </li><li>
 <p><a
-href="#jbossinstance_5libsqlserverinstall">jboss::instance_5::lib::sqlserver::install</a>:
+href="#label-Jbossinstance_5libsqlserverinstall">jboss::instance_5::lib::sqlserver::install</a>:
 Copies to a specified JBoss-5 instance lib folder the SQLServer driver jar.</p>
 </li><li>
 <p><a
-href="#jbossinstance_5libzkinstall">jboss::instance_5::lib::zk::install</a>:
+href="#label-Jbossinstance_5libzkinstall">jboss::instance_5::lib::zk::install</a>:
 Copies to a specified JBoss-5 instance lib folder the zk library jars.</p>
 </li><li>
 <p><a
-href="#jbossinstance_5persistenceinstall">jboss::instance_5::persistence::install</a>:
+href="#label-Jbossinstance_5persistenceinstall">jboss::instance_5::persistence::install</a>:
 Adds to a specified instance the Oracle persistence service</p>
 </li><li>
 <p><a
-href="#jbossinstance_7liboracleinstall">jboss::instance_7::lib::oracle::install</a>:
+href="#label-Jbossinstance_7liboracleinstall">jboss::instance_7::lib::oracle::install</a>:
 Copies to a specified JBoss-7 instance module folder the Oracle driver jar
 and configures it.</p>
 </li><li>
 <p><a
-href="#jbossinstance_7libpostgresqlinstall">jboss::instance_7::lib::postgresql::install</a>:
+href="#label-Jbossinstance_7libpostgresqlinstall">jboss::instance_7::lib::postgresql::install</a>:
 Copies to a specified JBoss-7 instance module folder the PostgreSQL driver
 jar and configures it.</p>
 </li><li>
 <p><a
-href="#jbossinstance_7libsqlserverinstall">jboss::instance_7::lib::sqlserver::install</a>:
+href="#label-Jbossinstance_7libsqlserverinstall">jboss::instance_7::lib::sqlserver::install</a>:
 Copies to a specified JBoss-7 instance module folder the SQLServer driver
 jar and configures it.</p>
 </li><li>
 <p><a
-href="#jbossinstance_7libspringframeworkinstall">jboss::instance_7::lib::springframework::install</a>:
+href="#label-Jbossinstance_7libspringframeworkinstall">jboss::instance_7::lib::springframework::install</a>:
 Copies to a specified JBoss-7 instance lib folder the Spring Framework
 library jars.</p>
 </li><li>
 <p><a
-href="#jbossinstance_8liboracleinstall">jboss::instance_8::lib::oracle::install</a>:
+href="#label-Jbossinstance_8liboracleinstall">jboss::instance_8::lib::oracle::install</a>:
 Copies to a specified WildFly-8 instance module folder the Oracle driver
 jar and configures it.</p>
 </li><li>
 <p><a
-href="#jbossinstance_8libpostgresqlinstall">jboss::instance_8::lib::postgresql::install</a>:
+href="#label-Jbossinstance_8libpostgresqlinstall">jboss::instance_8::lib::postgresql::install</a>:
 Copies to a specified WildFly-8 instance module folder the PostgreSQL
 driver jar and configures it.</p>
 </li><li>
 <p><a
-href="#jbossinstance_8libsqlserverinstall">jboss::instance_8::lib::sqlserver::install</a>:
+href="#label-Jbossinstance_8libsqlserverinstall">jboss::instance_8::lib::sqlserver::install</a>:
 Copies to a specified WildFly-8 instance module folder the SQLServer driver
 jar and configures it.</p>
 </li></ul>
 
 <h4 id="label-Private+Defines">Private Defines</h4>
 <ul><li>
-<p><a href="#jbossinstanceconfig">jboss::instance::config</a>: Configures a
+<p><a href="#label-Jbossinstanceconfig">jboss::instance::config</a>: Configures a
 JBoss/WildFly instance.</p>
 </li><li>
-<p><a href="#jbossinstanceinstall">jboss::instance::install</a>: Installs a
+<p><a href="#label-Jbossinstanceinstall">jboss::instance::install</a>: Installs a
 JBoss/WildFly instance.</p>
 </li><li>
-<p><a href="#jbossinstanceservice">jboss::instance::service</a>: Sets up a
+<p><a href="#label-Jbossinstanceservice">jboss::instance::service</a>: Sets up a
 service for a JBoss/WildFly instance.</p>
 </li><li>
-<p><a href="#jbossinstance_4config">jboss::instance_4::config</a>: Configures
+<p><a href="#label-Jbossinstance_4config">jboss::instance_4::config</a>: Configures
 a JBoss-4-family instance.</p>
 </li><li>
-<p><a href="#jbossinstance_4install">jboss::instance_4::install</a>: Installs
+<p><a href="#label-Jbossinstance_4install">jboss::instance_4::install</a>: Installs
 a JBoss-4-family instance.</p>
 </li><li>
-<p><a href="#jbossinstance_5config">jboss::instance_5::config</a>: Configures
+<p><a href="#label-Jbossinstance_5config">jboss::instance_5::config</a>: Configures
 a JBoss-5.1.0.GA instance.</p>
 </li><li>
-<p><a href="#jbossinstance_5install">jboss::instance_5::install</a>: Installs
+<p><a href="#label-Jbossinstance_5install">jboss::instance_5::install</a>: Installs
 a JBoss-5.1.0.GA instance.</p>
 </li><li>
-<p><a href="#jbossinstance_7config">jboss::instance_7::config</a>: Configures
+<p><a href="#label-Jbossinstance_7config">jboss::instance_7::config</a>: Configures
 a JBoss-7.1.1.GA instance.</p>
 </li><li>
-<p><a href="#jbossinstance_7install">jboss::instance_7::install</a>: Installs
+<p><a href="#label-Jbossinstance_7install">jboss::instance_7::install</a>: Installs
 a JBoss-7.1.1.GA instance.</p>
 </li><li>
-<p><a href="#jbossinstance_7postconfig">jboss::instance_7::postconfig</a>:
+<p><a href="#label-Jbossinstance_7postconfig">jboss::instance_7::postconfig</a>:
 Postconfigures a JBoss-7.1.1.GA instance.</p>
 </li><li>
-<p><a href="#jbossinstance_8config">jboss::instance_8::config</a>: Configures
+<p><a href="#label-Jbossinstance_8config">jboss::instance_8::config</a>: Configures
 a WildFly-8.2.0.Final instance.</p>
 </li><li>
-<p><a href="#jbossinstance_8install">jboss::instance_8::install</a>: Installs
+<p><a href="#label-Jbossinstance_8install">jboss::instance_8::install</a>: Installs
 a WildFly-8.2.0.Final instance.</p>
 </li><li>
-<p><a href="#jbossinstance_8postconfig">jboss::instance_8::postconfig</a>:
+<p><a href="#label-Jbossinstance_8postconfig">jboss::instance_8::postconfig</a>:
 Postconfigures a WildFly-8.2.0.Final instance.</p>
 </li></ul>
 
@@ -555,7 +564,7 @@ jdk used to compile the distribution. Defaults to &#39;&#39;.</p>
 <ul><li>
 <p>Unzip the distribution under <code>/opt</code>;</p>
 </li><li>
-<p>includes <a href="#jboss::jboss">jboss</a> class;</p>
+<p>includes <a href="#label-Jboss::jboss">jboss</a> class;</p>
 </li><li>
 <p>creates a link <code>/opt/jboss</code> pointing to the JBoss-5.1.0.GA
 installation folder;</p>

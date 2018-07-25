@@ -53,7 +53,7 @@ define jboss::instance_12::config (
       ensure => present,
       *      => $file_ownership,
       ;
-    # Script di avvio
+    # Startup script
     "${jboss_inst_folder}/bin/run-${instance_name}.sh":
       content => template("${module_name}/standalone-launcher.sh.erb"),
       mode    => '0755',
