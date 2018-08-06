@@ -4,7 +4,7 @@ export JAVA_HOME=<%= @java_home %>
 export INSTANCE_HOME=<%= @jboss_inst_folder %>
 
 # JAVA_OPTS inizializzato come in run.conf
-JAVA_OPTS="-server -Xms<%= @xms %> -Xmx<%= @xmx %> -XX:MaxPermSize=<%= @max_perm_size %> -Xss<%= @stack_size %> -Djboss.bind.address.management=<%= @ip_alias %> -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
+JAVA_OPTS="-server -Xms<%= @xms %> -Xmx<%= @xmx %> -XX:MaxPermSize=<%= @max_perm_size %> -Xss<%= @stack_size %> -Djboss.bind.address.management=<%= @ip_alias %> -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
 
 JMX_OPTS=""
 
