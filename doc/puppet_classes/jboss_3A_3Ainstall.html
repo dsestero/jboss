@@ -6,7 +6,7 @@
 <title>
   Puppet Class: jboss::install
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -75,24 +75,25 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Sets up the system for installing JBoss AS. It is intended to be called by
-jboss::jboss.</p>
+<p>Sets up the system for installing JBoss/WildFly AS.</p>
 
-<p>== Actions:</p>
+<p>It is intended to be called by jboss::jboss in order to:</p>
 <ul><li>
-<p>Creates JBoss user and group;</p>
+<p>create JBoss user and group;</p>
 </li><li>
-<p>makes <code>/opt</code> folder group owned by jboss and group writable;</p>
+<p>make <code>/opt</code> folder group owned by jboss and group writable;</p>
 </li><li>
-<p>creates /home/jboss/bin folder to host some management scripts;</p>
+<p>create /home/jboss/bin folder to host some management scripts;</p>
 </li><li>
-<p>according to the parameter <code>jboss_instance_list</code> creates in
+<p>according to the parameter <code>jboss_instance_list</code> create in
 /usr/local/bin a text file with all the instance names on the node, one per
 line.</p>
 </li></ul>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -118,6 +119,22 @@ created in <code>/usr/local/bin</code>?</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -126,8 +143,6 @@ created in <code>/usr/local/bin</code>?</p>
         <pre class="lines">
 
 
-14
-15
 16
 17
 18
@@ -163,10 +178,12 @@ created in <code>/usr/local/bin</code>?</p>
 48
 49
 50
-51</pre>
+51
+52
+53</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/install.pp', line 14</span>
+        <pre class="code"><span class="info file"># File 'manifests/install.pp', line 16</span>
 
 class jboss::install (Boolean $jboss_instance_list = false) {
 

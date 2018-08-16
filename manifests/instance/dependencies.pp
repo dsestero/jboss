@@ -1,18 +1,12 @@
-# Class: jboss::instance::dependencies
+# @api private
+# Install dependencies (extra packages) needed for the module.
 #
-# Install dependencies needed for the module.
+# At this time it installs the package +expect+.
 #
-# == Actions:
-#
-# Install extra packages needed. At this time it installs the package +expect+.
-#
-# == Requires:
-# none
-#
-# == Sample usage:
-#
+# @example Declaring in manifest:
 # include jboss::instance::dependencies
 #
+# @author Dario Sestero
 class jboss::instance::dependencies {
   $enhancers = ['expect']
 

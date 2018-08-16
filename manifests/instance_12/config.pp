@@ -1,7 +1,8 @@
-# = Define: jboss::instance_12::config
-#
+# @api private
 # Configures a JBoss-12 instance,
 # i.e. a server profile. It is intended to be called by jboss::instance_12.
+#
+# @author Dario Sestero
 define jboss::instance_12::config (
   $ip,
   $iface,

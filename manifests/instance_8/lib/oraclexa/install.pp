@@ -1,11 +1,17 @@
-# = Define: jboss::instance_8::lib::oraclexa::install
-#
 # Utility define to copy to a specified WildFly-8.2.0 instance the OracleXA driver
 # jar module.
 # Notice: the oracle driver jar contains both classes for standard and XA access,
 # hence for convenience of implementation installing oraclexa automatically sets up
 # also the oracle standard driver. If you try to install both oracle and oraclexa you
 # will get a resource duplication error (the module.xml file is the same, although with different content!)
+#
+# Creates the Oracle XA module into the specified instance.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Some defined instance to which the driver has to be copied.
+# * The specified instance has to be up and running.
 #
 # @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
@@ -15,20 +21,11 @@
 #                   +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
-# == Actions:
-#
-# Creates the Oracle XA module into the specified instance.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Some defined instance to which the driver has to be copied.
-# * The specified instance has to be up and running.
-#
-# == Sample usage:
-#
+# @example Declaring in manifest:
 #  jboss::instance_8::lib::oraclexa::install {'agri1':
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_8::lib::oraclexa::install (
   $instance_name = $title,
   $environment   = 'dev') {

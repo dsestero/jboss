@@ -1,25 +1,22 @@
-# = Define: jboss::instance_5::lib::postgresql::install
-#
 # Utility define to copy to a specified instance lib folder the Postgresql driver
 # jar.
+#
+# Copies the Postgresql driver to the lib directory of the specified instance.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Some defined instance to which the driver has to be copied.
 #
 # @param instance_name Name of the JBoss profile and associated service
 # corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# == Actions:
-#
-# Copies the Postgresql driver to the lib directory of the specified instance.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Some defined instance to which the driver has to be copied.
-#
-# == Sample usage:
-#
+# @example Declaring in manifest:
 #  jboss::instance::lib::postgresql::install {'agri2':
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_5::lib::postgresql::install ($instance_name = $title,) {
   $require = Class['jboss']
 

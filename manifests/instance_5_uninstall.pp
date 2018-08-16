@@ -1,3 +1,5 @@
+# Uninstalls JBoss-5.1.0 instance
+# TODO To be completed and verified
 class jboss::instance_5_uninstall (
   $instance_name = $::instance_to_remove_name,
   $ip            = $::instance_to_remove_ip,

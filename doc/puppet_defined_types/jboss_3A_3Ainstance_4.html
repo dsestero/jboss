@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_4
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -92,16 +92,30 @@ environment.</p>
 <p><a href="'java::java_6'">Class</a> for installing and setting up java6-jdk.</p>
 </li></ul>
 
-<p>== Sample usage:</p>
-
-<p>jboss::instance_4 { &#39;fina&#39;:  profile =&gt; &#39;all&#39;, 
-environment =&gt; &#39;preprod&#39;,  ip =&gt; &#39;172.16.12.11&#39;, 
-iface =&gt; &#39;eth0:2&#39;,  jmxport =&gt; &#39;12345&#39;,  }</p>
-
   </div>
 </div>
+
+
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring jboss 4 instance</p>
+</div></p>
+      
+      <pre class="example code"><code>jboss::instance_4 { &#39;fina&#39;:
+  profile     =&gt; &#39;all&#39;,
+  environment =&gt; &#39;preprod&#39;,
+  ip          =&gt; &#39;172.16.12.11&#39;,
+  iface       =&gt; &#39;eth0:2&#39;,
+  jmxport     =&gt; &#39;12345&#39;,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -214,9 +228,9 @@ jboss instance is not created.</p>
         <div class='inline'>
 <p>abbreviation identifying the environment: valid values are
 <code>dev</code>, <code>test</code>, <code>prep</code>, <code>prod</code>.
-Defaults to <code>dev</code>. <em>Note:</em> hot code deployment is
-disabled in the environments <code>prep</code> and <code>prod</code>,
-enabled on <code>dev</code> and <code>test</code>.</p>
+<em>Note:</em> hot code deployment is disabled in the environments
+<code>prep</code> and <code>prod</code>, enabled on <code>dev</code> and
+<code>test</code>.</p>
 </div>
       
     </li>
@@ -235,7 +249,7 @@ enabled on <code>dev</code> and <code>test</code>.</p>
         &mdash;
         <div class='inline'>
 <p>JMX port to use to monitor this instance. When the value is
-+&#39;no_port&#39;+, no JMX monitoring is activated.</p>
+<code>no_port</code>, no JMX monitoring is activated.</p>
 </div>
       
     </li>
@@ -419,6 +433,22 @@ backup are added.</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">

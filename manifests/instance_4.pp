@@ -2,6 +2,18 @@
 # i.e. a server profile with all the
 # configurations needed to use it as an independent service.
 #
+# == Actions:
+#
+# Declares all other classes in the jboss module needed for installing a jboss
+# server profile.
+# Currently, these consists of jboss::instance::install,
+# jboss::instance::config, and jboss::instance::service.
+#
+# == Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Class['java::java_6'] for installing and setting up java6-jdk.
+#
 # @param instance_name name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #
@@ -50,18 +62,6 @@
 # @param backup_conf_target full pathname of the backup configuration file where the
 #                       instance paths to backup are added.
 #
-# == Actions:
-#
-# Declares all other classes in the jboss module needed for installing a jboss
-# server profile.
-# Currently, these consists of jboss::instance::install,
-# jboss::instance::config, and jboss::instance::service.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Class['java::java_6'] for installing and setting up java6-jdk.
-#
 # @example Declaring jboss 4 instance
 #  jboss::instance_4 { 'fina':
 #    profile     => 'all',
@@ -70,6 +70,8 @@
 #    iface       => 'eth0:2',
 #    jmxport     => '12345',
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_4 (
   $version,
   $instance_name      = $title,

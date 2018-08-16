@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_8::install
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,13 +73,13 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance_8::install</p>
-
 <p>Install a JBoss-8 instance, i.e. a server profile. It is intended to be
 called by jboss::instance.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -143,6 +143,22 @@ called by jboss::instance.</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -151,7 +167,6 @@ called by jboss::instance.</p>
         <pre class="lines">
 
 
-5
 6
 7
 8
@@ -195,10 +210,11 @@ called by jboss::instance.</p>
 46
 47
 48
-49</pre>
+49
+50</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_8/install.pp', line 5</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_8/install.pp', line 6</span>
 
 define jboss::instance_8::install (
   $environment,

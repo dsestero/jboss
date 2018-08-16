@@ -1,7 +1,9 @@
-# = Class: jboss::params
-#
+# @api private
 # Defines the parameters needed for installing JBoss/WildFly instances.
 #
+# It is intended to be called by jboss::instance_[x] defines.
+#
+# @author Dario Sestero
 class jboss::params () {
   $java7_home = "/opt/jdk/java-7/"
   $java8_home = "/opt/jdk/java-8/"

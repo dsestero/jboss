@@ -1,7 +1,9 @@
-# = Define: jboss::instance::service
-#
+# @api private
 # Sets up a service for a JBoss/WildFly instance.
+#
 # It is intended to be called by jboss::instance.
+#
+# @author Dario Sestero
 define jboss::instance::service ($environment, $instance_name = $title,) {
   $ip_alias = "${instance_name}-${environment}"
 

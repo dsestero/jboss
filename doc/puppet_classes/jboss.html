@@ -6,7 +6,7 @@
 <title>
   Puppet Class: jboss
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -75,21 +75,43 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Installs and set up standard directories for JBoss AS.</p>
-
-<p>== Actions:</p>
-
-<p>Declares all other classes in the jboss module needed for installing JBoss.
-Currently, these consists of jboss::install, and jboss::config.</p>
-
-<p>== Requires: see Modulefile</p>
-
-<p>== Sample usage:  include jboss</p>
+<p>Installs and set up standard directories and permissions for JBoss/WildFly
+AS.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring in manifest:</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_jboss'>jboss</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -98,17 +120,17 @@ Currently, these consists of jboss::install, and jboss::config.</p>
         <pre class="lines">
 
 
+7
+8
+9
+10
+11
+12
 13
-14
-15
-16
-17
-18
-19
-20</pre>
+14</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 13</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 7</span>
 
 class jboss () {
 

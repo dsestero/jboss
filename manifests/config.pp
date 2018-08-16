@@ -1,22 +1,24 @@
-# Configures JBoss AS.
-# It is intended to be called by jboss::jboss.
+# @api private
+# Configures JBoss/WildFly AS.
 #
-# == Actions:
+# It is intended to be called by jboss::jboss in order to:
 #
-# * sets the JBoss directories with correct ownership
+# * set the JBoss directories with correct ownership
 # * modify <tt>/etc/sudoers</tt> file so to allow jboss user the right to start
 #   and stop jboss instances and soffice.bin services
 #   and to query open ports with <tt>netstat</tt> and <tt>nmap</tt>
 # * schedule a jboss user's cron job for zipping and deleting old log files
-# * deploys in the +/usr/local/bin+ directory a script for restarting jboss
+# * deploy in the +/usr/local/bin+ directory a script for restarting jboss
 #   instances
-# * creates standard directories for logging and storing application's specific
+# * create standard directories for logging and storing application's specific
 #   data under
 #   <tt>/var/log/jboss/server</tt> and <tt>/var/lib/jboss/apps</tt>
 #   respectively.
 # * modify sudoers file as to allow users belonging to the jboss group to
 #   start and stop jboss services, start and stop soffice.bin service, make
 #   <tt>su jboss</tt>.
+#
+# @author Dario Sestero
 class jboss::config () {
 
   file {

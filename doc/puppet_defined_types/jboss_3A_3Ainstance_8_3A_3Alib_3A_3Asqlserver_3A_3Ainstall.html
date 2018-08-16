@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_8::lib::sqlserver::install
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,25 +73,12 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance_8::lib::sqlserver::install</p>
-
 <p>Utility define to copy to a specified WildFly-8.2.0 instance the sqlserver
 driver jar module.</p>
 
-<p>== Parameters:</p>
-
-<p>$instance_name:: Name of the JBoss profile and associated service 
-corresponding to this instance.  Defaults to the resource title.</p>
-
-<p>$environment:: Abbreviation identifying the environment: valid values are
-<code>dev</code>, <code>test</code>, <code>prep</code>, <code>prod</code>. 
-Defaults to <code>dev</code>.</p>
-
-<p>== Actions:</p>
-
 <p>Creates the sqlserver module into the specified instance.</p>
 
-<p>== Requires:</p>
+<p>Requires:</p>
 <ul><li>
 <p><a href="'jboss'">Class</a> for installing and setting up basic jboss
 environment.</p>
@@ -101,14 +88,28 @@ environment.</p>
 <p>The specified instance has to be up and running.</p>
 </li></ul>
 
-<p>== Sample usage:</p>
-
-<p>jboss::instance_8::lib::sqlserver::install {&#39;agri1&#39;:  }</p>
+<p><code>dev</code>, <code>test</code>, <code>prep</code>, <code>prod</code>. 
+Defaults to <code>dev</code>.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring in manifest:</p>
+</div></p>
+      
+      <pre class="example code"><code>jboss::instance_8::lib::sqlserver::install {&#39;agri1&#39;:
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -121,6 +122,12 @@ environment.</p>
       
         <em class="default">(defaults to: <tt>$title</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>Name of the JBoss profile and associated service corresponding to this
+instance. Defaults to the resource title.</p>
+</div>
       
     </li>
   
@@ -135,10 +142,31 @@ environment.</p>
         <em class="default">(defaults to: <tt>&#39;dev&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>Abbreviation identifying the environment: valid values are</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -147,6 +175,11 @@ environment.</p>
         <pre class="lines">
 
 
+25
+26
+27
+28
+29
 30
 31
 32
@@ -192,15 +225,10 @@ environment.</p>
 72
 73
 74
-75
-76
-77
-78
-79
-80</pre>
+75</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_8/lib/sqlserver/install.pp', line 30</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_8/lib/sqlserver/install.pp', line 25</span>
 
 define jboss::instance_8::lib::sqlserver::install (
   $instance_name = $title,

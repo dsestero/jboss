@@ -1,7 +1,8 @@
-# = Define: jboss::instance_8::postconfig
-#
+# @api private
 # Configures a running JBoss-8 instance via jboss-cli.
 # It is intended to be called by jboss::instance_8.
+#
+# @author Dario Sestero
 define jboss::instance_8::postconfig (
   $ip,
   $iface,

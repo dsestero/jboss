@@ -1,7 +1,8 @@
-# = Define: jboss::instance_4::config
-#
+# @api private
 # Configures a JBoss-4-family instance,
 # i.e. a server profile. It is intended to be called by jboss::instance_4.
+#
+# @author Dario Sestero
 define jboss::instance_4::config (
   $version,
   $profile,

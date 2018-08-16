@@ -6,7 +6,7 @@
 <title>
   Puppet Class: jboss::instance::dependencies
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -75,25 +75,46 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Class: jboss::instance::dependencies</p>
+<p>Install dependencies (extra packages) needed for the module.</p>
 
-<p>Install dependencies needed for the module.</p>
-
-<p>== Actions:</p>
-
-<p>Install extra packages needed. At this time it installs the package
-<code>expect</code>.</p>
-
-<p>== Requires: none</p>
-
-<p>== Sample usage:</p>
+<p>At this time it installs the package <code>expect</code>.</p>
 
 <p>include jboss::instance::dependencies</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring in manifest:</p>
+</div></p>
+      
+      <pre class="example code"><code></code></pre>
+    
+  </div>
+
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -102,19 +123,19 @@
         <pre class="lines">
 
 
+10
+11
+12
+13
+14
+15
 16
 17
 18
-19
-20
-21
-22
-23
-24
-25</pre>
+19</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance/dependencies.pp', line 16</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance/dependencies.pp', line 10</span>
 
 class jboss::instance::dependencies {
   $enhancers = [&#39;expect&#39;]

@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance::service
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,13 +73,14 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance::service</p>
+<p>Sets up a service for a JBoss/WildFly instance.</p>
 
-<p>Sets up a service for a JBoss/WildFly instance. It is intended to be called
-by jboss::instance.</p>
+<p>It is intended to be called by jboss::instance.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -110,6 +111,22 @@ by jboss::instance.</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -118,8 +135,6 @@ by jboss::instance.</p>
         <pre class="lines">
 
 
-5
-6
 7
 8
 9
@@ -130,10 +145,12 @@ by jboss::instance.</p>
 14
 15
 16
-17</pre>
+17
+18
+19</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance/service.pp', line 5</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance/service.pp', line 7</span>
 
 define jboss::instance::service ($environment, $instance_name = $title,) {
   $ip_alias = &quot;${instance_name}-${environment}&quot;

@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_7::postconfig
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,13 +73,13 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance_7::postconfig</p>
-
 <p>Configures a running JBoss-7 instance via jboss-cli. It is intended to be
 called by jboss::instance_7.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -165,6 +165,22 @@ called by jboss::instance_7.</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -173,7 +189,6 @@ called by jboss::instance_7.</p>
         <pre class="lines">
 
 
-5
 6
 7
 8
@@ -238,10 +253,11 @@ called by jboss::instance_7.</p>
 67
 68
 69
-70</pre>
+70
+71</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_7/postconfig.pp', line 5</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_7/postconfig.pp', line 6</span>
 
 define jboss::instance_7::postconfig (
   $ip,
@@ -276,7 +292,7 @@ define jboss::instance_7::postconfig (
     source =&gt; &quot;puppet:///modules/${module_name}/bin/script-logger-prestazioni.txt&quot;,
   } -&gt;
   exec { &quot;configure_logger_prestazioni_${instance_name}&quot;:
-    command =&gt; &quot;${jboss_inst_folder}/bin/jboss-cli.sh --controller=${ip_alias} --file=script-logger-prestazioni.txt&quot;,
+    command =&gt; &quot;${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-logger-prestazioni.txt&quot;,
     cwd     =&gt; &quot;${jboss_inst_folder}/bin&quot;,
     user    =&gt; jboss,
     group   =&gt; jboss,
@@ -289,7 +305,7 @@ define jboss::instance_7::postconfig (
     source =&gt; &quot;puppet:///modules/${module_name}/bin/script-ajp.txt&quot;,
   } -&gt;
   exec { &quot;configure_ajp_${instance_name}&quot;:
-    command =&gt; &quot;${jboss_inst_folder}/bin/jboss-cli.sh --controller=${ip_alias} --file=script-ajp.txt&quot;,
+    command =&gt; &quot;${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-ajp.txt&quot;,
     cwd     =&gt; &quot;${jboss_inst_folder}/bin&quot;,
     user    =&gt; jboss,
     group   =&gt; jboss,
@@ -302,7 +318,7 @@ define jboss::instance_7::postconfig (
     source =&gt; &quot;puppet:///modules/${module_name}/bin/script-jmx.txt&quot;,
   } -&gt;
   exec { &quot;configure_jmx_${instance_name}&quot;:
-    command =&gt; &quot;${jboss_inst_folder}/bin/jboss-cli.sh --controller=${ip_alias} --file=script-jmx.txt&quot;,
+    command =&gt; &quot;${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-jmx.txt&quot;,
     cwd     =&gt; &quot;${jboss_inst_folder}/bin&quot;,
     user    =&gt; jboss,
     group   =&gt; jboss,

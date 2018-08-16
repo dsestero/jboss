@@ -1,7 +1,8 @@
-# = Define: jboss::instance_8::install
-#
+# @api private
 # Install a JBoss-8 instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
+#
+# @author Dario Sestero
 define jboss::instance_8::install (
   $environment,
   $jbossdirname,

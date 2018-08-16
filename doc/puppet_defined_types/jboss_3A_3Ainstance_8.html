@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_8
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,64 +73,17 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance_8</p>
-
 <p>Creates, configures and set up the service for a WildFly-8.2.0.Final
 instance, i.e. a server profile with all the configurations needed to use
 it as an independent service. <em>Note</em>: at this time the instance is
 created as a standalone standard profile.</p>
-
-<p>== Parameters:</p>
-
-<p>$instance_name:: Name of the JBoss profile and associated service 
-corresponding to this instance.  Defaults to the resource title.</p>
-
-<p>$ip:: Dedicated IP on which this instance will be listening.  Defaults to
-<code>127.0.0.1</code> i.e. localhost.</p>
-
-<p>$iface:: Name of the secondary network interface dedicated to this
-instance.  Defaults to <code>undef</code>, in which case a secondary
-network  interface to bind the jboss instance is not created.</p>
-
-<p>$environment:: Abbreviation identifying the environment: valid values are 
-<code>dev</code>, <code>test</code>, <code>prep</code>, <code>prod</code>. 
-Defaults to <code>dev</code>.  <em>Note:</em> hot code deployment is
-disabled in the environments  <code>prep</code> and <code>prod</code>,
-enabled on <code>dev</code> and <code>test</code>.</p>
-
-<p>$distribution_name:: Name of the distribution bundle to download, used for 
-installing customed distributions.  Defaults to <code>
-wildfly-8.2.0.Final.tar.gz</code></p>
-
-<p>$jbossdirname:: Name of the jboss installation folder.  Defaults to
-<code>wildfly-8.2.0.Final</code></p>
-
-<p>$xms:: JVM OPT for initial heap size.  Defaults to <code>128m</code>.</p>
-
-<p>$xmx:: JVM OPT for maximum heap size.  Defaults to <code>512m</code>.</p>
-
-<p>$max_perm_size:: JVM OPT for max permanent generations size.  Defaults to
-<code>256m</code>.</p>
-
-<p>$stack_size:: JVM OPT for stack size.  Defaults to <code>2048k</code>.</p>
-
-<p>$mgmt_user:: Management user username.  Defaults to <code>undef</code>, in
-which case a management user is not  created.</p>
-
-<p>$mgmt_passwd:: Management user password.  Defaults to <code>undef</code>.</p>
-
-<p>$backup_conf_target:: Full pathname of the backup configuration file where
-the  instance paths to backup are added.  Defaults to
-<code>/usr/local/bin/backupall.sh.conf</code>.</p>
-
-<p>== Actions:</p>
 
 <p>Declares all other classes in the jboss module needed for installing a
 jboss server profile. Currently, these consists of
 jboss::instance::install, jboss::instance::config, and
 jboss::instance::service.</p>
 
-<p>== Requires:</p>
+<p>Requires:</p>
 <ul><li>
 <p><a href="'jboss'">Class</a> for installing and setting up basic jboss
 environment.</p>
@@ -138,16 +91,29 @@ environment.</p>
 <p><a href="'java::java_7'">Class</a> for installing and setting up java7-jdk.</p>
 </li></ul>
 
-<p>== Sample usage:</p>
-
-<p>jboss::instance_8 { &#39;fina&#39;:  environment =&gt; &#39;preprod&#39;, 
-ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
-=&gt; &#39;12345&#39;,  }</p>
-
   </div>
 </div>
+
+
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring jboss 8 instance</p>
+</div></p>
+      
+      <pre class="example code"><code>jboss::instance_8 { &#39;fina&#39;:
+  environment =&gt; &#39;preprod&#39;,
+  ip          =&gt; &#39;172.16.12.11&#39;,
+  iface       =&gt; &#39;eth0:2&#39;,
+  jmxport     =&gt; &#39;12345&#39;,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -160,6 +126,12 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
       
         <em class="default">(defaults to: <tt>$title</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>Name of the JBoss profile and associated service corresponding to this
+instance. Defaults to the resource title.</p>
+</div>
       
     </li>
   
@@ -174,6 +146,12 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <em class="default">(defaults to: <tt>&#39;127.0.0.1&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>Dedicated IP on which this instance will be listening. Defaults to
+<code>127.0.0.1</code> i.e. localhost.</p>
+</div>
+      
     </li>
   
     <li>
@@ -186,6 +164,13 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
       
         <em class="default">(defaults to: <tt>undef</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>Name of the secondary network interface dedicated to this instance.
+Defaults to <code>undef</code>, in which case a secondary network interface
+to bind the jboss instance is not created.</p>
+</div>
       
     </li>
   
@@ -200,6 +185,15 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <em class="default">(defaults to: <tt>&#39;dev&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>Abbreviation identifying the environment: valid values are
+<code>dev</code>, <code>test</code>, <code>prep</code>, <code>prod</code>.
+Defaults to <code>dev</code>. <em>Note:</em> hot code deployment is
+disabled in the environments <code>prep</code> and <code>prod</code>,
+enabled on <code>dev</code> and <code>test</code>.</p>
+</div>
+      
     </li>
   
     <li>
@@ -212,6 +206,12 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
       
         <em class="default">(defaults to: <tt>&#39;wildfly-8.2.0.Final.tar.gz&#39;</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>Name of the distribution bundle to download, used for installing customed
+distributions. Defaults to <code> wildfly-8.2.0.Final.tar.gz</code></p>
+</div>
       
     </li>
   
@@ -226,6 +226,12 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <em class="default">(defaults to: <tt>&#39;wildfly-8.2.0.Final&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>Name of the jboss installation folder. Defaults to
+<code>wildfly-8.2.0.Final</code></p>
+</div>
+      
     </li>
   
     <li>
@@ -238,6 +244,11 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
       
         <em class="default">(defaults to: <tt>&#39;128m&#39;</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>JVM OPT for initial heap size. Defaults to <code>128m</code>.</p>
+</div>
       
     </li>
   
@@ -252,6 +263,11 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <em class="default">(defaults to: <tt>&#39;512m&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>JVM OPT for maximum heap size. Defaults to <code>512m</code>.</p>
+</div>
+      
     </li>
   
     <li>
@@ -264,6 +280,11 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
       
         <em class="default">(defaults to: <tt>&#39;256m&#39;</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>JVM OPT for max permanent generations size. Defaults to <code>256m</code>.</p>
+</div>
       
     </li>
   
@@ -278,6 +299,11 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <em class="default">(defaults to: <tt>&#39;2048k&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>JVM OPT for stack size. Defaults to <code>2048k</code>.</p>
+</div>
+      
     </li>
   
     <li>
@@ -290,6 +316,12 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
       
         <em class="default">(defaults to: <tt>undef</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>Management user username. Defaults to <code>undef</code>, in which case a
+management user is not created.</p>
+</div>
       
     </li>
   
@@ -304,6 +336,11 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>Management user password. Defaults to <code>undef</code>.</p>
+</div>
+      
     </li>
   
     <li>
@@ -317,10 +354,33 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <em class="default">(defaults to: <tt>&#39;/usr/local/bin/backupall.sh.conf&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>Full pathname of the backup configuration file where the instance paths to
+backup are added. Defaults to
+<code>/usr/local/bin/backupall.sh.conf</code>.</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -329,6 +389,11 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
         <pre class="lines">
 
 
+73
+74
+75
+76
+77
 78
 79
 80
@@ -370,15 +435,10 @@ ip =&gt; &#39;172.16.12.11&#39;,  iface =&gt; &#39;eth0:2&#39;,  jmxport
 116
 117
 118
-119
-120
-121
-122
-123
-124</pre>
+119</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_8.pp', line 78</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_8.pp', line 73</span>
 
 define jboss::instance_8 (
   $instance_name      = $title,

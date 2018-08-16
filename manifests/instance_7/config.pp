@@ -1,7 +1,8 @@
-# = Define: jboss::instance_7::config
-#
+# @api private
 # Configures a JBoss-7 instance,
 # i.e. a server profile. It is intended to be called by jboss::instance_7.
+#
+# @author Dario Sestero
 define jboss::instance_7::config (
   $ip,
   $iface,

@@ -6,7 +6,7 @@
 <title>
   Puppet Class: jboss::config
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -75,11 +75,11 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Configures JBoss AS. It is intended to be called by jboss::jboss.</p>
+<p>Configures JBoss/WildFly AS.</p>
 
-<p>== Actions:</p>
+<p>It is intended to be called by jboss::jboss in order to:</p>
 <ul><li>
-<p>sets the JBoss directories with correct ownership</p>
+<p>set the JBoss directories with correct ownership</p>
 </li><li>
 <p>modify <code>/etc/sudoers</code> file so to allow jboss user the right to
 start  and stop jboss instances and soffice.bin services  and to query open
@@ -87,10 +87,10 @@ ports with <code>netstat</code> and <code>nmap</code></p>
 </li><li>
 <p>schedule a jboss user&#39;s cron job for zipping and deleting old log files</p>
 </li><li>
-<p>deploys in the <code>/usr/local/bin</code> directory a script for
-restarting jboss  instances</p>
+<p>deploy in the <code>/usr/local/bin</code> directory a script for restarting
+jboss  instances</p>
 </li><li>
-<p>creates standard directories for logging and storing application&#39;s
+<p>create standard directories for logging and storing application&#39;s
 specific  data under  <code>/var/log/jboss/server</code> and
 <code>/var/lib/jboss/apps</code>  respectively.</p>
 </li><li>
@@ -101,8 +101,26 @@ start and stop jboss services, start and stop soffice.bin service, make
 
   </div>
 </div>
+
+
 <div class="tags">
   
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -111,8 +129,6 @@ start and stop jboss services, start and stop soffice.bin service, make
         <pre class="lines">
 
 
-20
-21
 22
 23
 24
@@ -154,10 +170,12 @@ start and stop jboss services, start and stop soffice.bin service, make
 60
 61
 62
-63</pre>
+63
+64
+65</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/config.pp', line 20</span>
+        <pre class="code"><span class="info file"># File 'manifests/config.pp', line 22</span>
 
 class jboss::config () {
 

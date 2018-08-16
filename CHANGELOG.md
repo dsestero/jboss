@@ -1,3 +1,8 @@
+##2018-08-16 - Release - 2.1.1
+###Summary
+All documentation written using Puppet Strings.
+Added REFERENCE.md file generated from Puppet Strings.
+
 ##2018-07-23 - Release - 2.1.0
 ###Summary
 Added possibility to configure WildFly-12 instances.

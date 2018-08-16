@@ -1,15 +1,9 @@
-# Installs and set up standard directories for JBoss AS.
+# Installs and set up standard directories and permissions for JBoss/WildFly AS.
 #
-# == Actions:
-#
-# Declares all other classes in the jboss module needed for installing JBoss.
-# Currently, these consists of jboss::install, and jboss::config.
-#
-# == Requires:
-# see Modulefile
-#
-# == Sample usage:
+# @example Declaring in manifest:
 #  include jboss
+#
+# @author Dario Sestero
 class jboss () {
 
   class { 'jboss::install':

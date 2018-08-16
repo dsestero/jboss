@@ -1,4 +1,4 @@
-
+# Uninstalls JBoss-5.1.0
 # TODO To be completed and verified
 class jboss::jboss_5_uninstall {
   file { '/opt/jboss-5.1.0.GA-jdk6.zip':

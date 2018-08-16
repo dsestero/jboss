@@ -3,6 +3,16 @@
 # configurations needed to use it as an independent service.
 # *Note*: at this time the instance is created as a standalone standard profile.
 #
+# Declares all other classes in the jboss module needed for installing a jboss
+# server profile.
+# Currently, these consists of jboss::instance::install,
+# jboss::instance::config, and jboss::instance::service.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss/wildfly environment.
+# * Class['java::java_8'] for installing and setting up java8-jdk.
+#
 # @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
@@ -11,7 +21,7 @@
 #                   Defaults to <tt>127.0.0.1</tt> i.e. localhost.
 #
 # @param iface Name of the secondary network interface dedicated to this
-# instance.
+#                   instance.
 #                   Defaults to +undef+, in which case a secondary network
 #                   interface to bind the jboss instance is not created.
 #
@@ -51,25 +61,14 @@
 #                       instance paths to backup are added.
 #                       Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 #
-# == Actions:
-#
-# Declares all other classes in the jboss module needed for installing a jboss
-# server profile.
-# Currently, these consists of jboss::instance::install,
-# jboss::instance::config, and jboss::instance::service.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss/wildfly environment.
-# * Class['java::java_8'] for installing and setting up java8-jdk.
-#
-# == Sample usage:
-#
+# @example Declaring wildfly 12 instance
 #  jboss::instance_12 { 'fina':
 #    environment => 'preprod',
 #    ip          => '172.16.12.11',
 #    iface       => 'eth0:2',
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_12 (
   $instance_name      = $title,
   $ip                 = '127.0.0.1',

@@ -1,7 +1,8 @@
-# = Define: jboss::instance_8::config
-#
+# @api private
 # Configures a JBoss-8 instance,
 # i.e. a server profile. It is intended to be called by jboss::instance_8.
+#
+# @author Dario Sestero
 define jboss::instance_8::config (
   $ip,
   $iface,

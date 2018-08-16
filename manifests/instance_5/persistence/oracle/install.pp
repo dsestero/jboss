@@ -1,7 +1,13 @@
-# = Define: jboss::instance_5::persistence::oracle::install
-#
 # Utility define to add to a specified instance the Oracle persistence service
 # for <tt>DefaultDS</tt>.
+#
+# Copies the Oracle persistence service file to the <tt>deploy/messaging</tt>
+# directory of the specified instance.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Some defined instance to which the driver has to be copied.
 #
 # @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
@@ -13,23 +19,14 @@
 # @param conn_url_username Username for accessing the rdbms.
 # @param conn_url_password Password for accessing the rdbms.
 #
-# == Actions:
-#
-# Copies the Oracle persistence service file to the <tt>deploy/messaging</tt>
-# directory of the specified instance.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Some defined instance to which the driver has to be copied.
-#
-# == Sample usage:
-#
+# @example Declaring in manifest:
 #  jboss::instance::persistence::oracle::install {'sani':
 #    conn_url_suffix    => '172.16.4.91:1523:RAVDASVL',
 #    conn_url_username  => 'sani',
 #    conn_url_password  => 'sani',
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_5::persistence::oracle::install (
   $conn_url_suffix,
   $conn_url_username,

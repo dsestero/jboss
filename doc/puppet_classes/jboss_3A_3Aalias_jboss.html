@@ -6,7 +6,7 @@
 <title>
   Puppet Class: jboss::alias_jboss
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -75,23 +75,42 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Defines a utility class to add all jboss instances hostname in the hosts
-file.</p>
-
-<p>== Actions:</p>
-
-<p>Adds all jboss instances ip and alias in the agent&#39;s hosts file.</p>
-
-<p>== Requires: none</p>
-
-<p>== Sample usage:</p>
-
-<p>class {&#39;jboss::alias_jboss&#39;: }</p>
+<p>Adds all jboss instances ip and alias in the hosts file.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring in manifest:</p>
+</div></p>
+      
+      <pre class="example code"><code>class {&#39;jboss::alias_jboss&#39;: }</code></pre>
+    
+  </div>
+
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -100,12 +119,12 @@ file.</p>
         <pre class="lines">
 
 
-13
-14
-15</pre>
+7
+8
+9</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/alias_jboss.pp', line 13</span>
+        <pre class="code"><span class="info file"># File 'manifests/alias_jboss.pp', line 7</span>
 
 class jboss::alias_jboss {
   Host &lt;&lt;| tag == &#39;jboss-instance&#39; |&gt;&gt;

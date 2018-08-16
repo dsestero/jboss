@@ -1,25 +1,23 @@
-# = Define: jboss::instance_5::lib::zk::install
-#
 # Utility define to copy to a specified instance lib folder the zk library
 # jars.
+#
+# Copies the zk libraries to the lib directory of the specified instance.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Some defined instance to which the libraries have to be copied.
 #
 # @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# == Actions:
-#
-# Copies the zk libraries to the lib directory of the specified instance.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Some defined instance to which the libraries have to be copied.
-#
-# == Sample usage:
+# @example Declaring in manifest:
 #
 #  jboss::instance::lib::zk::install {'agri1':
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_5::lib::zk::install ($instance_name = $title,) {
   $require = Class['jboss']
 

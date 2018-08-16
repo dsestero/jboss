@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_5::install
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,13 +73,13 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance_5::install</p>
-
 <p>Install a JBoss-5.1.0.GA instance, i.e. a server profile. It is intended to
 be called by jboss::instance.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -132,6 +132,22 @@ be called by jboss::instance.</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -140,7 +156,6 @@ be called by jboss::instance.</p>
         <pre class="lines">
 
 
-5
 6
 7
 8
@@ -178,10 +193,11 @@ be called by jboss::instance.</p>
 40
 41
 42
-43</pre>
+43
+44</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_5/install.pp', line 5</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_5/install.pp', line 6</span>
 
 define jboss::instance_5::install (
   $profile,

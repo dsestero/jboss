@@ -1,7 +1,13 @@
-# = Define: jboss::instance_8::lib::postgresql::install
-#
 # Utility define to copy to a specified WildFly-8.2.0 instance the postgresql
 # driver jar module.
+#
+# Creates the postgresql module into the specified instance.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Some defined instance to which the driver has to be copied.
+# * The specified instance has to be up and running.
 #
 # @param instance_name Name of the JBoss profile and associated service
 # corresponding to this instance.
@@ -11,20 +17,11 @@
 # +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
-# == Actions:
-#
-# Creates the postgresql module into the specified instance.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Some defined instance to which the driver has to be copied.
-# * The specified instance has to be up and running.
-#
-# == Sample usage:
-#
+# @example Declaring in manifest:
 #  jboss::instance_8::lib::postgresql::install {'agri1':
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_8::lib::postgresql::install (
   $instance_name = $title,
   $environment   = 'dev') {

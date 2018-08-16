@@ -1,7 +1,9 @@
-# = Define: jboss::instance::config
-#
+# @api private
 # Configures a JBoss/WildFly instance.
+#
 # It is intended to be called by jboss::instance.
+#
+# @author Dario Sestero
 define jboss::instance::config (
   $ip,
   $iface,

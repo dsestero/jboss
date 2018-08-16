@@ -1,25 +1,22 @@
-# = Define: jboss::instance_5::lib::sqlserver::install
-#
 # Utility define to copy to a specified instance lib folder the SqlServer driver
 # jar.
+#
+# Copies the SqlServer driver to the lib directory of the specified instance.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Some defined instance to which the driver has to be copied.
 #
 # @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
 #
-# == Actions:
-#
-# Copies the SqlServer driver to the lib directory of the specified instance.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Some defined instance to which the driver has to be copied.
-#
-# == Sample usage:
-#
+# @example Declaring in manifest:
 #  jboss::instance::lib::sqlserver::install {'cultura':
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_5::lib::sqlserver::install ($instance_name = $title,) {
   $require = Class['jboss']
 

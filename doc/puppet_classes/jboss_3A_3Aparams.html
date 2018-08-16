@@ -6,7 +6,7 @@
 <title>
   Puppet Class: jboss::params
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -75,18 +75,32 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Class: jboss::params</p>
-
 <p>Defines the parameters needed for installing JBoss/WildFly instances.</p>
 
-<p>== Parameters:</p>
-
-<p>no parameters.</p>
+<p>It is intended to be called by <a href="x">jboss::instance_</a> defines.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -95,6 +109,8 @@
         <pre class="lines">
 
 
+7
+8
 9
 10
 11
@@ -112,17 +128,19 @@
 23</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 9</span>
+        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 7</span>
 
 class jboss::params () {
+  $java7_home = &quot;/opt/jdk/java-7/&quot;
+  $java8_home = &quot;/opt/jdk/java-8/&quot;
+  $java9_home = &quot;/opt/jdk/java-9/&quot;
+
   case $facts[&#39;os&#39;][&#39;family&#39;] {
     &#39;Debian&#39; : {
       $init_template = &#39;jboss-init.erb&#39;
-      $java7_home = &quot;/usr/lib/jvm/java-7-openjdk-${facts[&#39;os&#39;][&#39;architecture&#39;]}&quot;
     }
     &#39;RedHat&#39; : {
-      $init_template = &#39;wildfly-init-redhat.sh.erb&#39;
-      $java7_home = &quot;/usr/lib/jvm/jre-1.7.0-openjdk.${facts[&#39;os&#39;][&#39;architecture&#39;]}&quot;
+      $init_template = &#39;jboss-init-redhat.sh.erb&#39;
     }
     default            : {
       fail(&quot;The ${module_name} module is not supported on an ${facts[&#39;os&#39;][&#39;family&#39;]} distribution.&quot;)

@@ -5,6 +5,15 @@
 # <tt>4.0.5</tt>, <tt>4.2.0</tt>, <tt>4.2.1</tt>,
 # <tt>4.2.2</tt>, <tt>4.2.3</tt>.
 #
+# The main actions performed are:
+#
+# * Download of the distribution from SourceForge and
+# * Unzip of the distribution under <tt>/opt</tt>.
+#
+# Note that the download of the distribution takes place only if the
+# distribution is not present in <tt>/tmp</tt> and the
+# distribution was not yet unzipped.
+#
 # @param version JBoss version. It has to be a three number string denoting a
 #              specific version in the JBoss-4 family.
 #              Defaults to the resource title.
@@ -13,20 +22,7 @@
 #              specify the jdk used to compile the distribution.
 #              Defaults to ''.
 #
-# == Actions:
-#
-# * Downloads the distribution from SourceForge and
-# * Unzip the distribution under <tt>/opt</tt>.
-#
-# Note that the download of the distribution takes place only if the
-# distribution is not present in <tt>/tmp</tt> and the
-# distribution was not yet unzipped.
-#
-# == Requires:
-# see Modulefile
-#
-# == Sample usage:
-#
+# @example Declaring a 4.0.5 instance:
 #  jboss_4 {'4.0.5':}
 #
 define jboss::jboss_4 ($version = undef, $jdksuffix = '',) {

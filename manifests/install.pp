@@ -1,16 +1,18 @@
+# @api private
 # Sets up the system for installing JBoss/WildFly AS.
-# It is intended to be called by jboss::jboss.
+#
+# It is intended to be called by jboss::jboss in order to:
+#
+# * create JBoss user and group;
+# * make <tt>/opt</tt> folder group owned by jboss and group writable;
+# * create /home/jboss/bin folder to host some management scripts;
+# * according to the parameter <tt>jboss_instance_list</tt> create in /usr/local/bin a text file with all
+#     the instance names on the node, one per line.
 #
 # @param jboss_instance_list [Boolean] should a text file with all instance names on the node, one per line,
 #   be created in <tt>/usr/local/bin</tt>?
 #
-# == Actions:
-#
-# * Creates JBoss user and group;
-# * makes <tt>/opt</tt> folder group owned by jboss and group writable;
-# * creates /home/jboss/bin folder to host some management scripts;
-# * according to the parameter <tt>jboss_instance_list</tt> creates in /usr/local/bin a text file with all
-#     the instance names on the node, one per line.
+# @author Dario Sestero
 class jboss::install (Boolean $jboss_instance_list = false) {
 
   user { 'jboss':

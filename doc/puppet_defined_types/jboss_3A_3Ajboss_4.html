@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::jboss_4
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,43 +73,41 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::jboss_4</p>
-
 <p>Installs JBoss-4. The resource title has to be an unique name identifying
 the JBoss installation and it could be used to specify the desired version.
 Supported versions are: <code>4.0.0</code>, <code>4.0.2</code>,
 <code>4.0.4</code>, <code>4.0.5</code>, <code>4.2.0</code>,
 <code>4.2.1</code>, <code>4.2.2</code>, <code>4.2.3</code>.</p>
 
-<p>== Parameters:</p>
-
-<p>$version:: JBoss version. It has to be a three number string denoting a 
-specific version in the JBoss-4 family.  Defaults to the resource title.</p>
-
-<p>$jdksuffix:: The string indicating the possible suffix of the filename to 
-specify the jdk used to compile the distribution.  Defaults to &#39;&#39;.</p>
-
-<p>== Actions:</p>
+<p>The main actions performed are:</p>
 <ul><li>
-<p>Downloads the distribution from SourceForge and</p>
+<p>Download of the distribution from SourceForge and</p>
 </li><li>
-<p>Unzip the distribution under <code>/opt</code>.</p>
+<p>Unzip of the distribution under <code>/opt</code>.</p>
 </li></ul>
 
 <p>Note that the download of the distribution takes place only if the
 distribution is not present in <code>/tmp</code> and the distribution was
 not yet unzipped.</p>
 
-<p>== Requires: see Modulefile</p>
-
-<p>== Sample usage:</p>
-
-<p>jboss_4 &#39;4.0.5&#39;:</p>
-
   </div>
 </div>
+
+
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring a 4.0.5 instance:</p>
+</div></p>
+      
+      <pre class="example code"><code>jboss_4 {&#39;4.0.5&#39;:}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -122,6 +120,12 @@ not yet unzipped.</p>
       
         <em class="default">(defaults to: <tt>undef</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>JBoss version. It has to be a three number string denoting a specific
+version in the JBoss-4 family. Defaults to the resource title.</p>
+</div>
       
     </li>
   
@@ -136,6 +140,12 @@ not yet unzipped.</p>
         <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>The string indicating the possible suffix of the filename to specify the
+jdk used to compile the distribution. Defaults to &#39;&#39;.</p>
+</div>
+      
     </li>
   
 </ul>
@@ -148,6 +158,14 @@ not yet unzipped.</p>
         <pre class="lines">
 
 
+28
+29
+30
+31
+32
+33
+34
+35
 36
 37
 38
@@ -159,18 +177,10 @@ not yet unzipped.</p>
 44
 45
 46
-47
-48
-49
-50
-51
-52
-53
-54
-55</pre>
+47</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/jboss_4.pp', line 36</span>
+        <pre class="code"><span class="info file"># File 'manifests/jboss_4.pp', line 28</span>
 
 define jboss::jboss_4 ($version = undef, $jdksuffix = &#39;&#39;,) {
   include jboss

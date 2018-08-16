@@ -1,7 +1,8 @@
-# = Define: jboss::instance::install
-#
+# @api private
 # Installs a JBoss instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
+#
+# @author Dario Sestero
 define jboss::instance::install ($instance_name = $title,) {
 
   $require = Class['jboss']

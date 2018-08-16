@@ -3,6 +3,16 @@
 # configurations needed to use it as an independent service.
 # *Note*: at this time the instance is created as a standalone standard profile.
 #
+# Declares all other classes in the jboss module needed for installing a jboss
+# server profile.
+# Currently, these consists of jboss::instance::install,
+# jboss::instance::config, and jboss::instance::service.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Class['java::java_7'] for installing and setting up java7-jdk.
+#
 # @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
 #                   Defaults to the resource title.
@@ -59,26 +69,15 @@
 #                       to backup are added.
 #                       Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 #
-# == Actions:
-#
-# Declares all other classes in the jboss module needed for installing a jboss
-# server profile.
-# Currently, these consists of jboss::instance::install,
-# jboss::instance::config, and jboss::instance::service.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Class['java::java_7'] for installing and setting up java7-jdk.
-#
-# == Sample usage:
-#
+# @example Declaring jboss 7 instance
 #  jboss::instance_7 { 'fina':
 #    environment => 'preprod',
 #    ip          => '172.16.12.11',
 #    iface       => 'eth0:2',
 #    jmxport     => '12345',
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_7 (
   $instance_name      = $title,
   $ip                 = '127.0.0.1',

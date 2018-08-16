@@ -1,9 +1,13 @@
-# = Define: jboss::instance_7::lib::oracle::install
-#
-# Utility define to copy to a specified JBoss-7.1.1 instance the Oracle driver
+# Utility define to copy to a specified WildFly-7.1.1 instance the Oracle driver
 # jar module.
 #
-# == Parameters:
+# Creates the Oracle module into the specified instance.
+#
+# Requires:
+#
+# * Class['jboss'] for installing and setting up basic jboss environment.
+# * Some defined instance to which the driver has to be copied.
+# * The specified instance has to be up and running.
 #
 # @param instance_name Name of the JBoss profile and associated service
 #                   corresponding to this instance.
@@ -13,20 +17,11 @@
 #                   +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
-# == Actions:
-#
-# Creates the Oracle module into the specified instance.
-#
-# == Requires:
-#
-# * Class['jboss'] for installing and setting up basic jboss environment.
-# * Some defined instance to which the driver has to be copied.
-# * The specified instance has to be up and running.
-#
-# == Sample usage:
-#
+# @example Declaring in manifest:
 #  jboss::instance_7::lib::oracle::install {'agri1':
 #  }
+#
+# @author Dario Sestero
 define jboss::instance_7::lib::oracle::install (
   $instance_name = $title,
   $environment   = 'dev') {

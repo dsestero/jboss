@@ -1,20 +1,9 @@
 # Installs JBoss-5.1.0.GA.
 #
-# == Actions:
+# @example Declaring in manifest:
+#  include jboss_5
 #
-# * Unzip the distribution under <tt>/opt</tt>, and creates JBoss user and
-# group;
-# * creates a link <tt>/opt/jboss</tt> pointing to the JBoss-5.1.0.GA
-#   installation folder;
-# * furthermore, copies a zip of the files needed to deploy jbossws web service
-#   under <tt>/opt</tt>
-# * and unzip it.
-# == Requires:
-# see Modulefile
-#
-# == Sample usage:
-#
-#  class {'jboss_5': }
+# @author Dario Sestero
 class jboss::jboss_5 {
   include jboss
 

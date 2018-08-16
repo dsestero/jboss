@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_8::config
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,13 +73,13 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance_8::config</p>
-
 <p>Configures a JBoss-8 instance, i.e. a server profile. It is intended to be
 called by jboss::instance_8.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -220,6 +220,22 @@ called by jboss::instance_8.</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -228,7 +244,6 @@ called by jboss::instance_8.</p>
         <pre class="lines">
 
 
-5
 6
 7
 8
@@ -350,7 +365,7 @@ called by jboss::instance_8.</p>
 124</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_8/config.pp', line 5</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_8/config.pp', line 6</span>
 
 define jboss::instance_8::config (
   $ip,
@@ -403,7 +418,7 @@ define jboss::instance_8::config (
       ensure =&gt; present,
       *      =&gt; $file_ownership,
       ;
-    # Script di avvio
+    # Startup script
     &quot;${jboss_inst_folder}/bin/run-${instance_name}.sh&quot;:
       content =&gt; template(&quot;${module_name}/standalone-launcher.sh.erb&quot;),
       mode    =&gt; &#39;0755&#39;,
@@ -422,9 +437,8 @@ define jboss::instance_8::config (
       ;
   }
 
-  # Directory for deployment of applicative properties, retrieved via hiera
-  $customConfigurationsModule = hiera(&#39;inva::custom_configurations_module&#39;,
-  undef)
+  # Directory for deployment of applicative properties, retrieved via lookup
+  $customConfigurationsModule = lookup(&#39;inva::custom_configurations_module&#39;, Optional[Tuple[String, 1, 5]], &#39;first&#39;, undef)
 
   if $customConfigurationsModule != undef {
     $modulesFolder = &quot;${jboss_inst_folder}/modules/system/layers/base/&quot;

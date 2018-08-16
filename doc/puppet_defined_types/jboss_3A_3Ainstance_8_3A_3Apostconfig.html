@@ -6,7 +6,7 @@
 <title>
   Defined Type: jboss::instance_8::postconfig
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.15
   
 </title>
 
@@ -73,13 +73,13 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>= Define: jboss::instance_8::postconfig</p>
-
 <p>Configures a running JBoss-8 instance via jboss-cli. It is intended to be
 called by jboss::instance_8.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -165,6 +165,22 @@ called by jboss::instance_8.</p>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Dario Sestero</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -173,7 +189,6 @@ called by jboss::instance_8.</p>
         <pre class="lines">
 
 
-5
 6
 7
 8
@@ -253,10 +268,11 @@ called by jboss::instance_8.</p>
 82
 83
 84
-85</pre>
+85
+86</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_8/postconfig.pp', line 5</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_8/postconfig.pp', line 6</span>
 
 define jboss::instance_8::postconfig (
   $ip,
