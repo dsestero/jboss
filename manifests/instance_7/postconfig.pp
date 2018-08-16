@@ -11,29 +11,28 @@ define jboss::instance_7::postconfig (
   $mgmt_user,
   $mgmt_passwd,
   $instance_name = $title,) {
+
   $jboss_inst_folder = "/opt/jboss-7-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
   $auth_string = $mgmt_user ? {
     undef   => '',
     default => "--user=${mgmt_user} --password=${mgmt_passwd}",
   }
-  $shutdown_cmd = "jboss-cli.sh --connect --controller=${ip_alias}:9999 ${auth_string} command=:shutdown"
-
   $hot_deploy_status = $environment ? {
     'prep'  => absent,
     'prod'  => absent,
     default => present,
   }
-
-  File {
-    owner => jboss,
-    group => jboss,
+  $file_ownership = {
+    'owner' => 'jboss',
+    'group' => 'jboss',
   }
 
-  # Configurazione log
+  # Log configuration
   file { "${jboss_inst_folder}/bin/script-logger-prestazioni.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-logger-prestazioni.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_logger_prestazioni_${instance_name}":
     command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-logger-prestazioni.txt",
@@ -43,10 +42,11 @@ define jboss::instance_7::postconfig (
     unless  => "grep prestazioni ${jboss_inst_folder}/standalone/configuration/standalone.xml",
   }
 
-  # Configurazione ajp
+  # ajp configuration
   file { "${jboss_inst_folder}/bin/script-ajp.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-ajp.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_ajp_${instance_name}":
     command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-ajp.txt",
@@ -56,10 +56,11 @@ define jboss::instance_7::postconfig (
     unless  => "grep AJP/1.3 ${jboss_inst_folder}/standalone/configuration/standalone.xml",
   }
 
-  # Configurazione JMX
+  # jmx configuration
   file { "${jboss_inst_folder}/bin/script-jmx.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-jmx.txt",
+    *      => $file_ownership,
   } ->
   exec { "configure_jmx_${instance_name}":
     command => "${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-jmx.txt",
