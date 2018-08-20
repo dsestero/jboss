@@ -130,7 +130,7 @@ define jboss::instance_7::config (
       *       => $file_ownership,
     } ->
     exec { "${jboss_inst_folder}/execute_mgmt_user":
-      command => "/bin/sh -c 'JAVA_HOME=${java_home} ${jboss_inst_folder}/bin/create_mgmt_user.ex",
+      command => "/bin/sh -c 'JAVA_HOME=${java_home} ${jboss_inst_folder}/bin/create_mgmt_user.ex'",
       cwd     => "${jboss_inst_folder}/bin",
       user    => jboss,
       group   => jboss,
