@@ -62,7 +62,7 @@ define jboss::instance_7::config (
     ;
     # Init script
     "/etc/init.d/jboss-${instance_name}":
-      content => template("${module_name}/${jboss::params::init_template}"),
+      content => template("${module_name}/${jboss::params::init7_template}"),
       owner   => root,
       group   => root,
       mode    => '0755',

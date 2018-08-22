@@ -15,6 +15,7 @@ class jboss::params () {
     }
     'RedHat' : {
       $init_template = 'jboss-init-redhat.sh.erb'
+      $init7_template = 'jboss-init-7-redhat.sh.erb'
     }
     default            : {
       fail("The ${module_name} module is not supported on an ${facts['os']['family']} distribution.")
