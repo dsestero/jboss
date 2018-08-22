@@ -12,6 +12,7 @@ class jboss::params () {
   case $facts['os']['family'] {
     'Debian' : {
       $init_template = 'jboss-init.erb'
+      $init7_template = 'jboss-init.erb'
     }
     'RedHat' : {
       $init_template = 'jboss-init-redhat.sh.erb'
