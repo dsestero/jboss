@@ -5,7 +5,7 @@
 # chkconfig: - 80 20
 # description: WildFly <%= @instance_name %> startup script
 # processname: wildfly-<%= @instance_name %>
-# pidfile: /var/run/wildfly/wildfly.pid
+# pidfile: /var/run/wildfly-<%= @instance_name %>.pid
 # config: /etc/default/wildfly.conf
 #
 
@@ -17,7 +17,7 @@ NAME=run-${SERVICE}.sh
 
 export JBOSS_HOME=<%= @jboss_inst_folder %>
 JBOSS_SCRIPT=$JBOSS_HOME/bin/$NAME
-JBOSS_PIDFILE=/var/run/jboss-$SERVICE.pid
+JBOSS_PIDFILE=/var/run/wildfly-$SERVICE.pid
 JBOSS_USER=jboss
 JBOSS_CONSOLE_LOG=/var/log/jboss/server/$SERVICE/jboss_out.log
 SCRIPTNAME=/etc/init.d/jboss-$SERVICE
