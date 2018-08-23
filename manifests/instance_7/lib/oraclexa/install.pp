@@ -1,7 +1,11 @@
-# Utility define to copy to a specified WildFly-7.1.1 instance the Oracle driver
+# Utility define to copy to a specified JBoss-7.1.1 instance the OracleXA driver
 # jar module.
+# Notice: the oracle driver jar contains both classes for standard and XA access,
+# hence for convenience of implementation installing oraclexa automatically sets up
+# also the oracle standard driver. If you try to install both oracle and oraclexa you
+# will get a resource duplication error (the module.xml file is the same, although with different content!)
 #
-# Creates the Oracle module into the specified instance.
+# Creates the Oracle XA module into the specified instance.
 #
 # Requires:
 #
@@ -18,11 +22,11 @@
 #                   Defaults to +dev+.
 #
 # @example Declaring in manifest:
-#  jboss::instance_7::lib::oracle::install {'agri1':
+#  jboss::instance_7::lib::oraclexa::install {'agri1':
 #  }
 #
 # @author Dario Sestero
-define jboss::instance_7::lib::oracle::install (
+define jboss::instance_7::lib::oraclexa::install (
   $instance_name = $title,
   $environment   = 'dev') {
   $require = Class['jboss']
@@ -53,7 +57,7 @@ define jboss::instance_7::lib::oracle::install (
     source => "puppet:///modules/${module_name}/lib/oraclexa/module.xml",
     *      => $file_ownership,
   } ->
-  download_uncompress { "${oracleModulePath}/ojdbc6.jar":
+  download_uncompress { "${oracleModulePath}xa/ojdbc6.jar":
     distribution_name => 'lib/ojdbc6.jar',
     dest_folder       => $oracleModulePath,
     creates           => "${oracleModulePath}/ojdbc6.jar",
@@ -65,8 +69,8 @@ define jboss::instance_7::lib::oracle::install (
     source => "puppet:///modules/${module_name}/bin/script-driver-oraclexa.txt",
     *      => $file_ownership,
   } ->
-  exec { "configure_driver_oracle_${instance_name}":
-    command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-oracle.txt",
+  exec { "configure_driver_oraclexa_${instance_name}":
+    command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-oraclexa.txt",
     cwd     => $binFolder,
     unless  => "grep com.oracle.ojdbc6 ${jbossInstFolder}/standalone/configuration/standalone.xml",
     *       => $exec_permission,

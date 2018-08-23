@@ -1,4 +1,4 @@
-# Utility define to copy to a specified WildFly-7.1.1 instance the postgresql
+# Utility define to copy to a specified JBoss-7.1.1 instance the postgresql
 # driver jar module.
 #
 # Creates the postgresql module into the specified instance.
@@ -18,11 +18,11 @@
 #                   Defaults to +dev+.
 #
 # @example Declaring in manifest:
-#  jboss::instance_7::lib::postgresql::install {'agri1':
+#  jboss::instance_7::lib::postgresqlxa::install {'agri1':
 #  }
 #
 # @author Dario Sestero
-define jboss::instance_7::lib::postgresql::install (
+define jboss::instance_7::lib::postgresqlxa::install (
   $instance_name = $title,
   $environment   = 'dev') {
   $require = Class['jboss']
@@ -50,7 +50,7 @@ define jboss::instance_7::lib::postgresql::install (
     *       => $exec_permission,
   } ->
   file { "${postgresqlModulePath}/module.xml":
-    source => "puppet:///modules/${module_name}/lib/postgresql/module.xml",
+    source => "puppet:///modules/${module_name}/lib/postgresqlxa/module.xml",
     *      => $file_ownership,
   } ->
   download_uncompress { "${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar":
