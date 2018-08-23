@@ -5,7 +5,7 @@
 # chkconfig: - 80 20
 # description: JBoss AS Standalone <%= @instance_name %> startup script
 # processname: standalone
-# pidfile: /var/run/jboss-as/jboss-as-standalone.pid
+# pidfile: /var/run/jboss-<%= @instance_name %>.pid
 # config: /etc/jboss-as/jboss-as.conf
 
 IF=<%= @ip_alias %>
