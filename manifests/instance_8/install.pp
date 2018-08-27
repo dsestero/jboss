@@ -1,4 +1,3 @@
-# @api private
 # Install a JBoss-8 instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
 #
@@ -28,7 +27,7 @@ define jboss::instance_8::install (
     group             => jboss,
   }
 
-  # Righe nel file di configurazione del backup
+  # backup configuration lines
   @@concat::fragment { "${ip_alias}-modules":
     target  => $backup_conf_target,
     content => "${jboss_inst_folder}/modules/system/layers/base\n",

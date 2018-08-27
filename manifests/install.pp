@@ -1,4 +1,3 @@
-# @api private
 # Sets up the system for installing JBoss/WildFly AS.
 #
 # It is intended to be called by jboss::jboss in order to:

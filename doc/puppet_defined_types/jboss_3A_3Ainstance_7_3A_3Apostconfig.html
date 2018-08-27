@@ -189,6 +189,7 @@ called by jboss::instance_7.</p>
         <pre class="lines">
 
 
+5
 6
 7
 8
@@ -257,7 +258,7 @@ called by jboss::instance_7.</p>
 71</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_7/postconfig.pp', line 6</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_7/postconfig.pp', line 5</span>
 
 define jboss::instance_7::postconfig (
   $ip,
@@ -267,29 +268,28 @@ define jboss::instance_7::postconfig (
   $mgmt_user,
   $mgmt_passwd,
   $instance_name = $title,) {
+
   $jboss_inst_folder = &quot;/opt/jboss-7-${instance_name}/${jbossdirname}&quot;
   $ip_alias = &quot;${instance_name}-${environment}&quot;
   $auth_string = $mgmt_user ? {
     undef   =&gt; &#39;&#39;,
     default =&gt; &quot;--user=${mgmt_user} --password=${mgmt_passwd}&quot;,
   }
-  $shutdown_cmd = &quot;jboss-cli.sh --connect --controller=${ip_alias}:9999 ${auth_string} command=:shutdown&quot;
-
   $hot_deploy_status = $environment ? {
     &#39;prep&#39;  =&gt; absent,
     &#39;prod&#39;  =&gt; absent,
     default =&gt; present,
   }
-
-  File {
-    owner =&gt; jboss,
-    group =&gt; jboss,
+  $file_ownership = {
+    &#39;owner&#39; =&gt; &#39;jboss&#39;,
+    &#39;group&#39; =&gt; &#39;jboss&#39;,
   }
 
-  # Configurazione log
+  # Log configuration
   file { &quot;${jboss_inst_folder}/bin/script-logger-prestazioni.txt&quot;:
     ensure =&gt; present,
     source =&gt; &quot;puppet:///modules/${module_name}/bin/script-logger-prestazioni.txt&quot;,
+    *      =&gt; $file_ownership,
   } -&gt;
   exec { &quot;configure_logger_prestazioni_${instance_name}&quot;:
     command =&gt; &quot;${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-logger-prestazioni.txt&quot;,
@@ -299,10 +299,11 @@ define jboss::instance_7::postconfig (
     unless  =&gt; &quot;grep prestazioni ${jboss_inst_folder}/standalone/configuration/standalone.xml&quot;,
   }
 
-  # Configurazione ajp
+  # ajp configuration
   file { &quot;${jboss_inst_folder}/bin/script-ajp.txt&quot;:
     ensure =&gt; present,
     source =&gt; &quot;puppet:///modules/${module_name}/bin/script-ajp.txt&quot;,
+    *      =&gt; $file_ownership,
   } -&gt;
   exec { &quot;configure_ajp_${instance_name}&quot;:
     command =&gt; &quot;${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-ajp.txt&quot;,
@@ -312,10 +313,11 @@ define jboss::instance_7::postconfig (
     unless  =&gt; &quot;grep AJP/1.3 ${jboss_inst_folder}/standalone/configuration/standalone.xml&quot;,
   }
 
-  # Configurazione JMX
+  # jmx configuration
   file { &quot;${jboss_inst_folder}/bin/script-jmx.txt&quot;:
     ensure =&gt; present,
     source =&gt; &quot;puppet:///modules/${module_name}/bin/script-jmx.txt&quot;,
+    *      =&gt; $file_ownership,
   } -&gt;
   exec { &quot;configure_jmx_${instance_name}&quot;:
     command =&gt; &quot;${jboss_inst_folder}/bin/myjboss-cli.sh --controller=${ip_alias} --file=script-jmx.txt&quot;,

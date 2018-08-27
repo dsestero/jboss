@@ -1,2 +1,0 @@
-connect
-/subsystem=datasources/jdbc-driver=sqlserver/:add(driver-module-name=com.microsoft.sqljdbc4,driver-name=sqlserver,driver-xa-datasource-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver,jdbc-compliant=false)

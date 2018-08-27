@@ -1,3 +1,7 @@
+##2018-08-27 - Release - 2.1.2
+###Summary
+Revised all classes involved in creating JBoss-7.1.1 instances.
+
 ##2018-08-16 - Release - 2.1.1
 ###Summary
 All documentation written using Puppet Strings.

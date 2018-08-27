@@ -1,4 +1,3 @@
-# @api private
 # Configures a JBoss/WildFly instance.
 #
 # It is intended to be called by jboss::instance.

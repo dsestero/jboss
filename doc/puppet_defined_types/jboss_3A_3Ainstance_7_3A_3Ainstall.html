@@ -76,6 +76,13 @@
 <p>Install a JBoss-7 instance, i.e. a server profile. It is intended to be
 called by jboss::instance.</p>
 
+<p>According to <a
+href="https://stackoverflow.com/questions/48403832/javax-xml-parsers-factoryconfigurationerror-running-jboss-as-7-1-with-java-7-upd/48561492#48561492">stackoverflow.com/questions/48403832/javax-xml-parsers-factoryconfigurationerror-running-jboss-as-7-1-with-java-7-upd/48561492#48561492</a>
+the <code>jboss-modules.jar</code> in the JBoss installation folder is
+replaced with a more recent (1.1.5.GA) version. The version of
+jboss-modules which comes with jboss-7.1.1.Final is 1.1.1.GA and it has a
+few issues with initialisation order and multiple-initialisation.</p>
+
   </div>
 </div>
 
@@ -167,9 +174,6 @@ called by jboss::instance.</p>
         <pre class="lines">
 
 
-6
-7
-8
 9
 10
 11
@@ -216,10 +220,16 @@ called by jboss::instance.</p>
 52
 53
 54
-55</pre>
+55
+56
+57
+58
+59
+60
+61</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_7/install.pp', line 6</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_7/install.pp', line 9</span>
 
 define jboss::instance_7::install (
   $environment,
@@ -229,11 +239,6 @@ define jboss::instance_7::install (
   $instance_name = $title,) {
   $jboss_inst_folder = &quot;/opt/jboss-7-${instance_name}/${jbossdirname}&quot;
   $ip_alias = &quot;${instance_name}-${environment}&quot;
-
-  File {
-    owner =&gt; jboss,
-    group =&gt; jboss,
-  }
 
   include java::java_7, jboss::instance::dependencies
 
@@ -249,25 +254,33 @@ define jboss::instance_7::install (
     uncompress        =&gt; &#39;zip&#39;,
     user              =&gt; jboss,
     group             =&gt; jboss,
+  } ~&gt;
+  download_uncompress { &quot;install_jboss_7_jbmodules_${instance_name}&quot;:
+    distribution_name =&gt; &#39;jboss-modules.jar&#39;,
+    dest_folder       =&gt; $jboss_inst_folder,
+    creates           =&gt; &quot;/opt/jboss-7-${instance_name}&quot;,
+    uncompress        =&gt; &#39;none&#39;,
+    user              =&gt; jboss,
+    group             =&gt; jboss,
   }
 
-  # Righe nel file di configurazione del backup
+  # backup configuration lines
   @@concat::fragment { &quot;${ip_alias}-modules&quot;:
     target  =&gt; $backup_conf_target,
     content =&gt; &quot;${jboss_inst_folder}/modules\n&quot;,
-    tag     =&gt; [$::environment, $::fqdn],
+    tag     =&gt; [$::environment, $facts[&#39;networking&#39;][&#39;fqdn&#39;]],
   }
 
   @@concat::fragment { &quot;${ip_alias}-standalone-configuration&quot;:
     target  =&gt; $backup_conf_target,
     content =&gt; &quot;${jboss_inst_folder}/standalone/configuration\n&quot;,
-    tag     =&gt; [$::environment, $::fqdn],
+    tag     =&gt; [$::environment, $facts[&#39;networking&#39;][&#39;fqdn&#39;]],
   }
 
   @@concat::fragment { &quot;${ip_alias}-standalone-deployments&quot;:
     target  =&gt; $backup_conf_target,
     content =&gt; &quot;${jboss_inst_folder}/standalone/deployments\n&quot;,
-    tag     =&gt; [$::environment, $::fqdn],
+    tag     =&gt; [$::environment, $facts[&#39;networking&#39;][&#39;fqdn&#39;]],
   }
 
 }</pre>

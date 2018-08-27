@@ -1,2 +1,0 @@
-connect
-/system-property=org.apache.tomcat.util.ENABLE_MODELER/:add(value=true)

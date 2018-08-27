@@ -1,4 +1,3 @@
-# @api private
 # Configures a JBoss-5.1.0.GA instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
 #

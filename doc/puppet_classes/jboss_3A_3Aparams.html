@@ -109,6 +109,7 @@
         <pre class="lines">
 
 
+6
 7
 8
 9
@@ -125,10 +126,11 @@
 20
 21
 22
-23</pre>
+23
+24</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 7</span>
+        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 6</span>
 
 class jboss::params () {
   $java7_home = &quot;/opt/jdk/java-7/&quot;
@@ -138,9 +140,11 @@ class jboss::params () {
   case $facts[&#39;os&#39;][&#39;family&#39;] {
     &#39;Debian&#39; : {
       $init_template = &#39;jboss-init.erb&#39;
+      $init7_template = &#39;jboss-init.erb&#39;
     }
     &#39;RedHat&#39; : {
       $init_template = &#39;jboss-init-redhat.sh.erb&#39;
+      $init7_template = &#39;jboss-init-7-redhat.sh.erb&#39;
     }
     default            : {
       fail(&quot;The ${module_name} module is not supported on an ${facts[&#39;os&#39;][&#39;family&#39;]} distribution.&quot;)

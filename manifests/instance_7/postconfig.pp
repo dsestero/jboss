@@ -1,4 +1,3 @@
-# @api private
 # Configures a running JBoss-7 instance via jboss-cli.
 # It is intended to be called by jboss::instance_7.
 #

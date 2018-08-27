@@ -1,3 +1,0 @@
-connect
-/subsystem=datasources/jdbc-driver=oracle/:add(driver-module-name=com.oracle.ojdbc6,driver-name=oracle,driver-xa-datasource-class-name=oracle.jdbc.driver.OracleDriver,jdbc-compliant=false)
-/subsystem=datasources/jdbc-driver=oracleXA/:add(driver-module-name=com.oracle.ojdbc6,driver-name=oracleXA,driver-xa-datasource-class-name=oracle.jdbc.xa.client.OracleXADataSource,jdbc-compliant=false)

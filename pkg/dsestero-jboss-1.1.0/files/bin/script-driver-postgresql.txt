@@ -1,2 +1,0 @@
-connect
-/subsystem=datasources/jdbc-driver=postgresql/:add(driver-module-name=org.postgresql,driver-name=postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource,jdbc-compliant=false)

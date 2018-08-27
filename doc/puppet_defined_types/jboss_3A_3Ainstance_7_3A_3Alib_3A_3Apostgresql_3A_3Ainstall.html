@@ -219,7 +219,14 @@ Defaults to <code>dev</code>.</p>
 65
 66
 67
-68</pre>
+68
+69
+70
+71
+72
+73
+74
+75</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/instance_7/lib/postgresql/install.pp', line 25</span>
@@ -236,35 +243,42 @@ define jboss::instance_7::lib::postgresql::install (
   $modulesFolder = &quot;${jbossInstFolder}/modules&quot;
   $postgresqlModulePath = &quot;${modulesFolder}/org/postgresql/main&quot;
 
+  $file_ownership = {
+    &#39;owner&#39; =&gt; &#39;jboss&#39;,
+    &#39;group&#39; =&gt; &#39;jboss&#39;,
+  }
+  $exec_permission = {
+    &#39;user&#39;  =&gt; &#39;jboss&#39;,
+    &#39;group&#39; =&gt; &#39;jboss&#39;,
+  }
+
+  # module definition
   exec { &quot;create_postgresql_module_folders_${instance_name}&quot;:
     command =&gt; &quot;mkdir -p ${postgresqlModulePath}&quot;,
     creates =&gt; $postgresqlModulePath,
-    user    =&gt; jboss,
-    group   =&gt; jboss,
+    *       =&gt; $exec_permission,
   } -&gt;
   file { &quot;${postgresqlModulePath}/module.xml&quot;:
     source =&gt; &quot;puppet:///modules/${module_name}/lib/postgresql/module.xml&quot;,
-    owner  =&gt; jboss,
-    group  =&gt; jboss,
+    *      =&gt; $file_ownership,
   } -&gt;
   download_uncompress { &quot;${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar&quot;:
     distribution_name =&gt; &#39;lib/postgresql-9.1-903.jdbc4.jar&#39;,
     dest_folder       =&gt; $postgresqlModulePath,
     creates           =&gt; &quot;${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar&quot;,
-    user              =&gt; jboss,
-    group             =&gt; jboss,
+    *                 =&gt; $exec_permission,
   } -&gt;
-  # Configurazione driver
+  # driver configuration
   file { &quot;${binFolder}/script-driver-postgresql.txt&quot;:
     ensure =&gt; present,
     source =&gt; &quot;puppet:///modules/${module_name}/bin/script-driver-postgresql.txt&quot;,
+    *      =&gt; $file_ownership,
   } -&gt;
   exec { &quot;configure_driver_postgresql_${instance_name}&quot;:
     command =&gt; &quot;${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-postgresql.txt&quot;,
     cwd     =&gt; $binFolder,
-    user    =&gt; jboss,
-    group   =&gt; jboss,
     unless  =&gt; &quot;grep org.postgresql ${jbossInstFolder}/standalone/configuration/standalone.xml&quot;,
+    *       =&gt; $exec_permission,
   }
 
 }</pre>

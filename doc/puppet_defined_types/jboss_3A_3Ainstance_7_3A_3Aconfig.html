@@ -266,6 +266,7 @@ called by jboss::instance_7.</p>
         <pre class="lines">
 
 
+5
 6
 7
 8
@@ -399,11 +400,10 @@ called by jboss::instance_7.</p>
 136
 137
 138
-139
-140</pre>
+139</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_7/config.pp', line 6</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_7/config.pp', line 5</span>
 
 define jboss::instance_7::config (
   $ip,
@@ -464,7 +464,7 @@ define jboss::instance_7::config (
     ;
     # Init script
     &quot;/etc/init.d/jboss-${instance_name}&quot;:
-      content =&gt; template(&quot;${module_name}/${jboss::params::init_template}&quot;),
+      content =&gt; template(&quot;${module_name}/${jboss::params::init7_template}&quot;),
       owner   =&gt; root,
       group   =&gt; root,
       mode    =&gt; &#39;0755&#39;,
@@ -532,7 +532,7 @@ define jboss::instance_7::config (
       *       =&gt; $file_ownership,
     } -&gt;
     exec { &quot;${jboss_inst_folder}/execute_mgmt_user&quot;:
-      command =&gt; &quot;/bin/sh -c &#39;JAVA_HOME=${java_home} ${jboss_inst_folder}/bin/create_mgmt_user.ex&quot;,
+      command =&gt; &quot;/bin/sh -c &#39;JAVA_HOME=${java_home} ${jboss_inst_folder}/bin/create_mgmt_user.ex&#39;&quot;,
       cwd     =&gt; &quot;${jboss_inst_folder}/bin&quot;,
       user    =&gt; jboss,
       group   =&gt; jboss,

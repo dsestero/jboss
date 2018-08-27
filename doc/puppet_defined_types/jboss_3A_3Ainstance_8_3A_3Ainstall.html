@@ -167,6 +167,7 @@ called by jboss::instance.</p>
         <pre class="lines">
 
 
+5
 6
 7
 8
@@ -210,11 +211,10 @@ called by jboss::instance.</p>
 46
 47
 48
-49
-50</pre>
+49</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_8/install.pp', line 6</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_8/install.pp', line 5</span>
 
 define jboss::instance_8::install (
   $environment,
@@ -241,7 +241,7 @@ define jboss::instance_8::install (
     group             =&gt; jboss,
   }
 
-  # Righe nel file di configurazione del backup
+  # backup configuration lines
   @@concat::fragment { &quot;${ip_alias}-modules&quot;:
     target  =&gt; $backup_conf_target,
     content =&gt; &quot;${jboss_inst_folder}/modules/system/layers/base\n&quot;,

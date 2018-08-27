@@ -1,4 +1,3 @@
-# @api private
 # Install dependencies (extra packages) needed for the module.
 #
 # At this time it installs the package +expect+.

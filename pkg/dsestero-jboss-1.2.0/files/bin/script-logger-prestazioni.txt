@@ -1,6 +1,0 @@
-connect
-/subsystem=logging/periodic-rotating-file-handler=PRESTAZIONI/:add(name= PRESTAZIONI,suffix=.yyyy-MM-dd,level=INFO,autoflush=true,append=true,file={"path" => "prestazioni.log","relative-to" => "jboss.server.log.dir"})
-/subsystem=logging/logger=LoggerPrestazioni:add
-/subsystem=logging/logger=LoggerPrestazioni:write-attribute(name="level", value="INFO")
-/subsystem=logging/logger=LoggerPrestazioni:assign-handler(name="PRESTAZIONI")
-

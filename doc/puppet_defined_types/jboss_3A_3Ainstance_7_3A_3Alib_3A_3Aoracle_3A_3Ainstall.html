@@ -217,7 +217,14 @@ Defaults to <code>dev</code>.</p>
 65
 66
 67
-68</pre>
+68
+69
+70
+71
+72
+73
+74
+75</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/instance_7/lib/oracle/install.pp', line 25</span>
@@ -234,35 +241,42 @@ define jboss::instance_7::lib::oracle::install (
   $modulesFolder = &quot;${jbossInstFolder}/modules&quot;
   $oracleModulePath = &quot;${modulesFolder}/com/oracle/ojdbc6/main&quot;
 
-  exec { &quot;create_oracle_module_folders_${instance_name}&quot;:
+  $file_ownership = {
+    &#39;owner&#39; =&gt; &#39;jboss&#39;,
+    &#39;group&#39; =&gt; &#39;jboss&#39;,
+  }
+  $exec_permission = {
+    &#39;user&#39;  =&gt; &#39;jboss&#39;,
+    &#39;group&#39; =&gt; &#39;jboss&#39;,
+  }
+
+  # module definition
+  exec { &quot;create_oraclexa_module_folders_${instance_name}&quot;:
     command =&gt; &quot;mkdir -p ${oracleModulePath}&quot;,
     creates =&gt; $oracleModulePath,
-    user    =&gt; jboss,
-    group   =&gt; jboss,
+    *       =&gt; $exec_permission,
   } -&gt;
   file { &quot;${oracleModulePath}/module.xml&quot;:
-    source =&gt; &quot;puppet:///modules/${module_name}/lib/oracle/module.xml&quot;,
-    owner  =&gt; jboss,
-    group  =&gt; jboss,
+    source =&gt; &quot;puppet:///modules/${module_name}/lib/oraclexa/module.xml&quot;,
+    *      =&gt; $file_ownership,
   } -&gt;
   download_uncompress { &quot;${oracleModulePath}/ojdbc6.jar&quot;:
     distribution_name =&gt; &#39;lib/ojdbc6.jar&#39;,
     dest_folder       =&gt; $oracleModulePath,
     creates           =&gt; &quot;${oracleModulePath}/ojdbc6.jar&quot;,
-    user              =&gt; jboss,
-    group             =&gt; jboss,
+    *                 =&gt; $exec_permission,
   } -&gt;
-  # Configurazione driver
-  file { &quot;${binFolder}/script-driver-oracle.txt&quot;:
+  # driver configuration
+  file { &quot;${binFolder}/script-driver-oraclexa.txt&quot;:
     ensure =&gt; present,
-    source =&gt; &quot;puppet:///modules/${module_name}/bin/script-driver-oracle.txt&quot;,
+    source =&gt; &quot;puppet:///modules/${module_name}/bin/script-driver-oraclexa.txt&quot;,
+    *      =&gt; $file_ownership,
   } -&gt;
   exec { &quot;configure_driver_oracle_${instance_name}&quot;:
     command =&gt; &quot;${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-oracle.txt&quot;,
     cwd     =&gt; $binFolder,
-    user    =&gt; jboss,
-    group   =&gt; jboss,
     unless  =&gt; &quot;grep com.oracle.ojdbc6 ${jbossInstFolder}/standalone/configuration/standalone.xml&quot;,
+    *       =&gt; $exec_permission,
   }
 
 }</pre>

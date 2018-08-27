@@ -1,4 +1,3 @@
-# @api private
 # Installs a JBoss instance,
 # i.e. a server profile. It is intended to be called by jboss::instance.
 #

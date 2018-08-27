@@ -1,6 +1,6 @@
 {
   "name": "dsestero-jboss",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "Dario Sestero",
   "summary": "Manage installation and set up of JBoss 4, 5, 7, and WildFly 8 instances.",
   "license": "Apache-2.0",

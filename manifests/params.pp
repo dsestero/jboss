@@ -1,4 +1,3 @@
-# @api private
 # Defines the parameters needed for installing JBoss/WildFly instances.
 #
 # It is intended to be called by jboss::instance_[x] defines.

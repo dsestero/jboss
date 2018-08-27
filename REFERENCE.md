@@ -5,10 +5,11 @@
 
 **Classes**
 
-_Public Classes_
-
 * [`jboss`](#jboss): Installs and set up standard directories and permissions for JBoss/WildFly AS.
 * [`jboss::alias_jboss`](#jbossalias_jboss): Adds all jboss instances ip and alias in the hosts file.
+* [`jboss::config`](#jbossconfig): Configures JBoss/WildFly AS.  It is intended to be called by jboss::jboss in order to:  * set the JBoss directories with correct ownership * 
+* [`jboss::install`](#jbossinstall): Sets up the system for installing JBoss/WildFly AS.  It is intended to be called by jboss::jboss in order to:  * create JBoss user and group;
+* [`jboss::instance::dependencies`](#jbossinstancedependencies): Install dependencies (extra packages) needed for the module.  At this time it installs the package +expect+.  include jboss::instance::depend
 * [`jboss::instance_5_uninstall`](#jbossinstance_5_uninstall): Uninstalls JBoss-5.1.0 instance TODO To be completed and verified
 * [`jboss::jboss_4_0_5`](#jbossjboss_4_0_5): Installs JBoss-4.0.5.GA.
 * [`jboss::jboss_4_2_3`](#jbossjboss_4_2_3): Installs JBoss-4.2.3.GA.
@@ -16,63 +17,54 @@ _Public Classes_
 * [`jboss::jboss_5_uninstall`](#jbossjboss_5_uninstall): Uninstalls JBoss-5.1.0 TODO To be completed and verified
 * [`jboss::jboss_7`](#jbossjboss_7): Prepares the system for installing jboss-7.1.1.Final instances by performing basic jboss configuration.
 * [`jboss::jboss_8`](#jbossjboss_8): Prepares the system for installing wildfly-8.2.0.Final instances by performing basic jboss/wildfly configuration.
+* [`jboss::params`](#jbossparams): Defines the parameters needed for installing JBoss/WildFly instances.  It is intended to be called by jboss::instance_[x] defines.
 * [`jboss::wildfly_12`](#jbosswildfly_12): Prepares the system for installing wildfly-12.0.0.Final instances by performing basic jboss/wildfly configuration.
-
-_Private Classes_
-
-* `jboss::config`: Configures JBoss/WildFly AS.  It is intended to be called by jboss::jboss in order to:  * set the JBoss directories with correct ownership * 
-* `jboss::install`: Sets up the system for installing JBoss/WildFly AS.  It is intended to be called by jboss::jboss in order to:  * create JBoss user and group;
-* `jboss::instance::dependencies`: Install dependencies (extra packages) needed for the module.  At this time it installs the package +expect+.  include jboss::instance::depend
-* `jboss::params`: Defines the parameters needed for installing JBoss/WildFly instances.  It is intended to be called by jboss::instance_[x] defines.
 
 **Defined types**
 
-_Public Defined types_
-
+* [`jboss::instance::config`](#jbossinstanceconfig): Configures a JBoss/WildFly instance.  It is intended to be called by jboss::instance.
+* [`jboss::instance::install`](#jbossinstanceinstall): Installs a JBoss instance, i.e. a server profile. It is intended to be called by jboss::instance.
+* [`jboss::instance::service`](#jbossinstanceservice): Sets up a service for a JBoss/WildFly instance.  It is intended to be called by jboss::instance.
 * [`jboss::instance_12`](#jbossinstance_12): Creates, configures and set up the service for a WildFly-12.0.0.Final instance, i.e. a server profile with all the configurations needed to u
+* [`jboss::instance_12::config`](#jbossinstance_12config): Configures a JBoss-12 instance, i.e. a server profile. It is intended to be called by jboss::instance_12.
+* [`jboss::instance_12::install`](#jbossinstance_12install): Install a JBoss-12 instance, i.e. a server profile. It is intended to be called by jboss::instance.
 * [`jboss::instance_12::lib::oracle::install`](#jbossinstance_12liboracleinstall): Utility define to copy to a specified WildFly-12.0.0 instance the Oracle driver jar module.  Creates the Oracle module into the specified ins
 * [`jboss::instance_12::lib::oraclexa::install`](#jbossinstance_12liboraclexainstall): Utility define to copy to a specified WildFly-12.0.0 instance the OracleXA driver jar module. Notice: the oracle driver jar contains both cla
 * [`jboss::instance_12::lib::postgresql::install`](#jbossinstance_12libpostgresqlinstall): Utility define to copy to a specified WildFly-12.0.0 instance the postgresql driver jar module.  Creates the postgresql module into the speci
 * [`jboss::instance_12::lib::postgresqlxa::install`](#jbossinstance_12libpostgresqlxainstall): Utility define to copy to a specified WildFly-12.0.0 instance the postgresql driver jar module.  Creates the postgresql module into the speci
 * [`jboss::instance_12::lib::sqlserver::install`](#jbossinstance_12libsqlserverinstall): Utility define to copy to a specified WildFly-12.0.0 instance the sqlserver driver jar module.  Creates the sqlserver module into the specifi
+* [`jboss::instance_12::postconfig`](#jbossinstance_12postconfig): Configures a running JBoss-12 instance via jboss-cli. It is intended to be called by jboss::instance_8.
 * [`jboss::instance_4`](#jbossinstance_4): Creates, configures and set up the service for a JBoss-4.0.5.GA instance, i.e. a server profile with all the configurations needed to use it 
+* [`jboss::instance_4::config`](#jbossinstance_4config): Configures a JBoss-4-family instance, i.e. a server profile. It is intended to be called by jboss::instance_4.
+* [`jboss::instance_4::install`](#jbossinstance_4install): Installs a JBoss-4-family instance, i.e. a server profile. It is intended to be called by jboss::instance.
 * [`jboss::instance_5`](#jbossinstance_5): Creates, configures and set up the service for a JBoss-5.1.0.GA instance, i.e. a server profile with all the configurations needed to use it 
+* [`jboss::instance_5::config`](#jbossinstance_5config): Configures a JBoss-5.1.0.GA instance, i.e. a server profile. It is intended to be called by jboss::instance.
+* [`jboss::instance_5::install`](#jbossinstance_5install): Install a JBoss-5.1.0.GA instance, i.e. a server profile. It is intended to be called by jboss::instance.
 * [`jboss::instance_5::lib::oracle::install`](#jbossinstance_5liboracleinstall): Utility define to copy to a specified instance lib folder the Oracle driver jar.  Copies the Oracle driver to the lib directory of the specif
 * [`jboss::instance_5::lib::postgresql::install`](#jbossinstance_5libpostgresqlinstall): Utility define to copy to a specified instance lib folder the Postgresql driver jar.  Copies the Postgresql driver to the lib directory of th
 * [`jboss::instance_5::lib::sqlserver::install`](#jbossinstance_5libsqlserverinstall): Utility define to copy to a specified instance lib folder the SqlServer driver jar.  Copies the SqlServer driver to the lib directory of the 
 * [`jboss::instance_5::lib::zk::install`](#jbossinstance_5libzkinstall): Utility define to copy to a specified instance lib folder the zk library jars.  Copies the zk libraries to the lib directory of the specified
 * [`jboss::instance_5::persistence::oracle::install`](#jbossinstance_5persistenceoracleinstall): Utility define to add to a specified instance the Oracle persistence service for <tt>DefaultDS</tt>.  Copies the Oracle persistence service f
 * [`jboss::instance_7`](#jbossinstance_7): Creates, configures and set up the service for a JBoss-7.1.1.Final instance, i.e. a server profile with all the configurations needed to use 
+* [`jboss::instance_7::config`](#jbossinstance_7config): Configures a JBoss-7 instance, i.e. a server profile. It is intended to be called by jboss::instance_7.
+* [`jboss::instance_7::install`](#jbossinstance_7install): Install a JBoss-7 instance, i.e. a server profile. It is intended to be called by jboss::instance.  According to https://stackoverflow.com/qu
 * [`jboss::instance_7::lib::oracle::install`](#jbossinstance_7liboracleinstall): Utility define to copy to a specified WildFly-7.1.1 instance the Oracle driver jar module.  Creates the Oracle module into the specified inst
+* [`jboss::instance_7::lib::oraclexa::install`](#jbossinstance_7liboraclexainstall): Utility define to copy to a specified JBoss-7.1.1 instance the OracleXA driver jar module. Notice: the oracle driver jar contains both classe
 * [`jboss::instance_7::lib::postgresql::install`](#jbossinstance_7libpostgresqlinstall): Utility define to copy to a specified WildFly-7.1.1 instance the postgresql driver jar module.  Creates the postgresql module into the specif
+* [`jboss::instance_7::lib::postgresqlxa::install`](#jbossinstance_7libpostgresqlxainstall): Utility define to copy to a specified JBoss-7.1.1 instance the postgresql driver jar module.  Creates the postgresql module into the specifie
 * [`jboss::instance_7::lib::springframework::install`](#jbossinstance_7libspringframeworkinstall): Utility define to copy to a specified JBoss-7.1.1 instance the libraries of the Spring framework.  Creates the springframework module into th
 * [`jboss::instance_7::lib::sqlserver::install`](#jbossinstance_7libsqlserverinstall): Utility define to copy to a specified WildFly-7.1.1 instance the sqlserver driver jar module.  Creates the sqlserver module into the specifie
+* [`jboss::instance_7::postconfig`](#jbossinstance_7postconfig): Configures a running JBoss-7 instance via jboss-cli. It is intended to be called by jboss::instance_7.
 * [`jboss::instance_8`](#jbossinstance_8): Creates, configures and set up the service for a WildFly-8.2.0.Final instance, i.e. a server profile with all the configurations needed to us
+* [`jboss::instance_8::config`](#jbossinstance_8config): Configures a JBoss-8 instance, i.e. a server profile. It is intended to be called by jboss::instance_8.
+* [`jboss::instance_8::install`](#jbossinstance_8install): Install a JBoss-8 instance, i.e. a server profile. It is intended to be called by jboss::instance.
 * [`jboss::instance_8::lib::oracle::install`](#jbossinstance_8liboracleinstall): Utility define to copy to a specified WildFly-8.2.0 instance the Oracle driver jar module.  Creates the Oracle module into the specified inst
 * [`jboss::instance_8::lib::oraclexa::install`](#jbossinstance_8liboraclexainstall): Utility define to copy to a specified WildFly-8.2.0 instance the OracleXA driver jar module. Notice: the oracle driver jar contains both clas
 * [`jboss::instance_8::lib::postgresql::install`](#jbossinstance_8libpostgresqlinstall): Utility define to copy to a specified WildFly-8.2.0 instance the postgresql driver jar module.  Creates the postgresql module into the specif
 * [`jboss::instance_8::lib::postgresqlxa::install`](#jbossinstance_8libpostgresqlxainstall): Utility define to copy to a specified WildFly-8.2.0 instance the postgresql driver jar module.  Creates the postgresql module into the specif
 * [`jboss::instance_8::lib::sqlserver::install`](#jbossinstance_8libsqlserverinstall): Utility define to copy to a specified WildFly-8.2.0 instance the sqlserver driver jar module.  Creates the sqlserver module into the specifie
+* [`jboss::instance_8::postconfig`](#jbossinstance_8postconfig): Configures a running JBoss-8 instance via jboss-cli. It is intended to be called by jboss::instance_8.
 * [`jboss::jboss_4`](#jbossjboss_4): Installs JBoss-4. The resource title has to be an unique name identifying the JBoss installation and it could be used to specify the desired 
-
-_Private Defined types_
-
-* `jboss::instance::config`: Configures a JBoss/WildFly instance.  It is intended to be called by jboss::instance.
-* `jboss::instance::install`: Installs a JBoss instance, i.e. a server profile. It is intended to be called by jboss::instance.
-* `jboss::instance::service`: Sets up a service for a JBoss/WildFly instance.  It is intended to be called by jboss::instance.
-* `jboss::instance_12::config`: Configures a JBoss-12 instance, i.e. a server profile. It is intended to be called by jboss::instance_12.
-* `jboss::instance_12::install`: Install a JBoss-12 instance, i.e. a server profile. It is intended to be called by jboss::instance.
-* `jboss::instance_12::postconfig`: Configures a running JBoss-12 instance via jboss-cli. It is intended to be called by jboss::instance_8.
-* `jboss::instance_4::config`: Configures a JBoss-4-family instance, i.e. a server profile. It is intended to be called by jboss::instance_4.
-* `jboss::instance_4::install`: Installs a JBoss-4-family instance, i.e. a server profile. It is intended to be called by jboss::instance.
-* `jboss::instance_5::config`: Configures a JBoss-5.1.0.GA instance, i.e. a server profile. It is intended to be called by jboss::instance.
-* `jboss::instance_5::install`: Install a JBoss-5.1.0.GA instance, i.e. a server profile. It is intended to be called by jboss::instance.
-* `jboss::instance_7::config`: Configures a JBoss-7 instance, i.e. a server profile. It is intended to be called by jboss::instance_7.
-* `jboss::instance_7::install`: Install a JBoss-7 instance, i.e. a server profile. It is intended to be called by jboss::instance.
-* `jboss::instance_7::postconfig`: Configures a running JBoss-7 instance via jboss-cli. It is intended to be called by jboss::instance_7.
-* `jboss::instance_8::config`: Configures a JBoss-8 instance, i.e. a server profile. It is intended to be called by jboss::instance_8.
-* `jboss::instance_8::install`: Install a JBoss-8 instance, i.e. a server profile. It is intended to be called by jboss::instance.
-* `jboss::instance_8::postconfig`: Configures a running JBoss-8 instance via jboss-cli. It is intended to be called by jboss::instance_8.
 
 ## Classes
 
@@ -98,6 +90,68 @@ Adds all jboss instances ip and alias in the hosts file.
 
 ```puppet
 class {'jboss::alias_jboss': }
+```
+
+### jboss::config
+
+Configures JBoss/WildFly AS.
+
+It is intended to be called by jboss::jboss in order to:
+
+* set the JBoss directories with correct ownership
+* modify <tt>/etc/sudoers</tt> file so to allow jboss user the right to start
+  and stop jboss instances and soffice.bin services
+  and to query open ports with <tt>netstat</tt> and <tt>nmap</tt>
+* schedule a jboss user's cron job for zipping and deleting old log files
+* deploy in the +/usr/local/bin+ directory a script for restarting jboss
+  instances
+* create standard directories for logging and storing application's specific
+  data under
+  <tt>/var/log/jboss/server</tt> and <tt>/var/lib/jboss/apps</tt>
+  respectively.
+* modify sudoers file as to allow users belonging to the jboss group to
+  start and stop jboss services, start and stop soffice.bin service, make
+  <tt>su jboss</tt>.
+
+### jboss::install
+
+Sets up the system for installing JBoss/WildFly AS.
+
+It is intended to be called by jboss::jboss in order to:
+
+* create JBoss user and group;
+* make <tt>/opt</tt> folder group owned by jboss and group writable;
+* create /home/jboss/bin folder to host some management scripts;
+* according to the parameter <tt>jboss_instance_list</tt> create in /usr/local/bin a text file with all
+    the instance names on the node, one per line.
+
+#### Parameters
+
+The following parameters are available in the `jboss::install` class.
+
+##### `jboss_instance_list`
+
+Data type: `Boolean`
+
+should a text file with all instance names on the node, one per line,
+be created in <tt>/usr/local/bin</tt>?
+
+Default value: `false`
+
+### jboss::instance::dependencies
+
+Install dependencies (extra packages) needed for the module.
+
+At this time it installs the package +expect+.
+
+include jboss::instance::dependencies
+
+#### Examples
+
+##### Declaring in manifest:
+
+```puppet
+
 ```
 
 ### jboss::instance_5_uninstall
@@ -200,6 +254,12 @@ by performing basic jboss/wildfly configuration.
 include jboss_8
 ```
 
+### jboss::params
+
+Defines the parameters needed for installing JBoss/WildFly instances.
+
+It is intended to be called by jboss::instance_[x] defines.
+
 ### jboss::wildfly_12
 
 Prepares the system for installing wildfly-12.0.0.Final instances
@@ -214,6 +274,83 @@ include wildfly_12
 ```
 
 ## Defined types
+
+### jboss::instance::config
+
+Configures a JBoss/WildFly instance.
+
+It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance::config` defined type.
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
+### jboss::instance::install
+
+Installs a JBoss instance,
+i.e. a server profile. It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance::install` defined type.
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
+### jboss::instance::service
+
+Sets up a service for a JBoss/WildFly instance.
+
+It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance::service` defined type.
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
 
 ### jboss::instance_12
 
@@ -373,6 +510,130 @@ instance paths to backup are added.
 Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 
 Default value: '/usr/local/bin/backupall.sh.conf'
+
+### jboss::instance_12::config
+
+Configures a JBoss-12 instance,
+i.e. a server profile. It is intended to be called by jboss::instance_12.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_12::config` defined type.
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `xms`
+
+Data type: `Any`
+
+
+
+##### `xmx`
+
+Data type: `Any`
+
+
+
+##### `max_perm_size`
+
+Data type: `Any`
+
+
+
+##### `stack_size`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `java_home`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
+### jboss::instance_12::install
+
+Install a JBoss-12 instance,
+i.e. a server profile. It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_12::install` defined type.
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `distribution_name`
+
+Data type: `Any`
+
+
+
+##### `backup_conf_target`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
 
 ### jboss::instance_12::lib::oracle::install
 
@@ -613,6 +874,59 @@ Abbreviation identifying the environment: valid values are
 
 Default value: 'dev'
 
+### jboss::instance_12::postconfig
+
+Configures a running JBoss-12 instance via jboss-cli.
+It is intended to be called by jboss::instance_8.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_12::postconfig` defined type.
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
 ### jboss::instance_4
 
 Creates, configures and set up the service for a JBoss-4.0.5.GA instance,
@@ -798,6 +1112,148 @@ Data type: `Any`
 
 
 Default value: `false`
+
+### jboss::instance_4::config
+
+Configures a JBoss-4-family instance,
+i.e. a server profile. It is intended to be called by jboss::instance_4.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_4::config` defined type.
+
+##### `version`
+
+Data type: `Any`
+
+
+
+##### `profile`
+
+Data type: `Any`
+
+
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jmxport`
+
+Data type: `Any`
+
+
+
+##### `xms`
+
+Data type: `Any`
+
+
+
+##### `xmx`
+
+Data type: `Any`
+
+
+
+##### `max_perm_size`
+
+Data type: `Any`
+
+
+
+##### `stack_size`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `jmx_user`
+
+Data type: `Any`
+
+
+
+##### `jmx_passwd`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
+### jboss::instance_4::install
+
+Installs a JBoss-4-family instance,
+i.e. a server profile. It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_4::install` defined type.
+
+##### `version`
+
+Data type: `Any`
+
+
+
+##### `profile`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `backup_conf_target`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
 
 ### jboss::instance_5
 
@@ -1031,6 +1487,172 @@ to backup are added.
 Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 
 Default value: '/usr/local/bin/backupall.sh.conf'
+
+### jboss::instance_5::config
+
+Configures a JBoss-5.1.0.GA instance,
+i.e. a server profile. It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_5::config` defined type.
+
+##### `version`
+
+Data type: `Any`
+
+
+
+##### `profile`
+
+Data type: `Any`
+
+
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jmxport`
+
+Data type: `Any`
+
+
+
+##### `xms`
+
+Data type: `Any`
+
+
+
+##### `xmx`
+
+Data type: `Any`
+
+
+
+##### `max_perm_size`
+
+Data type: `Any`
+
+
+
+##### `stack_size`
+
+Data type: `Any`
+
+
+
+##### `extra_jvm_pars`
+
+Data type: `Any`
+
+
+
+##### `ws_enabled`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `jmx_user`
+
+Data type: `Any`
+
+
+
+##### `jmx_passwd`
+
+Data type: `Any`
+
+
+
+##### `smtp_ip`
+
+Data type: `Any`
+
+
+
+##### `smtp_port`
+
+Data type: `Any`
+
+
+
+##### `smtp_sender`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
+### jboss::instance_5::install
+
+Install a JBoss-5.1.0.GA instance,
+i.e. a server profile. It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_5::install` defined type.
+
+##### `profile`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `backup_conf_target`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
 
 ### jboss::instance_5::lib::oracle::install
 
@@ -1415,6 +2037,146 @@ Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 
 Default value: '/usr/local/bin/backupall.sh.conf'
 
+### jboss::instance_7::config
+
+Configures a JBoss-7 instance,
+i.e. a server profile. It is intended to be called by jboss::instance_7.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_7::config` defined type.
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `xms`
+
+Data type: `Any`
+
+
+
+##### `xmx`
+
+Data type: `Any`
+
+
+
+##### `max_perm_size`
+
+Data type: `Any`
+
+
+
+##### `stack_size`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `jmx_user`
+
+Data type: `Any`
+
+
+
+##### `jmx_passwd`
+
+Data type: `Any`
+
+
+
+##### `java_home`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
+### jboss::instance_7::install
+
+Install a JBoss-7 instance,
+i.e. a server profile. It is intended to be called by jboss::instance.
+
+According to https://stackoverflow.com/questions/48403832/javax-xml-parsers-factoryconfigurationerror-running-jboss-as-7-1-with-java-7-upd/48561492#48561492
+the +jboss-modules.jar+ in the JBoss installation folder is replaced with a more recent (1.1.5.GA) version.
+The version of jboss-modules which comes with jboss-7.1.1.Final is 1.1.1.GA and it has a few issues with initialisation order and multiple-initialisation.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_7::install` defined type.
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `distribution_name`
+
+Data type: `Any`
+
+
+
+##### `backup_conf_target`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
 ### jboss::instance_7::lib::oracle::install
 
 Utility define to copy to a specified WildFly-7.1.1 instance the Oracle driver
@@ -1440,6 +2202,56 @@ jboss::instance_7::lib::oracle::install {'agri1':
 #### Parameters
 
 The following parameters are available in the `jboss::instance_7::lib::oracle::install` defined type.
+
+##### `instance_name`
+
+Data type: `Any`
+
+Name of the JBoss profile and associated service
+corresponding to this instance.
+Defaults to the resource title.
+
+Default value: $title
+
+##### `environment`
+
+Data type: `Any`
+
+Abbreviation identifying the environment: valid values are
++dev+, +test+, +prep+, +prod+.
+Defaults to +dev+.
+
+Default value: 'dev'
+
+### jboss::instance_7::lib::oraclexa::install
+
+Utility define to copy to a specified JBoss-7.1.1 instance the OracleXA driver
+jar module.
+Notice: the oracle driver jar contains both classes for standard and XA access,
+hence for convenience of implementation installing oraclexa automatically sets up
+also the oracle standard driver. If you try to install both oracle and oraclexa you
+will get a resource duplication error (the module.xml file is the same, although with different content!)
+
+Creates the Oracle XA module into the specified instance.
+
+Requires:
+
+* Class['jboss'] for installing and setting up basic jboss environment.
+* Some defined instance to which the driver has to be copied.
+* The specified instance has to be up and running.
+
+#### Examples
+
+##### Declaring in manifest:
+
+```puppet
+jboss::instance_7::lib::oraclexa::install {'agri1':
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_7::lib::oraclexa::install` defined type.
 
 ##### `instance_name`
 
@@ -1492,6 +2304,54 @@ jboss::instance_7::lib::postgresql::install {'agri1':
 #### Parameters
 
 The following parameters are available in the `jboss::instance_7::lib::postgresql::install` defined type.
+
+##### `instance_name`
+
+Data type: `Any`
+
+Name of the JBoss profile and associated service
+
+Default value: $title
+
+##### `environment`
+
+Data type: `Any`
+
+Abbreviation identifying the environment: valid values are
+
+Default value: 'dev'
+
+### jboss::instance_7::lib::postgresqlxa::install
+
+Utility define to copy to a specified JBoss-7.1.1 instance the postgresql
+driver jar module.
+
+Creates the postgresql module into the specified instance.
+
+Requires:
+
+* Class['jboss'] for installing and setting up basic jboss environment.
+* Some defined instance to which the driver has to be copied.
+* The specified instance has to be up and running.
+
+corresponding to this instance.
+                  Defaults to the resource title.
+
++dev+, +test+, +prep+, +prod+.
+                  Defaults to +dev+.
+
+#### Examples
+
+##### Declaring in manifest:
+
+```puppet
+jboss::instance_7::lib::postgresqlxa::install {'agri1':
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_7::lib::postgresqlxa::install` defined type.
 
 ##### `instance_name`
 
@@ -1603,6 +2463,59 @@ Data type: `Any`
 Abbreviation identifying the environment: valid values are
 
 Default value: 'dev'
+
+### jboss::instance_7::postconfig
+
+Configures a running JBoss-7 instance via jboss-cli.
+It is intended to be called by jboss::instance_7.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_7::postconfig` defined type.
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
 
 ### jboss::instance_8
 
@@ -1763,6 +2676,130 @@ instance paths to backup are added.
 Defaults to <tt>/usr/local/bin/backupall.sh.conf</tt>.
 
 Default value: '/usr/local/bin/backupall.sh.conf'
+
+### jboss::instance_8::config
+
+Configures a JBoss-8 instance,
+i.e. a server profile. It is intended to be called by jboss::instance_8.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_8::config` defined type.
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `xms`
+
+Data type: `Any`
+
+
+
+##### `xmx`
+
+Data type: `Any`
+
+
+
+##### `max_perm_size`
+
+Data type: `Any`
+
+
+
+##### `stack_size`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `java_home`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
+
+### jboss::instance_8::install
+
+Install a JBoss-8 instance,
+i.e. a server profile. It is intended to be called by jboss::instance.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_8::install` defined type.
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `distribution_name`
+
+Data type: `Any`
+
+
+
+##### `backup_conf_target`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
 
 ### jboss::instance_8::lib::oracle::install
 
@@ -2002,6 +3039,59 @@ Data type: `Any`
 Abbreviation identifying the environment: valid values are
 
 Default value: 'dev'
+
+### jboss::instance_8::postconfig
+
+Configures a running JBoss-8 instance via jboss-cli.
+It is intended to be called by jboss::instance_8.
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_8::postconfig` defined type.
+
+##### `ip`
+
+Data type: `Any`
+
+
+
+##### `iface`
+
+Data type: `Any`
+
+
+
+##### `environment`
+
+Data type: `Any`
+
+
+
+##### `jbossdirname`
+
+Data type: `Any`
+
+
+
+##### `mgmt_user`
+
+Data type: `Any`
+
+
+
+##### `mgmt_passwd`
+
+Data type: `Any`
+
+
+
+##### `instance_name`
+
+Data type: `Any`
+
+
+
+Default value: $title
 
 ### jboss::jboss_4
 
