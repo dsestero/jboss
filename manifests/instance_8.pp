@@ -50,6 +50,13 @@
 # @param stack_size JVM OPT for stack size.
 #                   Defaults to +2048k+.
 #
+# @param heapDumpOnOOM requires to add to the launcher a couple of options so that the JVM would produce a dump
+#                   if an OutOfMemoryError is produced.
+#                   Defaults to false.
+#
+# @param heapDumpPath specifies the folder where to save the heap dumps (that are in HPROF binary format).
+#                   Defaults to '/dump'.
+#
 # @param mgmt_user Management user username.
 #                   Defaults to +undef+, in which case a management user is not
 #                   created.
@@ -81,6 +88,8 @@ define jboss::instance_8 (
   $xmx                = '512m',
   $max_perm_size      = '256m',
   $stack_size         = '2048k',
+  $heapDumpOnOOM       = false,
+  $heapDumpPath       = '/dump',
   $mgmt_user          = undef,
   $mgmt_passwd        = undef,
   $backup_conf_target = '/usr/local/bin/backupall.sh.conf',) {
@@ -101,6 +110,8 @@ define jboss::instance_8 (
     xmx           => $xmx,
     max_perm_size => $max_perm_size,
     stack_size    => $stack_size,
+    heapDumpOnOOM => $heapDumpOnOOM,
+    heapDumpPath  => $heapDumpPath,
     mgmt_user     => $mgmt_user,
     mgmt_passwd   => $mgmt_passwd,
     java_home     => $jboss::params::java7_home,

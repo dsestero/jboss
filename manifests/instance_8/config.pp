@@ -11,6 +11,8 @@ define jboss::instance_8::config (
   $xmx,
   $max_perm_size,
   $stack_size,
+  $heapDumpOnOOM,
+  $heapDumpPath,
   $mgmt_user,
   $mgmt_passwd,
   $java_home,

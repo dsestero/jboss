@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Codici di uscita per errore
+E_PARAMERR=1
+
+# escape sequences
+bold=`tput bold`
+normal=`tput sgr0`
+
+function usage()
+{
+        echo "${bold}Uso: terminateInstance <instance-PID>${normal}"
+        echo "dove: <instance-PID> è il process id del processo"
+        exit $E_PARAMERR
+}
+
+function stop_instance()
+{
+    echo "TERM signal sent"
+    kill -TERM $1
+    echo -n "Waiting for 3 minutes graceful termination of JBoss process $1"
+    for i in `seq 1 18`;
+    do
+        PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)|(bin/standalone)'|awk '{print $2}')
+        if [ "x$PIDS" != "x" ]; then
+            echo -n "."
+            sleep 10
+        else
+            break
+        fi
+    done
+    sleep 10
+    echo ""
+    PIDS=$(ps -ef|grep $1|egrep '(java)|(bin/run)|(bin/standalone)'|awk '{print $2}')
+    if [ "x$PIDS" != "x" ]; then
+    	echo "Now executing kill -9 $1"
+    	kill -9 $1
+        echo "Process $1 killed"
+    else
+        echo "Process $1 stopped"
+    fi
+}
+
+if [[ -n "$1" && ("help" == "$1") ]]
+then
+        usage
+	exit
+fi
+
+stop_instance $1
