@@ -52,8 +52,6 @@ The module impact in various ways on the node:
 * if WildFly-8 instances are installed on a node then a symbolic link `/opt/jboss-8` is created to one of them in order to have the possibility to access the scripts in the WildFly `bin` directory on a standard path (e.g. to access jboss-cli.sh in postconfig manifests).CHECK
 
 If PuppetDB is installed the module exports two kind of resources:
-
-* the hostname aliases [instancename]-[environment] corresponding to the instances created;
 * the paths to backup the configurations of the specific instances created on a given node in a given environment. (The node fqdn and the environment tag concat::fragment resources).
 
 The module provides a class `jboss::alias_jboss` that use the first above mentioned exported resource to define a utility class to add all jboss instances hostnames in the hosts file of a node.
@@ -158,6 +156,9 @@ It is possible to concatenate the declarations for specific libraries as in, for
     environment => 'test',
   }
 ```
+
+For WildFly-8 instances it is possible to configure the JVM so that in case of an OutOfMemory Error a heap dump be generated in a specified location.
+We suggest to use a dedicated partition with enough memory to hold the dump.
 
 ###Exported resources
 

@@ -2648,6 +2648,26 @@ Defaults to +2048k+.
 
 Default value: '2048k'
 
+##### `heapDumpOnOOM`
+
+Data type: `Any`
+
+requires to add to the launcher a couple of options so that the JVM would produce a dump
+if an OutOfMemoryError is produced.
+Defaults to false.
+
+Default value: `false`
+
+##### `heapDumpPath`
+
+Data type: `Any`
+
+specifies the folder where to save the heap dumps (that are in HPROF binary format).
+Defaults to '/dump'.
+We suggest to use a dedicated partition with enough memory to hold the dump.
+
+Default value: '/dump'
+
 ##### `mgmt_user`
 
 Data type: `Any`
@@ -2729,6 +2749,18 @@ Data type: `Any`
 
 
 ##### `stack_size`
+
+Data type: `Any`
+
+
+
+##### `heapDumpOnOOM`
+
+Data type: `Any`
+
+
+
+##### `heapDumpPath`
 
 Data type: `Any`
 

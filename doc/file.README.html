@@ -165,15 +165,10 @@ on a standard path (e.g. to access jboss-cli.sh in postconfig
 manifests).CHECK</p>
 </li></ul>
 
-<p>If PuppetDB is installed the module exports two kind of resources:</p>
-<ul><li>
-<p>the hostname aliases [<a href="environment">instancename]-</a>
-corresponding to the instances created;</p>
-</li><li>
-<p>the paths to backup the configurations of the specific instances created on
-a given node in a given environment. (The node fqdn and the environment tag
+<p>If PuppetDB is installed the module exports two kind of resources: * the
+paths to backup the configurations of the specific instances created on a
+given node in a given environment. (The node fqdn and the environment tag
 concat::fragment resources).</p>
-</li></ul>
 
 <p>The module provides a class <code>jboss::alias_jboss</code> that use the
 first above mentioned exported resource to define a utility class to add
@@ -295,6 +290,11 @@ in, for example:</p>
     environment =&gt; &#39;test&#39;,
   }
 </code></pre>
+
+<p>For WildFly-8 instances it is possible to configure the JVM so that in case
+of an OutOfMemory Error a heap dump be generated in a specified location.
+We suggest to use a dedicated partition with enough memory to hold the
+dump.</p>
 
 <h3 id="label-Exported+resources">Exported resources</h3>
 

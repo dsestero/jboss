@@ -308,6 +308,45 @@ distributions. Defaults to <code> wildfly-8.2.0.Final.tar.gz</code></p>
   
     <li>
       
+        <span class='name'>heapDumpOnOOM</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>requires to add to the launcher a couple of options so that the JVM would
+produce a dump if an OutOfMemoryError is produced. Defaults to false.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>heapDumpPath</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/dump&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>specifies the folder where to save the heap dumps (that are in HPROF binary
+format). Defaults to &#39;/dump&#39;. We suggest to use a dedicated
+partition with enough memory to hold the dump.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>mgmt_user</span>
       
       
@@ -389,14 +428,6 @@ backup are added. Defaults to
         <pre class="lines">
 
 
-73
-74
-75
-76
-77
-78
-79
-80
 81
 82
 83
@@ -435,10 +466,22 @@ backup are added. Defaults to
 116
 117
 118
-119</pre>
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/instance_8.pp', line 73</span>
+        <pre class="code"><span class="info file"># File 'manifests/instance_8.pp', line 81</span>
 
 define jboss::instance_8 (
   $instance_name      = $title,
@@ -451,6 +494,8 @@ define jboss::instance_8 (
   $xmx                = &#39;512m&#39;,
   $max_perm_size      = &#39;256m&#39;,
   $stack_size         = &#39;2048k&#39;,
+  $heapDumpOnOOM       = false,
+  $heapDumpPath       = &#39;/dump&#39;,
   $mgmt_user          = undef,
   $mgmt_passwd        = undef,
   $backup_conf_target = &#39;/usr/local/bin/backupall.sh.conf&#39;,) {
@@ -471,6 +516,8 @@ define jboss::instance_8 (
     xmx           =&gt; $xmx,
     max_perm_size =&gt; $max_perm_size,
     stack_size    =&gt; $stack_size,
+    heapDumpOnOOM =&gt; $heapDumpOnOOM,
+    heapDumpPath  =&gt; $heapDumpPath,
     mgmt_user     =&gt; $mgmt_user,
     mgmt_passwd   =&gt; $mgmt_passwd,
     java_home     =&gt; $jboss::params::java7_home,

@@ -1,3 +1,7 @@
+##2018-09-26 - Release - 2.2.0
+###Summary
+Added possibility to produce heap dump on OOM Error for WildFly-8 instances.
+
 ##2018-08-27 - Release - 2.1.2
 ###Summary
 Revised all classes involved in creating JBoss-7.1.1 instances.

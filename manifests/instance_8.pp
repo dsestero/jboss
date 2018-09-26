@@ -56,6 +56,7 @@
 #
 # @param heapDumpPath specifies the folder where to save the heap dumps (that are in HPROF binary format).
 #                   Defaults to '/dump'.
+#                   We suggest to use a dedicated partition with enough memory to hold the dump.
 #
 # @param mgmt_user Management user username.
 #                   Defaults to +undef+, in which case a management user is not
