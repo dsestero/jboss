@@ -1,3 +1,6 @@
+###Bugfixes
+Accepted PR from tealecloud to qualify cp paths during creation of JBoss-4 and JBoss-5 profiles.
+
 ##2018-09-26 - Release - 2.2.0
 ###Summary
 Added possibility to produce heap dump on OOM Error for WildFly-8 instances.
