@@ -22,7 +22,7 @@ define jboss::instance_5::install (
   jboss::instance::install { $instance_name:
   } ->
   exec { "copy_profile_${instance_name}":
-    command => "cp -a /opt/jboss/server/${profile} ${jboss_inst_folder} && rm ${jboss_inst_folder}/conf/jboss-log4j.xml",
+    command => "/bin/cp -a /opt/jboss/server/${profile} ${jboss_inst_folder} && rm ${jboss_inst_folder}/conf/jboss-log4j.xml",
     creates => "/opt/jboss/server/${instance_name}",
     require => Class[jboss::config],
   }

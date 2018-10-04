@@ -151,13 +151,13 @@ define jboss::instance_5::config (
     # Configurazioni necessarie per far aprire porta 1099 necessaria per
     # l'esecuzione dello shutdown sui profili minimal e web
     exec { "copy_jmx_invoker_service_${instance_name}":
-      command => "cp -a /opt/jboss/server/default/deploy/jmx-invoker-service.xml /opt/jboss/server/${instance_name}/deploy",
+      command => "/bin/cp -a /opt/jboss/server/default/deploy/jmx-invoker-service.xml /opt/jboss/server/${instance_name}/deploy",
       creates => "/opt/jboss/server/${instance_name}/deploy/jmx-invoker-service.xml",
       require => Class[jboss::config],
     }
 
     exec { "copy_legacy_invokers_service_${instance_name}":
-      command => "cp -a /opt/jboss/server/default/deploy/legacy-invokers-service.xml /opt/jboss/server/${instance_name}/deploy",
+      command => "/bin/cp -a /opt/jboss/server/default/deploy/legacy-invokers-service.xml /opt/jboss/server/${instance_name}/deploy",
       creates => "/opt/jboss/server/${instance_name}/deploy/legacy-invokers-service.xml",
       require => Class[jboss::config],
     }
@@ -170,7 +170,7 @@ define jboss::instance_5::config (
     # Configurazione necessaria per far funzionare correttamente esposizione JMX
     # sui profili minimal e web
     exec { "copy_jmx_remoting_service_${instance_name}":
-      command => "cp -a /opt/jboss/server/default/deploy/jmx-remoting.sar /opt/jboss/server/${instance_name}/deploy",
+      command => "/bin/cp -a /opt/jboss/server/default/deploy/jmx-remoting.sar /opt/jboss/server/${instance_name}/deploy",
       creates => "/opt/jboss/server/${instance_name}/deploy/jmx-remoting.sar",
       require => Class[jboss::config],
     }
