@@ -23,7 +23,7 @@ define jboss::instance_4::install (
   jboss::instance::install { $instance_name:
   } ->
   exec { "copy_profile_${instance_name}":
-    command => "cp -a ${jboss_inst_folder}/server/${profile} ${jboss_inst_folder}/server/${instance_name}",
+    command => "/bin/cp -a ${jboss_inst_folder}/server/${profile} ${jboss_inst_folder}/server/${instance_name}",
     creates => "${jboss_inst_folder}/server/${instance_name}",
     require => Class[jboss::config],
   }
