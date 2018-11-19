@@ -1,5 +1,9 @@
+##2018-09-26 - Release - 2.2.1
+###Summary
 ###Bugfixes
 Accepted PR from tealecloud to qualify cp paths during creation of JBoss-4 and JBoss-5 profiles.
+Fixed creation of JBoss-7.1.1 instances: now takes into consideration the need of
+upgrading jboss-module.jar library in the root of the a.s.
 
 ##2018-09-26 - Release - 2.2.0
 ###Summary

@@ -31,9 +31,9 @@ define jboss::instance_7::install (
     group             => jboss,
   } ~>
   download_uncompress { "install_jboss_7_jbmodules_${instance_name}":
-    distribution_name => 'jboss-modules.jar',
+    distribution_name => 'lib/jboss-modules.jar',
     dest_folder       => $jboss_inst_folder,
-    creates           => "/opt/jboss-7-${instance_name}",
+    refreshonly       => true,
     uncompress        => 'none',
     user              => jboss,
     group             => jboss,
