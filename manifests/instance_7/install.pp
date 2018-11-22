@@ -33,6 +33,7 @@ define jboss::instance_7::install (
   download_uncompress { "install_jboss_7_jbmodules_${instance_name}":
     distribution_name => 'lib/jboss-modules.jar',
     dest_folder       => $jboss_inst_folder,
+    wget_options      => '--backups=1',
     refreshonly       => true,
     uncompress        => 'none',
     user              => jboss,

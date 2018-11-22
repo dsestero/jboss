@@ -1,3 +1,9 @@
+##2018-11-22 - Release - 2.2.2
+###Summary
+###Bugfixes
+Fixed creation of JBoss-7.1.1 instances: now the original library jboss-module.jar in the root of the a.s. is
+renamed jboss-module.jar.1 and a newer version, working with the latest jdk-7 updates is put in place.
+
 ##2018-09-26 - Release - 2.2.1
 ###Summary
 ###Bugfixes
