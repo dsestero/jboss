@@ -61,7 +61,6 @@
 * [`jboss::instance_8::lib::oracle::install`](#jbossinstance_8liboracleinstall): Utility define to copy to a specified WildFly-8.2.0 instance the Oracle driver jar module.  Creates the Oracle module into the specified inst
 * [`jboss::instance_8::lib::oraclexa::install`](#jbossinstance_8liboraclexainstall): Utility define to copy to a specified WildFly-8.2.0 instance the OracleXA driver jar module. Notice: the oracle driver jar contains both clas
 * [`jboss::instance_8::lib::postgresql::install`](#jbossinstance_8libpostgresqlinstall): Utility define to copy to a specified WildFly-8.2.0 instance the postgresql driver jar module.  Creates the postgresql module into the specif
-* [`jboss::instance_8::lib::postgresqlxa::install`](#jbossinstance_8libpostgresqlxainstall): Utility define to copy to a specified WildFly-8.2.0 instance the postgresql driver jar module.  Creates the postgresql module into the specif
 * [`jboss::instance_8::lib::sqlserver::install`](#jbossinstance_8libsqlserverinstall): Utility define to copy to a specified WildFly-8.2.0 instance the sqlserver driver jar module.  Creates the sqlserver module into the specifie
 * [`jboss::instance_8::postconfig`](#jbossinstance_8postconfig): Configures a running JBoss-8 instance via jboss-cli. It is intended to be called by jboss::instance_8.
 * [`jboss::jboss_4`](#jbossjboss_4): Installs JBoss-4. The resource title has to be an unique name identifying the JBoss installation and it could be used to specify the desired 
@@ -2321,6 +2320,15 @@ Abbreviation identifying the environment: valid values are
 
 Default value: 'dev'
 
+##### `driver`
+
+Data type: `Any`
+
+Name of the driver file to use.
+Defaults to postgresql-42.2.5.jre7.jar that is JDBC 4.1 compliant (recommended for jre7).
+
+Default value: 'postgresql-42.2.5.jre7.jar'
+
 ### jboss::instance_7::lib::postgresqlxa::install
 
 Utility define to copy to a specified JBoss-7.1.1 instance the postgresql
@@ -2368,6 +2376,15 @@ Data type: `Any`
 Abbreviation identifying the environment: valid values are
 
 Default value: 'dev'
+
+##### `driver`
+
+Data type: `Any`
+
+Name of the driver file to use.
+Defaults to postgresql-42.2.5.jre7.jar that is JDBC 4.1 compliant (recommended for jre7).
+
+Default value: 'postgresql-42.2.5.jre7.jar'
 
 ### jboss::instance_7::lib::springframework::install
 
@@ -2977,53 +2994,14 @@ Abbreviation identifying the environment: valid values are
 
 Default value: 'dev'
 
-### jboss::instance_8::lib::postgresqlxa::install
-
-Utility define to copy to a specified WildFly-8.2.0 instance the postgresql
-driver jar module.
-
-Creates the postgresql module into the specified instance.
-
-Requires:
-
-* Class['jboss'] for installing and setting up basic jboss environment.
-* Some defined instance to which the driver has to be copied.
-* The specified instance has to be up and running.
-
-corresponding to this instance.
-                  Defaults to the resource title.
-
-+dev+, +test+, +prep+, +prod+.
-                  Defaults to +dev+.
-
-#### Examples
-
-##### Declaring in manifest:
-
-```puppet
-jboss::instance_8::lib::postgresqlxa::install {'agri1':
-}
-```
-
-#### Parameters
-
-The following parameters are available in the `jboss::instance_8::lib::postgresqlxa::install` defined type.
-
-##### `instance_name`
+##### `driver`
 
 Data type: `Any`
 
-Name of the JBoss profile and associated service
+Name of the driver file to use.
+Defaults to postgresql-42.2.5.jre7.jar that is JDBC 4.1 compliant (recommended for jre7).
 
-Default value: $title
-
-##### `environment`
-
-Data type: `Any`
-
-Abbreviation identifying the environment: valid values are
-
-Default value: 'dev'
+Default value: 'postgresql-42.2.5.jre7.jar'
 
 ### jboss::instance_8::lib::sqlserver::install
 

@@ -17,6 +17,9 @@
 # +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
+# @param driver Name of the driver file to use.
+#                   Defaults to postgresql-42.2.5.jre7.jar that is JDBC 4.1 compliant (recommended for jre7).
+#
 # @example Declaring in manifest:
 #  jboss::instance_8::lib::postgresqlxa::install {'agri1':
 #  }
@@ -24,7 +27,8 @@
 # @author Dario Sestero
 define jboss::instance_8::lib::postgresqlxa::install (
   $instance_name = $title,
-  $environment   = 'dev') {
+  $environment   = 'dev',
+  $driver        = 'postgresql-42.2.5.jre7.jar') {
   $require = Class['jboss']
 
   $ip_alias = "${instance_name}-${environment}"
@@ -50,13 +54,13 @@ define jboss::instance_8::lib::postgresqlxa::install (
     *       => $exec_permission,
   } ->
   file { "${postgresqlModulePath}/module.xml":
-    source => "puppet:///modules/${module_name}/lib/postgresqlxa/module.xml",
-    *      => $file_ownership,
+    content => template("${module_name}/lib/postgresqlxa/module.xml.erb"),
+    *       => $file_ownership,
   } ->
-  download_uncompress { "${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar":
-    distribution_name => 'lib/postgresql-9.1-903.jdbc4.jar',
+  download_uncompress { "${postgresqlModulePath}/${driver}":
+    distribution_name => "lib/${driver}",
     dest_folder       => $postgresqlModulePath,
-    creates           => "${postgresqlModulePath}/postgresql-9.1-903.jdbc4.jar",
+    creates           => "${postgresqlModulePath}/${driver]}",
     *                 => $exec_permission,
   } ->
   # driver configuration
