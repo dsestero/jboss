@@ -60,7 +60,7 @@ define jboss::instance_8::lib::postgresqlxa::install (
   download_uncompress { "${postgresqlModulePath}/${driver}":
     distribution_name => "lib/${driver}",
     dest_folder       => $postgresqlModulePath,
-    creates           => "${postgresqlModulePath}/${driver]}",
+    creates           => "${postgresqlModulePath}/${driver}",
     *                 => $exec_permission,
   } ->
   # driver configuration
