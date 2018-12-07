@@ -1,3 +1,12 @@
+##2018-12-07 - Release - 2.3.1
+###Summary
+###Bugfixes
+Fixed syntax error affecting postgresqlxa driver on instance_8.
+
+##2018-11-26 - Release - 2.3.0
+###Summary
+Added possibility to specify driver parameter for postgresql and postgresqlxa to instance_7 and instance_8.
+
 ##2018-11-22 - Release - 2.2.2
 ###Summary
 ###Bugfixes
