@@ -31,7 +31,6 @@
 * [`jboss::instance_12::lib::oracle::install`](#jbossinstance_12liboracleinstall): Utility define to copy to a specified WildFly-12.0.0 instance the Oracle driver jar module.  Creates the Oracle module into the specified ins
 * [`jboss::instance_12::lib::oraclexa::install`](#jbossinstance_12liboraclexainstall): Utility define to copy to a specified WildFly-12.0.0 instance the OracleXA driver jar module. Notice: the oracle driver jar contains both cla
 * [`jboss::instance_12::lib::postgresql::install`](#jbossinstance_12libpostgresqlinstall): Utility define to copy to a specified WildFly-12.0.0 instance the postgresql driver jar module.  Creates the postgresql module into the speci
-* [`jboss::instance_12::lib::postgresqlxa::install`](#jbossinstance_12libpostgresqlxainstall): Utility define to copy to a specified WildFly-12.0.0 instance the postgresql driver jar module.  Creates the postgresql module into the speci
 * [`jboss::instance_12::lib::sqlserver::install`](#jbossinstance_12libsqlserverinstall): Utility define to copy to a specified WildFly-12.0.0 instance the sqlserver driver jar module.  Creates the sqlserver module into the specifi
 * [`jboss::instance_12::postconfig`](#jbossinstance_12postconfig): Configures a running JBoss-12 instance via jboss-cli. It is intended to be called by jboss::instance_8.
 * [`jboss::instance_4`](#jbossinstance_4): Creates, configures and set up the service for a JBoss-4.0.5.GA instance, i.e. a server profile with all the configurations needed to use it 
@@ -61,6 +60,7 @@
 * [`jboss::instance_8::lib::oracle::install`](#jbossinstance_8liboracleinstall): Utility define to copy to a specified WildFly-8.2.0 instance the Oracle driver jar module.  Creates the Oracle module into the specified inst
 * [`jboss::instance_8::lib::oraclexa::install`](#jbossinstance_8liboraclexainstall): Utility define to copy to a specified WildFly-8.2.0 instance the OracleXA driver jar module. Notice: the oracle driver jar contains both clas
 * [`jboss::instance_8::lib::postgresql::install`](#jbossinstance_8libpostgresqlinstall): Utility define to copy to a specified WildFly-8.2.0 instance the postgresql driver jar module.  Creates the postgresql module into the specif
+* [`jboss::instance_8::lib::postgresqlxa::install`](#jbossinstance_8libpostgresqlxainstall): Utility define to copy to a specified WildFly-8.2.0 instance the postgresql driver jar module.  Creates the postgresql module into the specif
 * [`jboss::instance_8::lib::sqlserver::install`](#jbossinstance_8libsqlserverinstall): Utility define to copy to a specified WildFly-8.2.0 instance the sqlserver driver jar module.  Creates the sqlserver module into the specifie
 * [`jboss::instance_8::postconfig`](#jbossinstance_8postconfig): Configures a running JBoss-8 instance via jboss-cli. It is intended to be called by jboss::instance_8.
 * [`jboss::jboss_4`](#jbossjboss_4): Installs JBoss-4. The resource title has to be an unique name identifying the JBoss installation and it could be used to specify the desired 
@@ -778,53 +778,14 @@ Abbreviation identifying the environment: valid values are
 
 Default value: 'dev'
 
-### jboss::instance_12::lib::postgresqlxa::install
-
-Utility define to copy to a specified WildFly-12.0.0 instance the postgresql
-driver jar module.
-
-Creates the postgresql module into the specified instance.
-
-Requires:
-
-* Class['jboss'] for installing and setting up basic jboss environment.
-* Some defined instance to which the driver has to be copied.
-* The specified instance has to be up and running.
-
-corresponding to this instance.
-                  Defaults to the resource title.
-
-+dev+, +test+, +prep+, +prod+.
-                  Defaults to +dev+.
-
-#### Examples
-
-##### Declaring in manifest:
-
-```puppet
-jboss::instance_12::lib::postgresqlxa::install {'agri1':
-}
-```
-
-#### Parameters
-
-The following parameters are available in the `jboss::instance_12::lib::postgresqlxa::install` defined type.
-
-##### `instance_name`
+##### `driver`
 
 Data type: `Any`
 
-Name of the JBoss profile and associated service
+Name of the driver file to use.
+Defaults to postgresql-42.2.5.jar that is JDBC 4.2 compliant (recommended for jre8).
 
-Default value: $title
-
-##### `environment`
-
-Data type: `Any`
-
-Abbreviation identifying the environment: valid values are
-
-Default value: 'dev'
+Default value: 'postgresql-42.2.5.jar'
 
 ### jboss::instance_12::lib::sqlserver::install
 
@@ -2977,6 +2938,63 @@ jboss::instance_8::lib::postgresql::install {'agri1':
 #### Parameters
 
 The following parameters are available in the `jboss::instance_8::lib::postgresql::install` defined type.
+
+##### `instance_name`
+
+Data type: `Any`
+
+Name of the JBoss profile and associated service
+
+Default value: $title
+
+##### `environment`
+
+Data type: `Any`
+
+Abbreviation identifying the environment: valid values are
+
+Default value: 'dev'
+
+##### `driver`
+
+Data type: `Any`
+
+Name of the driver file to use.
+Defaults to postgresql-42.2.5.jre7.jar that is JDBC 4.1 compliant (recommended for jre7).
+
+Default value: 'postgresql-42.2.5.jre7.jar'
+
+### jboss::instance_8::lib::postgresqlxa::install
+
+Utility define to copy to a specified WildFly-8.2.0 instance the postgresql
+driver jar module.
+
+Creates the postgresql module into the specified instance.
+
+Requires:
+
+* Class['jboss'] for installing and setting up basic jboss environment.
+* Some defined instance to which the driver has to be copied.
+* The specified instance has to be up and running.
+
+corresponding to this instance.
+                  Defaults to the resource title.
+
++dev+, +test+, +prep+, +prod+.
+                  Defaults to +dev+.
+
+#### Examples
+
+##### Declaring in manifest:
+
+```puppet
+jboss::instance_8::lib::postgresqlxa::install {'agri1':
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `jboss::instance_8::lib::postgresqlxa::install` defined type.
 
 ##### `instance_name`
 

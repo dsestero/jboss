@@ -1,3 +1,9 @@
+##2018-12-17 - Release - 2.3.2
+###Summary
+Added possibility to specify driver parameter for postgresql and postgresqlxa to instance_12.
+###Bugfixes
+Use of recommended postgresql driver (JDBC 4.2) as default for instance_12.
+
 ##2018-12-07 - Release - 2.3.1
 ###Summary
 ###Bugfixes
