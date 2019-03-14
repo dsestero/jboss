@@ -12,11 +12,9 @@ define jboss::instance_8::install (
   $jboss_inst_folder = "/opt/jboss-8-${instance_name}/${jbossdirname}"
   $ip_alias = "${instance_name}-${environment}"
 
-  include jboss::instance::dependencies
+  include jboss::instance::dependencies, java::java_7, java::java_8
 
   $require = [Class['jboss'], Class['jboss::jboss_8']]
-
-  java {$java_version: }
 
   jboss::instance::install { $instance_name:
   }
