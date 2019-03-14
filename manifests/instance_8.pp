@@ -85,6 +85,7 @@ define jboss::instance_8 (
   $environment        = 'dev',
   $distribution_name  = 'wildfly-8.2.0.Final.tar.gz',
   $jbossdirname       = 'wildfly-8.2.0.Final',
+  $java_version       = '7',
   $xms                = '128m',
   $xmx                = '512m',
   $max_perm_size      = '256m',
@@ -95,11 +96,17 @@ define jboss::instance_8 (
   $mgmt_passwd        = undef,
   $backup_conf_target = '/usr/local/bin/backupall.sh.conf',) {
   require jboss::params
+  $java_home = $java_version ? {
+    '7'     => $jboss::params::java7_home,
+    '8'     => $jboss::params::java8_home,
+    default => $jboss::params::java7_home,
+  }
 
   jboss::instance_8::install { $instance_name:
     distribution_name  => $distribution_name,
     environment        => $environment,
     jbossdirname       => $jbossdirname,
+    java_version       => $java_version,
     backup_conf_target => $backup_conf_target,
   } ->
   jboss::instance_8::config { $instance_name:
@@ -115,7 +122,7 @@ define jboss::instance_8 (
     heapDumpPath  => $heapDumpPath,
     mgmt_user     => $mgmt_user,
     mgmt_passwd   => $mgmt_passwd,
-    java_home     => $jboss::params::java7_home,
+    java_home     => $java_home,
   } ~>
   jboss::instance::service { $instance_name:
     environment => $environment,
