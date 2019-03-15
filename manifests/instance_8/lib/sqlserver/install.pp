@@ -17,6 +17,9 @@
 # +dev+, +test+, +prep+, +prod+.
 #                   Defaults to +dev+.
 #
+# @param driver Name of the driver file to use.
+#                   Defaults to sqljdbc4.jar, JDBC 4.0 compliant, for jre7.
+#
 # @example Declaring in manifest:
 #  jboss::instance_8::lib::sqlserver::install {'agri1':
 #  }
@@ -24,7 +27,9 @@
 # @author Dario Sestero
 define jboss::instance_8::lib::sqlserver::install (
   $instance_name = $title,
-  $environment   = 'dev') {
+  $environment   = 'dev',
+  $driver        = 'sqljdbc4.jar') {
+
   $require = Class['jboss']
 
   $ip_alias = "${instance_name}-${environment}"
@@ -50,13 +55,13 @@ define jboss::instance_8::lib::sqlserver::install (
     *       => $exec_permission,
   } ->
   file { "${sqlserverModulePath}/module.xml":
-    source => "puppet:///modules/${module_name}/lib/sqlserver/module.xml",
+    content => template("${module_name}/lib/sqlserver/module.xml"),
     *      => $file_ownership,
   } ->
-  download_uncompress { "${sqlserverModulePath}/sqljdbc4.jar":
-    distribution_name => 'lib/sqljdbc4.jar',
+  download_uncompress { "${sqlserverModulePath}/${driver}":
+    distribution_name => "lib/${driver}",
     dest_folder       => $sqlserverModulePath,
-    creates           => "${sqlserverModulePath}/sqljdbc4.jar",
+    creates           => "${sqlserverModulePath}/${driver}",
     *                 => $exec_permission,
   } ->
   # driver configuration
