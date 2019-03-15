@@ -55,7 +55,7 @@ define jboss::instance_8::lib::sqlserver::install (
     *       => $exec_permission,
   } ->
   file { "${sqlserverModulePath}/module.xml":
-    content => template("${module_name}/lib/sqlserver/module.xml"),
+    content => template("${module_name}/lib/sqlserver/module.xml.erb"),
     *      => $file_ownership,
   } ->
   download_uncompress { "${sqlserverModulePath}/${driver}":
