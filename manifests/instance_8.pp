@@ -38,6 +38,9 @@
 # @param jbossdirname Name of the jboss installation folder.
 #                   Defaults to +wildfly-8.2.0.Final+
 #
+# @param java_version Major java version of the jdk to use.
+#                   Defaults to +'7'+
+#
 # @param xms JVM OPT for initial heap size.
 #                   Defaults to +128m+.
 #

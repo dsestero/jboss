@@ -1,3 +1,8 @@
+##2019-03-22 - Release - 2.3.3
+###Summary
+Added possibility to specify java version parameter for instance_8.
+Added possibility to specify driver parameter for sqlserver to instance_8.
+
 ##2018-12-17 - Release - 2.3.2
 ###Summary
 Added possibility to specify driver parameter for postgresql and postgresqlxa to instance_12.

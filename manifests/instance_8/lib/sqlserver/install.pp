@@ -18,7 +18,7 @@
 #                   Defaults to +dev+.
 #
 # @param driver Name of the driver file to use.
-#                   Defaults to sqljdbc4.jar, JDBC 4.0 compliant, for jre7.
+#                   Defaults to sqljdbc4.jar, JDBC 4.0 compliant.
 #
 # @example Declaring in manifest:
 #  jboss::instance_8::lib::sqlserver::install {'agri1':
