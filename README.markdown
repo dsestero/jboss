@@ -1,6 +1,6 @@
-sudo #jboss
+# jboss
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
@@ -13,11 +13,11 @@ sudo #jboss
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
-##Overview
+## Overview
 
 This is the jboss module. It provides classes and defines to install, configure, and create services for jboss instances for the versions 4, 5, 7 of JBoss-GA, WildFly-8 and WildFly-12.
 
-##Module Description
+## Module Description
 
 Creates, configures and sets up the service, i.e. a server profile with all the configurations needed to use it as an independent service, for JBoss instances for the community versions:
 
@@ -33,9 +33,9 @@ The module takes care to set up a secondary network interface on which the insta
 
 The module incorporates sensible defaults so the only required parameter is the resource title that will be used as instance name.
 
-##Setup
+## Setup
 
-###What jboss affects
+### What jboss affects
 
 The module impact in various ways on the node:
 
@@ -60,7 +60,7 @@ For JBoss instances 5, 7, 8 and 12 JBoss logs will be configured with a special 
 
 In order to prevent Puppet to alter specific instance configuration files the general rule followed is to create required JBoss-instance specific configurations (like the above affecting logs) only when they are absent and leaving the files untouched if the configurations already exist.
 
-###Setup Requirements
+### Setup Requirements
 
 This modules requires the following other modules to be installed:
 
@@ -86,7 +86,7 @@ This modules requires the following other modules to be installed:
 
 To make use of the exported resources mentioned in [reference](#reference) PuppetDB has to be installed.
 	
-###Beginning with jboss	
+### Beginning with jboss	
 
 To get a jboss instance up and running one has to install a specific version of the JBoss Community distribution and then to declare the specific instance. This is done, for example, by declarations as the following:
 
@@ -97,7 +97,7 @@ jboss::instance_8 { 'instanceName': }
 
 In the above example a WildFly-8 standalone instance is configured to listen on localhost (127.0.0.1) as a development (`dev`) environment without creating management or jmx users.
 
-##Usage
+## Usage
 
 The basic usage is as in the following example:
 
@@ -160,7 +160,7 @@ It is possible to concatenate the declarations for specific libraries as in, for
 For WildFly-8 instances it is possible to configure the JVM so that in case of an OutOfMemory Error a heap dump be generated in a specified location.
 We suggest to use a dedicated partition with enough memory to hold the dump.
 
-###Exported resources
+### Exported resources
 
 The exported paths to backup for a given node can be collected, for instance to configure a backup, script with a declaration like the following:
 
@@ -188,7 +188,7 @@ The names of all instances defined on a node, one per line, are exported and the
 Furthermore, the module provides a class `jboss::alias_jboss` that uses the exported hostname alias to define a utility class that can be exploited to add all jboss instances hostnames in the hosts file of a node.
 
 
-##Limitations
+## Limitations
 
 The module targets Debian and RedHat distributions, including Ubuntu and CentOS. Specifically, it is tested on Ubuntu 12.04 and CentOS 6.6 with 64 bit architecture, although probably it will work also on different versions and on 32 bit architecture.
 
@@ -196,7 +196,7 @@ Furthermore JBoss-7, WildFly-8 and WildFly-12 instances are created in standalon
 
 Due to the fact that JBoss-7, WildFly-8 and WildFly-12 instances need a `postconfig` phase implemented by calling the `jboss-cli.sh` script, it is necessary that the instance be up and running at that time. When Puppet just creates the instance in most cases it is not yet ready to accept connections from jboss-cli because the services are still starting. That's no problem because Puppet will complete the configuration (specified in the postconfig phase) at the subsequent run.
 
-##Development
+## Development
 
 If you need some feature please send me a (pull) request or send me an email at: dsestero 'at' gmail 'dot' com.
 
