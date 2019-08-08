@@ -52,24 +52,24 @@ define jboss::instance_12::lib::postgresqlxa::install (
     command => "mkdir -p ${postgresqlModulePath}",
     creates => $postgresqlModulePath,
     *       => $exec_permission,
-  } ->
-  file { "${postgresqlModulePath}/module.xml":
+  }
+  -> file { "${postgresqlModulePath}/module.xml":
     content => template("${module_name}/lib/postgresqlxa/module.xml.erb"),
-    *      => $file_ownership,
-  } ->
-  download_uncompress { "${postgresqlModulePath}/${driver}":
+    *       => $file_ownership,
+  }
+  -> download_uncompress { "${postgresqlModulePath}/${driver}":
     distribution_name => "lib/${driver}",
     dest_folder       => $postgresqlModulePath,
     creates           => "${postgresqlModulePath}/${driver}",
     *                 => $exec_permission,
-  } ->
+  }
   # driver configuration
-  file { "${binFolder}/script-driver-postgresql.txt":
+  -> file { "${binFolder}/script-driver-postgresql.txt":
     ensure => present,
     source => "puppet:///modules/${module_name}/bin/script-driver-postgresql.txt",
     *      => $file_ownership,
-  } ->
-  exec { "configure_driver_postgresql_${instance_name}":
+  }
+  -> exec { "configure_driver_postgresql_${instance_name}":
     command => "${binFolder}/myjboss-cli.sh --controller=${ip_alias} --file=script-driver-postgresql.txt",
     cwd     => $binFolder,
     unless  => "grep org.postgresql ${jbossInstFolder}/standalone/configuration/standalone.xml",
