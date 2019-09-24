@@ -27,7 +27,7 @@
 # @author Dario Sestero
 define jboss::instance_12::lib::postgresqlxa::install (
   $instance_name = $title,
-  $environment   = 'dev') {
+  $environment   = 'dev',
   $driver        = 'postgresql-42.2.5.jar') {
   $require = Class['jboss']
 
